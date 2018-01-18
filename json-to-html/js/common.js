@@ -354,9 +354,12 @@ function getSelected() {
 
     if (error === '') {
         if (type.toLowerCase() === 'checkbox') {
+
+            //GET THE VALUE
             if (get.toLowerCase() === 'value') {
 
             }
+            //GET THE TEXT
             if (get.toLowerCase() === 'text') {
 
             }
