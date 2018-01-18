@@ -1,0 +1,163 @@
+table {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+}
+
+table tr {
+    padding: .35em;
+}
+
+table th,
+table td {
+    padding: .625em;
+    text-align: left;
+}
+
+table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+    table {
+        border: 0;
+    }
+    table caption {
+        font-size: 1.3em;
+    }
+    table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .925em;
+    }
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+    table td:before {
+        /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    table td:last-child {
+        border-bottom: 0;
+    }
+}
+
+
+/*
+****************************************************************************
+*/
+
+.switch {
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 3em;
+    width: 3.5em;
+    height: 1.5em;
+    transition: background-color 0.3s ease-in-out;
+    position: relative;
+    outline: 0;
+    border: 0;
+}
+
+
+/* --------- TOGGLE ---------- */
+
+.switch:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    width: 1.45em;
+    height: 1.2em;
+    background: #fff;
+    border-radius: 3em;
+    transition: 0.3s;
+}
+
+input:checked+.switch:after {
+    /* right: 2px; */
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+
+/*------------------ TEXT (textoff) -----------------*/
+
+.switch::before {
+    content: attr(textOff);
+    display: block;
+    position: absolute;
+    left: 40%;
+    white-space: nowrap;
+    font-size: 0.7em;
+    top: 20%;
+}
+
+
+/*------------------ TEXT (textOn) -----------------*/
+
+input:checked+.switch::before {
+    content: attr(texton);
+    display: block;
+    position: absolute;
+    left: 1.5em;
+    white-space: nowrap;
+    top: 20%;
+    right: 1.5em;
+}
+
+
+/*-------- x-SMALL ---------*/
+
+.switch-xs.switch {
+    font-size: 10px;
+}
+
+
+/*-------- SMALL ---------*/
+
+.switch-sm.switch {
+    font-size: 15px;
+}
+
+
+/*-------- MEDIAM ---------*/
+
+.switch-md.switch {
+    font-size: 20px;
+}
+
+
+/*-------- LARGE ---------*/
+
+.switch-lg.switch {
+    font-size: 25px;
+}
