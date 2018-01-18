@@ -26,7 +26,7 @@ function sort(id, sel, sortvalue) {
                         v1 = b[ii].innerHTML.toLowerCase();
                         v2 = b[ii + 1].innerHTML.toLowerCase();
                     }
-                    if ((j == 0 && (v1 > v2)) || (j == 1 && (v1 < v2))) {
+                    if ((j === 0 && (v1 > v2)) || (j == 1 && (v1 < v2))) {
                         bytt = 1;
                         break;
                     }
@@ -203,7 +203,7 @@ function switchButton() {
                         chk += ' offcolor="' + offColor + '"';
                     }
 
-                    if (direction != false) {
+                    if (direction !== false) {
                         chk += '></label><br/>';
                     } else {
                         chk += '></label>';
@@ -353,8 +353,13 @@ function getSelected() {
     }
 
     if (error === '') {
-        if (type === 'Checkbox') {
-            if ()
+        if (type.toLowerCase() === 'checkbox') {
+            if (get.toLowerCase() === 'value') {
+
+            }
+            if (get.toLowerCase() === 'text') {
+
+            }
         }
     } else {
         alert(error);
