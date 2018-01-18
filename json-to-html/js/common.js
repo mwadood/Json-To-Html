@@ -332,3 +332,33 @@ function switchOff(chkId) {
     $(chkId).prev().attr('checked', false);
 
 }
+
+
+function getSelected() {
+    var args = arguments[0][0];
+
+    var Id = false;
+    var type = false;
+    var get = false;
+    var error = '';
+
+    if (args.ID !== undefined) {
+        error += 'Id is required\n';
+    }
+    if (args.Type !== undefined) {
+        error += 'Type is required\n';
+    }
+    if (args.Get !== undefined) {
+        error += 'Get is required';
+    }
+
+    if (error === '') {
+        if (type === 'Checkbox') {
+            if ()
+        }
+    } else {
+        alert(error);
+    }
+
+
+}
