@@ -499,33 +499,41 @@ function table() {
 //************************ ADD PAGING TO TABLE *******************************
 //****************************************************************************
 function paging() {
+
+    var pagenationDivId = false;
     var rowsPerPage = 10;
     var tableName = 'tbJsonToHtml';
 
     args = arguments[0][0];
 
+    if (args.TableID !== undefined) {
+        tableName = args.TableID;
+    }
     if (args.RowsPerPage !== undefined) {
         rowsPerPage = args.RowsPerPage;
     }
 
-    if (args.TableID !== undefined) {
-        tableName = args.TableID;
+    if (args.PagenationDivId !== undefined) {
+        pagenationDivId = args.PagenationDivId;
     }
 
 
     var totalRows = $('#' + tableName).find('tbody tr:has(td)').length;
     var recordPerPage = rowsPerPage;
     var totalPages = Math.ceil(totalRows / recordPerPage);
-    var $pages = $('<div id="pages"></div>');
     var pagenation = '<ul class="pagination pagination-sm">';
     for (i = 0; i < totalPages; i++) {
-        // $('<span class="pageNumber">&nbsp;' + (i + 1) + '</span>').appendTo($pages);
         pagenation += '<li><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
     }
     pagenation += '</ul>';
-    $(pagenation).appendTo($pages);
-    $pages.appendTo('#' + tableName);
 
+    if (pagenationDivId !== false) {
+        $('#' + pagenationDivId).append(pagenation);
+    } else {
+        var div = '<div id="pages">' + pagenation + '</div>';
+        $('#' + tableName).after(div);
+
+    }
     $('.pageNumber').hover(
         function() {
             $(this).addClass('active');
@@ -540,7 +548,6 @@ function paging() {
     for (var i = 0; i <= recordPerPage - 1; i++) {
         $(tr[i]).show();
     }
-    //$('span').click(function (event) {
     $('.pageNumber').click(function(event) {
         $('#' + tableName).find('tbody tr:has(td)').hide();
         var nBegin = ($(this).text() - 1) * recordPerPage;
@@ -548,6 +555,8 @@ function paging() {
         for (var i = nBegin; i <= nEnd; i++) {
             $(tr[i]).show();
         }
+
+        return false;
     });
 }
 //**************************** END PAGING ************************************

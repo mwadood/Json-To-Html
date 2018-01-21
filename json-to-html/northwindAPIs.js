@@ -8,17 +8,13 @@ if (window.location.hostname == 'localhost') {
 //GET CUSTOMERS 
 function GetCustomers(callback) {
 
-    var URL = domain + '/Product/GetProductQuantity';
+    var URL = domain + '/Data/GetCustomers';
     httpGet(URL, null, function(data) {
 
         callback(data);
 
     });
 }
-
-
-
-
 
 // ******** jQuery CRUDF FUNCTIONS *************
 //GET DATA (HTTP GET Verb)
@@ -28,12 +24,13 @@ function httpGet(url, params, callback) {
         type: "GET",
         url: url,
         headers: params,
+        async: false,
         xhrFields: {
             withCredentials: false
         }
     }).done(function(data) {
 
-        callback(null, data);
+        callback(data);
 
     }).fail(function(xhr, textStatus, errorThrown) {
         callback('error', xhr.responseText);
