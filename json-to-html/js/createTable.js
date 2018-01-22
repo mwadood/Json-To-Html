@@ -566,6 +566,9 @@ function paging() {
     }
     $('.pageNumber').click(function(event) {
 
+        $('.pageNumber').parent().removeClass('active');
+        $(this).parent().addClass('active');
+
         var selectedPageNumber = $(this).text();
         showPaginationData(selectedPageNumber, recordPerPage);
         return false;
