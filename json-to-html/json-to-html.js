@@ -1,3 +1,4 @@
+var j2HTML;
 var scripts = [
     '/json-to-html/js/common.js',
     '/json-to-html/js/createCheckbox.js',
@@ -13,10 +14,7 @@ var queue = scripts.map(function(script) {
 
 $.when.apply(null, queue).done(function() {
 
-    this.x = new jsonToHtml();
-
-    return this.x;
-
+    j2HTML = new jsonToHtml();
 });
 
 var jsonToHtml = function() {
