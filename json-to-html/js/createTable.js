@@ -500,7 +500,7 @@ function table() {
 //****************************************************************************
 function paging() {
 
-    var pagenationDivId = false;
+    var paginationAppendTo = false;
     var rowsPerPage = 10;
     var tableName = 'tbJsonToHtml';
 
@@ -513,8 +513,8 @@ function paging() {
         rowsPerPage = args.RowsPerPage;
     }
 
-    if (args.PagenationDivId !== undefined) {
-        pagenationDivId = args.PagenationDivId;
+    if (args.PaginationAppendTo !== undefined) {
+        paginationAppendTo = args.PaginationAppendTo;
     }
 
 
@@ -527,7 +527,7 @@ function paging() {
     }
     pagenation += '</ul>';
 
-    if (pagenationDivId !== false) {
+    if (paginationAppendTo !== false) {
         $('#' + pagenationDivId).append(pagenation);
     } else {
         var div = '<div id="pages">' + pagenation + '</div>';
@@ -535,10 +535,13 @@ function paging() {
 
     }
     $('.pageNumber').hover(
+
         function() {
+
             $(this).addClass('active');
         },
         function() {
+
             $(this).removeClass('active');
         }
     );
@@ -549,15 +552,36 @@ function paging() {
         $(tr[i]).show();
     }
     $('.pageNumber').click(function(event) {
-        $('#' + tableName).find('tbody tr:has(td)').hide();
-        var nBegin = ($(this).text() - 1) * recordPerPage;
-        var nEnd = $(this).text() * recordPerPage - 1;
-        for (var i = nBegin; i <= nEnd; i++) {
-            $(tr[i]).show();
-        }
+
+        var selectedPageNumber = $(this).text();
+
+        showPaginationData(selectedPageNumber, recordPerPage);
+
+        // $('#' + tableName).find('tbody tr:has(td)').hide();
+        // var nBegin = ($(this).text() - 1) * recordPerPage;
+        // var nEnd = $(this).text() * recordPerPage - 1;
+        // for (var i = nBegin; i <= nEnd; i++) {
+        //     $(tr[i]).show();
+        // }
 
         return false;
     });
+
+
+
+    function showPaginationData(selectedPageNumber, recordPerPage) {
+
+        $('#' + tableName).find('tbody tr:has(td)').hide();
+
+        var nBegin = (selectedPageNumber - 1) * recordPerPage;
+        var nEnd = selectedPageNumber * recordPerPage - 1;
+
+        for (var i = nBegin; i <= nEnd; i++) {
+            $(tr[i]).show();
+        }
+    }
+
+
 }
 //**************************** END PAGING ************************************
 
