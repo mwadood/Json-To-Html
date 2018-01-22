@@ -503,6 +503,7 @@ function paging() {
     var paginationAppendTo = false;
     var rowsPerPage = 10;
     var tableName = 'tbJsonToHtml';
+    var startPage = '1';
 
     args = arguments[0][0];
 
@@ -517,13 +518,25 @@ function paging() {
         paginationAppendTo = args.PaginationAppendTo;
     }
 
+    if (args.StartPage !== undefined) {
+        startPage = args.StartPage;
+    }
+
 
     var totalRows = $('#' + tableName).find('tbody tr:has(td)').length;
     var recordPerPage = rowsPerPage;
     var totalPages = Math.ceil(totalRows / recordPerPage);
     var pagenation = '<ul class="pagination pagination-sm">';
     for (i = 0; i < totalPages; i++) {
-        pagenation += '<li><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
+
+
+        if ((i + 1) === parseInt(startPage)) {
+            pagenation += '<li class="active"><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
+        } else {
+            pagenation += '<li><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
+        }
+
+        //pagenation += '<li><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
     }
     pagenation += '</ul>';
 
@@ -554,19 +567,13 @@ function paging() {
     $('.pageNumber').click(function(event) {
 
         var selectedPageNumber = $(this).text();
-
         showPaginationData(selectedPageNumber, recordPerPage);
-
-        // $('#' + tableName).find('tbody tr:has(td)').hide();
-        // var nBegin = ($(this).text() - 1) * recordPerPage;
-        // var nEnd = $(this).text() * recordPerPage - 1;
-        // for (var i = nBegin; i <= nEnd; i++) {
-        //     $(tr[i]).show();
-        // }
-
         return false;
     });
 
+    if (args.StartPage !== undefined) {
+        showPaginationData(args.StartPage, recordPerPage)
+    }
 
 
     function showPaginationData(selectedPageNumber, recordPerPage) {
