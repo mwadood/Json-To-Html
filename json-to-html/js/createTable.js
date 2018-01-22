@@ -541,7 +541,7 @@ function paging() {
     pagenation += '</ul>';
 
     if (paginationAppendTo !== false) {
-        $('#' + pagenationDivId).append(pagenation);
+        $('#' + paginationAppendTo).append(pagenation);
     } else {
         var div = '<div id="pages">' + pagenation + '</div>';
         $('#' + tableName).after(div);
