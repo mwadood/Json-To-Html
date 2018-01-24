@@ -1,5 +1,5 @@
 var domain = '';
-if (window.location.hostname == 'localhost') {
+if (window.location.hostname == 'localhost' && window.location.port !== '5500') {
     domain = 'http://localhost:25580/api/Northwind';
 } else {
     domain = 'http://api-wahidtechnology-tst.azurewebsites.net/api/Northwind';
