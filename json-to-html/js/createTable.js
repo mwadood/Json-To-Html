@@ -533,18 +533,21 @@ function paging() {
         alert('There are total ' + totalPages + ' pages, therefore start page cannot be ' + startPage);
     } else {
 
-        for (i = 0; i < totalPages; i++) {
+        if (totalPages > 1) {
+
+            for (i = 0; i < totalPages; i++) {
 
 
-            if ((i + 1) === parseInt(startPage)) {
-                pagenation += '<li class="active"><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
-            } else {
-                pagenation += '<li><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
+                if ((i + 1) === parseInt(startPage)) {
+                    pagenation += '<li class="active"><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
+                } else {
+                    pagenation += '<li><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
+                }
+
+                //pagenation += '<li><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
             }
-
-            //pagenation += '<li><a href="#" class="pageNumber">' + (i + 1) + '</a></li>';
+            pagenation += '</ul>';
         }
-        pagenation += '</ul>';
 
         if (paginationAppendTo !== false) {
             $('#' + paginationAppendTo).append(pagenation);
