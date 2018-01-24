@@ -16,6 +16,67 @@ function GetCustomers(callback) {
     });
 }
 
+
+//GET CATEGORTIES 
+function GetCategories(callback) {
+
+    var URL = domain + '/Data/GetCategories';
+    httpGet(URL, null, function(data) {
+
+        callback(data);
+
+    });
+}
+
+//GET EMPLOYESS 
+function GetEmployees(callback) {
+
+    var URL = domain + '/Data/GetEmployees';
+    httpGet(URL, null, function(data) {
+
+        callback(data);
+
+    });
+}
+
+
+//GET EMPLOYESS's TERRITORIES 
+function GetEmployeesTerritories(callback) {
+
+    var URL = domain + '/Data/GetEmployeesTerritories';
+    httpGet(URL, null, function(data) {
+
+        callback(data);
+
+    });
+}
+
+//GET PRODUCTS 
+function GetProducts(callback) {
+
+    var URL = domain + '/Data/GetProducts';
+    httpGet(URL, null, function(data) {
+
+        callback(data);
+
+    });
+}
+
+
+//GET ORDER DETAILS
+function GetOrderDetail(callback) {
+
+    var URL = domain + '/Data/GetOrderDetail';
+    httpGet(URL, null, function(data) {
+
+        callback(data);
+
+    });
+}
+
+
+
+
 // ******** jQuery CRUDF FUNCTIONS *************
 //GET DATA (HTTP GET Verb)
 function httpGet(url, params, callback) {
