@@ -338,19 +338,25 @@ function getSelected() {
 
     var args = arguments[0][0];
 
-    var Id = false;
+    var groupName = 'chkGroupName';
     var type = false;
     var get = false;
     var error = '';
 
-    if (args.ID !== undefined) {
-        error += 'Id is required\n';
+    if (args.GroupName === undefined) {
+        error += 'Group name is required\n';
+    } else {
+        groupName = args.GroupName;
     }
-    if (args.Type !== undefined) {
+    if (args.Type === undefined) {
         error += 'Type is required\n';
+    } else {
+        elementType = args.Type;
     }
-    if (args.Get !== undefined) {
+    if (args.Get === undefined) {
         error += 'Get is required';
+    } else {
+        get = args.Get;
     }
 
     if (error === '') {
@@ -366,7 +372,7 @@ function getSelected() {
             if (get.toLowerCase() === 'value') {
 
 
-                $('input[name=' + Id + ']').each(function() {
+                $('input[name=' + groupName + ']').each(function() {
                     if ($(this).is(":checked")) {
                         selected.push($(this).val());
                     }
@@ -376,9 +382,9 @@ function getSelected() {
             //GET THE TEXT
             if (get.toLowerCase() === 'text') {
 
-                $('input[name=' + Id + ']').each(function() {
+                $('input[name=' + groupName + ']').each(function() {
                     if ($(this).is(":checked")) {
-                        selected.push($(this).text());
+                        selected.push($(this).parent().text());
                     }
                 });
             }

@@ -3,7 +3,7 @@ function checkbox() {
 
 
     var data = false;
-    var groupName = false;
+    var groupName = 'chkGroupName';
     var value = false;
     var text = false;
     var direction = 'Horizontal';
