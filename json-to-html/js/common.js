@@ -335,6 +335,7 @@ function switchOff(chkId) {
 
 
 function getSelected() {
+
     var args = arguments[0][0];
 
     var Id = false;
@@ -353,16 +354,36 @@ function getSelected() {
     }
 
     if (error === '') {
+
+        var selectedVal = '';
+
+
+        //GET CHECKBOX VALUE OT TEXT
         if (type.toLowerCase() === 'checkbox') {
 
+            var selected = [];
             //GET THE VALUE
             if (get.toLowerCase() === 'value') {
+
+
+                $('input[name=' + Id + ']').each(function() {
+                    if ($(this).is(":checked")) {
+                        selected.push($(this).val());
+                    }
+                });
 
             }
             //GET THE TEXT
             if (get.toLowerCase() === 'text') {
 
+                $('input[name=' + Id + ']').each(function() {
+                    if ($(this).is(":checked")) {
+                        selected.push($(this).text());
+                    }
+                });
             }
+
+            return selectedVal;
         }
     } else {
         alert(error);
