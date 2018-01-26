@@ -336,64 +336,122 @@ function switchOff(chkId) {
 
 function getSelected() {
 
-    var args = arguments[0][0];
+    var args = arguments[0];
 
     var groupName = 'chkGroupName';
-    var type = false;
-    var get = false;
+    var elementType = false;
+    var getSelected = false;
     var error = '';
 
     if (args.GroupName === undefined) {
         error += 'Group name is required\n';
     } else {
-        groupName = args.GroupName;
+
+        if ($('input[name=' + args.GroupName + ']').length === 0) {
+            error += 'GroupName not found\n';
+        } else {
+            groupName = args.GroupName;
+        }
     }
-    if (args.Type === undefined) {
+    if (args.ElementType === undefined) {
         error += 'Type is required\n';
     } else {
-        elementType = args.Type;
+
+
+        if (args.ElementType.toLowerCase() != "checkbox" && args.ElementType.toLowerCase() != "radiobutton" && args.ElementType.toLowerCase() != "dropdown") {
+            error += "ElementType must be Checkbox or Radiobutoon or Dropdown\n";
+        } else {
+            elementType = args.ElementType;
+        }
+
+
     }
-    if (args.Get === undefined) {
+    if (args.GetSelected === undefined) {
         error += 'Get is required';
     } else {
-        get = args.Get;
+
+        if (args.GetSelected.toLowerCase() != "text" && args.GetSelected.toLowerCase() != "value" && args.GetSelected.toLowerCase() != "both") {
+            error += "GetSelected must be Text or Value or Both\n";
+        } else {
+            getSelected = args.GetSelected;
+        }
+
+
     }
 
     if (error === '') {
 
-        var selectedVal = '';
+        var selectedVal;
+        if (elementType.toLowerCase() === 'checkbox') {
 
-
-        //GET CHECKBOX VALUE OT TEXT
-        if (type.toLowerCase() === 'checkbox') {
-
-            var selected = [];
-            //GET THE VALUE
-            if (get.toLowerCase() === 'value') {
-
-
-                $('input[name=' + groupName + ']').each(function() {
-                    if ($(this).is(":checked")) {
-                        selected.push($(this).val());
-                    }
-                });
-
-            }
-            //GET THE TEXT
-            if (get.toLowerCase() === 'text') {
-
-                $('input[name=' + groupName + ']').each(function() {
-                    if ($(this).is(":checked")) {
-                        selected.push($(this).parent().text());
-                    }
-                });
-            }
-
-            return selectedVal;
+            selectedVal = GetCheckBoxValues(groupName, elementType, getSelected);
         }
+
+        return selectedVal;
+
     } else {
         alert(error);
     }
 
+
+}
+
+
+//GET CHECKBOX VAULE and/or TEXT
+function GetCheckBoxValues(groupName, elementType, get) {
+
+    var selectedResult = [];
+    //GET THE VALUE
+    if (get.toLowerCase() === 'value') {
+
+
+        $('input[name=' + groupName + ']').each(function() {
+            if ($(this).is(":checked")) {
+
+                var objSelectedValue = {};
+                objSelectedValue.Value = $(this).val();
+                //objSelectedResult.Value = $(this).val();
+                selectedResult.push(objSelectedValue);
+            }
+        });
+
+
+
+    }
+    //GET THE TEXT
+    if (get.toLowerCase() === 'text') {
+
+        $('input[name=' + groupName + ']').each(function() {
+            if ($(this).is(":checked")) {
+
+                //objSelectedResult.Text = $(this).parent().text();
+                var objSelectedText = {};
+                objSelectedText.Text = $(this).parent().text();
+                selectedResult.push(objSelectedText);
+
+            }
+        });
+
+
+    }
+    //GET BOTH VALUE AND TEXT
+    if (get.toLowerCase() === 'both') {
+
+        $('input[name=' + groupName + ']').each(function() {
+            if ($(this).is(":checked")) {
+
+                var objSelectedBoth = {};
+                objSelectedBoth.Value = $(this).val();
+                objSelectedBoth.Text = $(this).parent().text();
+                selectedResult.push(objSelectedBoth);
+            }
+        });
+
+
+    }
+
+
+
+    return selectedResult;
 
 }
