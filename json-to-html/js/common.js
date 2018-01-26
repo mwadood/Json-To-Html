@@ -382,9 +382,9 @@ function getSelected() {
     if (error === '') {
 
         var selectedVal;
-        if (elementType.toLowerCase() === 'checkbox') {
+        if (elementType.toLowerCase() === 'checkbox' || elementType.toLowerCase() === 'radiobutton') {
 
-            selectedVal = GetCheckBoxValues(groupName, elementType, getSelected);
+            selectedVal = GetSelectedCheckBoxOrRadioButton(groupName, elementType, getSelected);
         }
 
         return selectedVal;
@@ -398,7 +398,7 @@ function getSelected() {
 
 
 //GET CHECKBOX VAULE and/or TEXT
-function GetCheckBoxValues(groupName, elementType, get) {
+function GetSelectedCheckBoxOrRadioButton(groupName, elementType, get) {
 
     var selectedResult = [];
     //GET THE VALUE
