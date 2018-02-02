@@ -343,16 +343,19 @@ function getSelected() {
     var getSelected = false;
     var error = '';
 
-    if (args.GroupName === undefined) {
+    if (args.GroupName === undefined && (args.ElementType.toLowerCase() === "checkbox" || args.ElementType.toLowerCase() === "radiobutton")) {
         error += 'Group name is required\n';
     } else {
 
-        if ($('input[name=' + args.GroupName + ']').length === 0) {
-            error += 'GroupName not found\n';
-        } else {
-            groupName = args.GroupName;
+        if (args.GroupName !== undefined) {
+            if ($('input[name=' + args.GroupName + ']').length === 0) {
+                error += 'GroupName not found\n';
+            } else {
+                groupName = args.GroupName;
+            }
         }
     }
+
     if (args.ElementType === undefined) {
         error += 'Type is required\n';
     } else {
