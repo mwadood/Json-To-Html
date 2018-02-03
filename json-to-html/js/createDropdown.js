@@ -57,7 +57,7 @@ function dropdown() {
                 });
             });
 
-            $('#' + appendTo).append(ddl);
+            $(appendTo).append(ddl);
         }
         // IF ARRAY
         else {
@@ -86,7 +86,7 @@ function dropdown() {
                 }
             });
 
-            $('#' + appendTo).append(ddl);
+            $(appendTo).append(ddl);
         }
 
     } else {

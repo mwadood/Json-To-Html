@@ -41,8 +41,8 @@ function list() {
                     }
                 });
             });
-            $('#' + appendTo).empty();
-            $('#' + appendTo).append(li);
+            $(appendTo).empty();
+            $(appendTo).append(li);
         }
         // IF ARRAY
         else {
@@ -61,8 +61,8 @@ function list() {
                     li += '<option>' + liText + '</option>';
                 }
             });
-            $('#' + appendTo).empty();
-            $('#' + appendTo).append(li);
+            $(appendTo).empty();
+            $(appendTo).append(li);
         }
 
     } else {

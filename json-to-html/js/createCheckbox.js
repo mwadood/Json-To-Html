@@ -90,8 +90,8 @@ function checkbox() {
                 });
             });
 
-            $('#' + appendTo).empty();
-            $('#' + appendTo).append(chk);
+            $(appendTo).empty();
+            $(appendTo).append(chk);
         }
         // IF ARRAY
         else {
@@ -133,8 +133,8 @@ function checkbox() {
                 }
             });
 
-            $('#' + appendTo).empty();
-            $('#' + appendTo).append(chk);
+            $(appendTo).empty();
+            $(appendTo).append(chk);
         }
 
     } else {

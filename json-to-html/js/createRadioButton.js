@@ -90,8 +90,8 @@ function radio() {
                 });
             });
 
-            $('#' + appendTo).empty();
-            $('#' + appendTo).append(rdb);
+            $(appendTo).empty();
+            $(appendTo).append(rdb);
         }
         // IF ARRAY
         else {
@@ -133,8 +133,8 @@ function radio() {
                 }
             });
 
-            $('#' + appendTo).empty();
-            $('#' + appendTo).append(rdb);
+            $(appendTo).empty();
+            $(appendTo).append(rdb);
         }
 
     } else {
