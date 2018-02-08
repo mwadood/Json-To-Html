@@ -5,7 +5,8 @@ var scripts = [
     '/json-to-html/js/createDropdown.js',
     '/json-to-html/js/createList.js',
     '/json-to-html/js/createRadioButton.js',
-    '/json-to-html/js/createTable.js'
+    '/json-to-html/js/createTable.js',
+    '/json-to-html/js/createPagination.js'
 ];
 
 var queue = scripts.map(function(script) {
