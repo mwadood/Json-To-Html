@@ -180,6 +180,7 @@ function createTableRow() {
     //***************************************************
     //************** CREATE TABLE ROW *******************
     //***************************************************
+    var preStr = ''
     tb += '<tbody>';
     //IF IT IS JSON OBJECT
     if (data.length > 0) {
@@ -203,6 +204,8 @@ function createTableRow() {
                         var newColumnName = customHeader[colKey].newColumnName;
                         var customColumnName = customHeader[colKey].customColumnName;
                         var customColumnValue = customHeader[colKey].customColumnValue;
+
+
 
                         if (orginalColumnName !== undefined) {
 
@@ -246,14 +249,13 @@ function createTableRow() {
                             //CREATE CUSTOM COULMN
                             if (customColumnName !== undefined && customColumnValue !== undefined) {
 
-                                var variables = customColumnValue.match(/{{([^}]+)}}/);
-
-                                if (variables[1].toLowerCase() === key.toLowerCase()) {
-
-                                    var strVal = findReplaceString(customColumnValue, variables[1], currentValue);
-
+                                var strVal = findReplaceCurlyBraces(rowData, customColumnValue);
+                                if (preStr != strVal) {
                                     tb += '<td data-label="' + headerRow[colKey] + '">' + strVal + '</td>';
+                                    preStr = strVal;
                                 }
+
+
                             }
                         }
 
@@ -578,4 +580,35 @@ function findReplaceString(string, find, replace) {
     } else {
         throw new Error("Find statement does not match regular expression: /[a-zA-Z\_]+/");
     }
+}
+
+function findReplaceCurlyBraces(jsonObj, str) {
+
+    //var variables = str.match(/{{([^}]+)}}/);
+
+    var variables = str.match(/([^{{]*?)\w(?=\}})/gmi);
+
+    //var variables = str.match(/{{([^}]+)}}/g);
+
+    var strVal = '';
+
+    for (var i = 0; i < variables.length; i++) {
+
+        $.each(jsonObj, function(key, val) {
+
+            if (variables[i].toLowerCase() === key.toLowerCase()) {
+
+                strVal = findReplaceString(str, variables[i], val);
+
+                str = strVal;
+            }
+
+        });
+    }
+
+
+
+    return strVal;
+
+
 }
