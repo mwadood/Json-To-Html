@@ -86,9 +86,7 @@ function httpGet(url, params, callback) {
         url: url,
         headers: params,
         async: false,
-        xhrFields: {
-            withCredentials: false
-        }
+        withCredentials: false
     }).done(function(data) {
 
         callback(data);
