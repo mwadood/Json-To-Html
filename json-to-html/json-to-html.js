@@ -139,26 +139,3 @@ var jsonToHtml = function() {
         HideModal: HideModal
     };
 };
-
-
-// include('/json-to-html/js/common.js');
-// include('/json-to-html/js/table.js');
-// include('/json-to-html/js/dropdown.js');
-// include('/json-to-html/js/radioButton.js');
-// include('/json-to-html/js/checkbox.js');
-// include('/json-to-html/js/unorderlist.js');
-
-
-// function include(file) {
-
-//     var script = document.createElement('script');
-//     script.src = file;
-//     script.type = 'text/javascript';
-//     script.defer = true;
-//     script.async = true;
-
-//     //document.getElementsByTagName('head').item(0).appendChild(script);
-//     var newChild = script;
-//     var referenceChild = $("script[src='/json-to-html/json-to-html.js']")[0];
-//     document.getElementsByTagName('head').item(0).insertBefore(newChild, referenceChild);
-// }
