@@ -6,7 +6,8 @@ var scripts = [
     '/json-to-html/js/createList.js',
     '/json-to-html/js/createRadioButton.js',
     '/json-to-html/js/createTable.js',
-    '/json-to-html/js/createPagination.js'
+    '/json-to-html/js/createPagination.js',
+    '/json-to-html/js/createModal.js'
 ];
 
 var queue = scripts.map(function(script) {
@@ -102,6 +103,23 @@ var jsonToHtml = function() {
         switchButton(args);
         return this;
     };
+    var Modal = function() {
+        args = arguments;
+        modal(args);
+        return this;
+    };
+
+    var ShowModal = function() {
+        args = arguments;
+        showModal(args);
+        return this;
+    };
+
+    var HideModal = function() {
+        args = arguments;
+        hideModal(args);
+        return this;
+    };
 
     return {
         Table: Table,
@@ -115,7 +133,10 @@ var jsonToHtml = function() {
         Checkbox: Checkbox,
         List: List,
         Filter: Filter,
-        Switch: Switch
+        Switch: Switch,
+        Modal: Modal,
+        ShowModal: ShowModal,
+        HideModal: HideModal
     };
 };
 

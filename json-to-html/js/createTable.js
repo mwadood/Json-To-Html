@@ -9,6 +9,7 @@ var hasDefaultHeader = true;
 var customHeader = false;
 var addToColumn = false;
 var tableSort = true;
+var edit = false;
 var tb = '';
 var headerRow = [];
 
@@ -51,6 +52,11 @@ function table() {
         }
 
 
+        if (args.Edit !== undefined) {
+            edit = true;
+        }
+
+
         //}
 
         //***************************************************
@@ -78,12 +84,11 @@ function table() {
 }
 //*************************** END CREATE TABLE  *****************************
 
-
+//**************************************************************
+//*********** CREATE TABLE HEADER DEFAULT HEADER ****************
+//***************************************************************
 function createTableHeader() {
 
-    //**************************************************************
-    //*********** CREATE TABLE HEADER DEFAULT HEADER ****************
-    //***************************************************************
     if (hasDefaultHeader === true && customHeader === false) {
 
         var count = 1;
@@ -139,7 +144,6 @@ function createTableHeader() {
         //IF IT IS OBJECT
         if (data.length > 0) {
 
-
             $.each(customHeader, function(colKey, colValue) {
 
                 var orginalColumnName = colValue.orginalColumnName;
@@ -175,11 +179,11 @@ function createTableHeader() {
         tb += '</tr></thead>';
     }
 }
-
+//***************************************************
+//************** CREATE TABLE ROW *******************
+//***************************************************
 function createTableRow() {
-    //***************************************************
-    //************** CREATE TABLE ROW *******************
-    //***************************************************
+
     var preStr = ''
     tb += '<tbody>';
     //IF IT IS JSON OBJECT
@@ -190,6 +194,8 @@ function createTableRow() {
             var rowData = data[j];
             preStr = ''
             tb += '<tr class="item" align="left">';
+
+            var editable = {};
 
             $.each(headerRow, function(colKey, colValue) {
 
@@ -233,16 +239,22 @@ function createTableRow() {
 
                                     if (colValuePrependValue !== '' && colValueApendValue === '') {
                                         tb += '<td data-label="' + headerRow[colKey] + '">' + colValuePrependValue + currentValue + '</td>';
+
+                                        editable[headerRow[colKey]] = currentValue;
+
                                     }
                                     if (colValueApendValue !== '' && colValuePrependValue === '') {
                                         tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + colValueApendValue + '</td>';
+                                        edit[headerRow[colKey]] = currentValue;
                                     }
                                     if (colValuePrependValue === '' && colValueApendValue === '') {
                                         tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
+                                        editable[headerRow[colKey]] = currentValue;
                                     }
 
                                 } else {
                                     tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
+                                    editable[headerRow[colKey]] = currentValue;
                                 }
                             }
                         } else {
@@ -280,6 +292,7 @@ function createTableRow() {
 
                                 if (colValueList.Type.toLowerCase() === 'prepend') {
                                     colValuePrependValue = colValueList.Value;
+
                                 }
                                 if (colValueList.Type.toLowerCase() === 'append') {
                                     colValueApendValue = colValueList.Value;
@@ -289,19 +302,23 @@ function createTableRow() {
 
                         if (colValuePrependValue !== '' && colValueApendValue === '') {
                             tb += '<td data-label="' + toTitleCase(key) + '">' + colValuePrependValue + currentValue + '</td>';
+                            editable[headerRow[colKey]] = currentValue;
 
                         }
                         if (colValueApendValue !== '' && colValuePrependValue === '') {
                             tb += '<td data-label="' + toTitleCase(key) + '">' + currentValue + colValueApendValue + '</td>';
+                            editable[headerRow[colKey]] = currentValue;
 
                         }
                         if (colValuePrependValue === '' && colValueApendValue === '') {
                             tb += '<td data-label="' + toTitleCase(key) + '">' + currentValue + '</td>';
+                            editable[headerRow[colKey]] = currentValue;
 
                         }
 
                     } else {
                         tb += '<td data-label="' + toTitleCase(key) + '">' + currentValue + '</td>';
+                        editable[headerRow[colKey]] = currentValue;
 
                     }
                 }
@@ -328,28 +345,39 @@ function createTableRow() {
 
                         if (colValuePrependValue !== '' && colValueApendValue === '') {
                             tb += '<td>' + colValuePrependValue + currentValue + '</td>';
+                            editable[headerRow[colKey]] = currentValue;
                         }
                         if (colValueApendValue !== '' && colValuePrependValue === '') {
                             tb += '<td >' + currentValue + colValueApendValue + '</td>';
+                            editable[headerRow[colKey]] = currentValue;
                         }
                         if (colValuePrependValue === '' && colValueApendValue === '') {
                             tb += '<td>' + currentValue + '</td>';
+                            editable[headerRow[colKey]] = currentValue;
                         }
 
                     } else {
                         tb += '<td>' + currentValue + '</td>';
+                        editable[headerRow[colKey]] = currentValue;
                     }
                 }
             });
+
+            if (edit === true) {
+
+                var modalData = JSON.stringify(editable);
+
+                tb += "<td><a href='#' onclick='editTable(" + JSON.stringify(editable) + ");'>Edit</a> </td>";
+            }
+
+            // 'chooseData1("+JSON.stringify(obj)+")'
+
+
             tb += '</tr>';
         }
         tb += '</tbody></table>';
     }
 }
-
-
-
-
 
 //****************************************************************************
 //*************************** HEADING STYLE **********************************
@@ -367,7 +395,7 @@ function headingStyle() {
         $('#tbJsonToHtml thead tr').css({ 'background-color': backgroundColor, 'color': forecolor });
     }
 }
-//**************************** END HEADING STYLE*****************************
+
 
 
 //****************************************************************************
@@ -388,7 +416,7 @@ function tableStyle() {
         $('#tbJsonToHtml').removeClass('table-striped');
     }
 }
-//**************************** END TABLE STYLE*****************************
+
 
 
 //****************************************************************************
@@ -452,7 +480,6 @@ function search() {
 
 
 }
-//**************************** END SEARCH ************************************
 
 
 
@@ -607,5 +634,24 @@ function findReplaceCurlyBraces(jsonObj, str) {
 
     return strVal;
 
+
+}
+
+
+
+
+function editTable(data) {
+
+    var modalData = [];
+    modalData.push(data);
+    j2HTML.Modal({
+
+        Data: modalData,
+        Heading: 'Edit',
+        SubmitButton: true,
+        BodyType: 'TextBox',
+        SubmitFunction: testSubmit
+
+    }).ShowModal();
 
 }
