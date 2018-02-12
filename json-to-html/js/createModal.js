@@ -1,11 +1,12 @@
-var submitFun = false;
+var updateFun = false;
+var insertFun = false;
 var modalID = 'j2HTMLModal';
 
 function modal() {
 
     var modalData = false;
     var appendTo = false;
-    var submitButton = false;
+    //var submitButton = false;
     var modalFooter = true;
     var modalHeader = true;
     var modalBody = "This is body";
@@ -31,15 +32,19 @@ function modal() {
     if (args.Heading !== undefined) {
         headingText = args.Heading;
     }
-    if (args.SubmitButton !== undefined) {
-        submitButton = true;
-    }
+    // if (args.SubmitButton !== undefined) {
+    //     submitButton = true;
+    // }
     if (args.BodyType !== undefined) {
         bodyType = args.BodyType;
     }
 
-    if (args.SubmitFunction !== undefined) {
-        submitFun = args.SubmitFunction;
+    if (args.UpdateFunction !== undefined) {
+        updateFun = args.UpdateFunction;
+    }
+
+    if (args.InsertFunction !== undefined) {
+        insertFun = args.InsertFunction;
     }
 
 
@@ -62,14 +67,21 @@ function modal() {
         }
 
         var footer = '';
-        if (modalFooter === true && submitButton === false) {
+        if (modalFooter === true && updateFun === false && insertFun === false) {
             footer = '<div class="modal-footer">\
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
                       </div>';
         }
-        if (modalFooter === true && submitButton === true) {
+        if (modalFooter === true && updateFun !== false && insertFun === false) {
             footer = "<div class='modal-footer'>\
-                        <button type='button' class='btn btn-default' onclick='update(" + JSON.stringify(modalData) + ");'>Submit</button>\
+                        <button type='button' class='btn btn-default' onclick='update(" + JSON.stringify(modalData) + ");'>Update</button>\
+                        <button type ='button' class='btn btn-default' data-dismiss='modal'> Close</button>\
+                      </div>";
+        }
+
+        if (modalFooter === true && updateFun === false && insertFun !== false) {
+            footer = "<div class='modal-footer'>\
+                        <button type='button' class='btn btn-default' onclick='insert(" + JSON.stringify(modalData) + ");'>Create</button>\
                         <button type ='button' class='btn btn-default' data-dismiss='modal'> Close</button>\
                       </div>";
         }
@@ -77,8 +89,6 @@ function modal() {
         var tb = '<table>';
         if (bodyType.toLowerCase() === 'text') {
             modalBody = '<div class="modal-body">';
-
-
 
             $.each(modalData, function(i, v) {
 
@@ -98,7 +108,7 @@ function modal() {
             modalBody += '</div>';
         }
 
-        if (bodyType.toLowerCase() === 'textbox') {
+        if (bodyType.toLowerCase() === 'textbox' && updateFun !== false && insertFun === false) {
             modalBody = '<div class="modal-body">';
 
             $.each(modalData, function(i, v) {
@@ -121,6 +131,39 @@ function modal() {
             modalBody += tb;
             modalBody += '</div>';
         }
+
+
+
+        if (bodyType.toLowerCase() === 'textbox' && updateFun === false && insertFun !== false) {
+            modalBody = '<div class="modal-body">';
+
+            $.each(modalData, function(i, v) {
+
+
+                $.each(v, function(ii, vv) {
+
+                    var id = 'txt' + ii + '"';
+
+                    tb += '<tr>';
+                    tb += '<td><input id="' + id + ' type="text" class="form-control" placeholder="' + ii + '"></td>';
+                    tb += '</tr>';
+                });
+
+
+            });
+
+            tb += '</table>';
+            modalBody += tb;
+            modalBody += '</div>';
+        }
+
+
+
+
+
+
+
+
 
         var strModal = '<div id="' + modalID.replace('#', '') + '" class="modal fade" role="dialog">\
                         <div class="modal-dialog">\
@@ -205,7 +248,6 @@ function update(modalData) {
             if ($('#txt' + ii).val() !== vv) {
 
                 objData[ii] = $('#txt' + ii).val();
-
             }
 
         });
@@ -214,13 +256,42 @@ function update(modalData) {
 
     if ($.isEmptyObject(objData) === false) {
 
-        submitFun(objData);
+        updateFun(objData);
 
     } else {
 
-        submitFun('There is no change in the content');
+        updateFun('There is no change in the content');
 
     }
 
+
+}
+
+
+function insert(modalData) {
+    var objData = {};
+
+    $.each(modalData, function(i, v) {
+
+        $.each(v, function(ii, vv) {
+
+            if ($('#txt' + ii).val() !== vv) {
+
+                objData[ii] = $('#txt' + ii).val();
+            }
+
+        });
+
+    });
+
+    if ($.isEmptyObject(objData) === false) {
+
+        insertFun(objData);
+
+    } else {
+
+        insertFun('There is no change in the content');
+
+    }
 
 }

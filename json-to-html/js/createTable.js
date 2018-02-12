@@ -9,7 +9,8 @@ var hasDefaultHeader = true;
 var customHeader = false;
 var addToColumn = false;
 var tableSort = true;
-var edit = false;
+var editData = false;
+var insertData = false;
 var tb = '';
 var headerRow = [];
 
@@ -53,7 +54,11 @@ function table() {
 
 
         if (args.Edit !== undefined) {
-            edit = true;
+            editData = true;
+        }
+
+        if (args.Insert !== undefined) {
+            insertData = true;
         }
 
 
@@ -363,14 +368,25 @@ function createTableRow() {
                 }
             });
 
-            if (edit === true) {
+            var modalData = JSON.stringify(editable);
 
-                var modalData = JSON.stringify(editable);
+            //EDIT
+            if (editData === true && insertData === false) {
 
-                tb += "<td><a href='#' onclick='editTable(" + JSON.stringify(editable) + ");'>Edit</a> </td>";
+                tb += "<td><a href='#' onclick='editTableRow(" + JSON.stringify(editable) + ");'>Edit</a> </td>";
+            }
+            //INSERT
+            if (editData === false && insertData === true) {
+
+                tb += "<td><a href='#' onclick='insertTableRow(" + JSON.stringify(editable) + ");'>Insert</a> </td>";
+            }
+            //EDIT AND INSERT
+            if (editData === true && insertData === true) {
+
+                tb += "<td><a href='#' onclick='editTableRow(" + JSON.stringify(editable) + ");'>Edit</a> </td>";
+                tb += "<td><a href='#' onclick='insertTableRow(" + JSON.stringify(editable) + ");'>Insert</a> </td>";
             }
 
-            // 'chooseData1("+JSON.stringify(obj)+")'
 
 
             tb += '</tr>';
@@ -614,7 +630,7 @@ function findReplaceCurlyBraces(jsonObj, str) {
     var variables = str.match(/([^{{]*?)\w(?=\}})/gmi);
     var strVal = '';
 
-    if (variables != null) {
+    if (variables !== null) {
         for (var i = 0; i < variables.length; i++) {
 
             $.each(jsonObj, function(key, val) {
@@ -640,7 +656,7 @@ function findReplaceCurlyBraces(jsonObj, str) {
 
 
 
-function editTable(data) {
+function editTableRow(data) {
 
     var modalData = [];
     modalData.push(data);
@@ -648,10 +664,23 @@ function editTable(data) {
 
         Data: modalData,
         Heading: 'Edit',
-        SubmitButton: true,
         BodyType: 'TextBox',
-        SubmitFunction: testSubmit
+        UpdateFunction: testSubmit
 
     }).ShowModal();
 
+}
+
+function insertTableRow(data) {
+
+    var modalData = [];
+    modalData.push(data);
+    j2HTML.Modal({
+
+        Data: modalData,
+        Heading: 'Insert',
+        BodyType: 'TextBox',
+        InsertFunction: testInsert
+
+    }).ShowModal();
 }
