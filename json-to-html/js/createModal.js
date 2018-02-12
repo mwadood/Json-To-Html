@@ -41,10 +41,14 @@ function modal() {
 
     if (args.UpdateFunction !== undefined) {
         updateFun = args.UpdateFunction;
+    } else {
+        updateFun = false;
     }
 
     if (args.InsertFunction !== undefined) {
         insertFun = args.InsertFunction;
+    } else {
+        insertFun = false;
     }
 
 
@@ -87,7 +91,7 @@ function modal() {
         }
 
         var tb = '<table>';
-        if (bodyType.toLowerCase() === 'text') {
+        if (bodyType.toLowerCase() === 'text' && updateFun === false && insertFun === false) {
             modalBody = '<div class="modal-body">';
 
             $.each(modalData, function(i, v) {
@@ -109,6 +113,9 @@ function modal() {
         }
 
         if (bodyType.toLowerCase() === 'textbox' && updateFun !== false && insertFun === false) {
+
+            insertFun = false;
+
             modalBody = '<div class="modal-body">';
 
             $.each(modalData, function(i, v) {
@@ -135,6 +142,9 @@ function modal() {
 
 
         if (bodyType.toLowerCase() === 'textbox' && updateFun === false && insertFun !== false) {
+
+            updateFun = false;
+
             modalBody = '<div class="modal-body">';
 
             $.each(modalData, function(i, v) {
@@ -157,14 +167,6 @@ function modal() {
             modalBody += '</div>';
         }
 
-
-
-
-
-
-
-
-
         var strModal = '<div id="' + modalID.replace('#', '') + '" class="modal fade" role="dialog">\
                         <div class="modal-dialog">\
                         <!-- Modal content-->\
@@ -179,25 +181,9 @@ function modal() {
 
             $('body').append(strModal);
 
-            // if ($(modalID).length === 0) {
-            //     $('body').append(strModal);
-            // } else {
-            //     $(modalID).remove();
-            //     $('body').append(strModal);
-            // }
-
-
-
         } else {
 
             $(appendTo).append(strModal);
-
-            // if ($(modalID).length === 0) {
-            //     $(appendTo).append(strModal);
-            // } else {
-            //     $(modalID).remove();
-            //     $(appendTo).append(strModal);
-            // }
 
         }
 

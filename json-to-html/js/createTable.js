@@ -9,8 +9,13 @@ var hasDefaultHeader = true;
 var customHeader = false;
 var addToColumn = false;
 var tableSort = true;
-var editData = false;
-var insertData = false;
+//var editData = false;
+//var insertData = false;
+
+var funUpdate = false;
+var funInsert = false;
+var funDelete = false;
+
 var tb = '';
 var headerRow = [];
 
@@ -53,12 +58,30 @@ function table() {
         }
 
 
-        if (args.Edit !== undefined) {
-            editData = true;
+        // if (args.Edit !== undefined) {
+        //     editData = true;
+        // }
+
+        if (args.UpdateFunction !== undefined) {
+            funUpdate = args.UpdateFunction;
+        } else {
+            funUpdate = false;
         }
 
-        if (args.Insert !== undefined) {
-            insertData = true;
+        // if (args.Insert !== undefined) {
+        //     insertData = true;
+        // }
+
+        if (args.InsertFunction !== undefined) {
+            funInsert = args.InsertFunction;
+        } else {
+            funInsert = false;
+        }
+
+        if (args.DeleteFunction !== undefined) {
+            funDelete = args.DeleteFunction;
+        } else {
+            funDelete = false;
         }
 
 
@@ -67,7 +90,6 @@ function table() {
         //***************************************************
         //****************** CREATE TABLE  ******************
         //***************************************************
-
         tb = '<table id="' + tableID + '" class="table table-striped table-hover">';
         createTableHeader();
 
@@ -93,6 +115,8 @@ function table() {
 //*********** CREATE TABLE HEADER DEFAULT HEADER ****************
 //***************************************************************
 function createTableHeader() {
+
+    var modalData = '';
 
     if (hasDefaultHeader === true && customHeader === false) {
 
@@ -368,30 +392,33 @@ function createTableRow() {
                 }
             });
 
-            var modalData = JSON.stringify(editable);
+            modalData = JSON.stringify(editable);
 
-            //EDIT
-            if (editData === true && insertData === false) {
-
-                tb += "<td><a href='#' onclick='editTableRow(" + JSON.stringify(editable) + ");'>Edit</a> </td>";
-            }
-            //INSERT
-            if (editData === false && insertData === true) {
-
-                tb += "<td><a href='#' onclick='insertTableRow(" + JSON.stringify(editable) + ");'>Insert</a> </td>";
-            }
-            //EDIT AND INSERT
-            if (editData === true && insertData === true) {
-
-                tb += "<td><a href='#' onclick='editTableRow(" + JSON.stringify(editable) + ");'>Edit</a> </td>";
-                tb += "<td><a href='#' onclick='insertTableRow(" + JSON.stringify(editable) + ");'>Insert</a> </td>";
+            //UPDATE AND DELETE
+            if (funUpdate !== false && funDelete !== false) {
+                tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editable) + ");'>Edit</a> </td>";
+                tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editable) + ");'>Delete</a> </td>";
             }
 
+            // DELETE ONLY
+            if (funUpdate === false && funDelete !== false) {
+                tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editable) + ");'>Delete</a> </td>";
+            }
+
+            //UPDATE ONLY
+            if (funUpdate !== false && funDelete === false) {
+                tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editable) + ");'>Edit</a> </td>";
+            }
 
 
             tb += '</tr>';
         }
         tb += '</tbody></table>';
+
+        if (funInsert !== false) {
+            var btnInsert = "<button id='j2HTMLBtnInsertNewRow' class='btn btn-sm btn-primary pull-right' onclick='insertTableRow(" + JSON.stringify(editable) + ");'>Insert</button></br>";
+            tb = btnInsert.concat(tb);
+        }
     }
 }
 
@@ -656,7 +683,7 @@ function findReplaceCurlyBraces(jsonObj, str) {
 
 
 
-function editTableRow(data) {
+function updateTableRow(data) {
 
     var modalData = [];
     modalData.push(data);
@@ -665,7 +692,7 @@ function editTableRow(data) {
         Data: modalData,
         Heading: 'Edit',
         BodyType: 'TextBox',
-        UpdateFunction: testSubmit
+        UpdateFunction: funUpdate
 
     }).ShowModal();
 
@@ -680,7 +707,11 @@ function insertTableRow(data) {
         Data: modalData,
         Heading: 'Insert',
         BodyType: 'TextBox',
-        InsertFunction: testInsert
+        InsertFunction: funInsert
 
     }).ShowModal();
+}
+
+function deleteTableRow(data) {
+    funDelete(data);
 }
