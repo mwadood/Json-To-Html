@@ -1,4 +1,5 @@
 var appendTo = false;
+var createButtonAppendTo = false;
 var data = false;
 var tableID = 'tbJsonToHtml';
 var hasDefaultHeader = true;
@@ -36,6 +37,9 @@ function table() {
             appendTo = args.AppendTo;
         }
 
+        if (args.CreateButtonAppendTo !== undefined) {
+            createButtonAppendTo = args.CreateButtonAppendTo;
+        }
 
         if (args.TableID !== undefined) {
             tableID = args.TableID;
@@ -98,14 +102,13 @@ function table() {
         }
     }
 }
-//*************************** END CREATE TABLE  *****************************
 
-
-//**************************************************************
-//*********** CREATE TABLE HEADER DEFAULT HEADER ****************
+//***************************************************************
+//***************    CREATE TABLE HEADER    *********************
 //***************************************************************
 function createTableHeader() {
 
+    //***************** CREATE DEFAULT HEADER ***************
     if (hasDefaultHeader === true && customHeader === false) {
 
         var count = 1;
@@ -132,9 +135,7 @@ function createTableHeader() {
             tb += '</tr></thead>';
         }
     }
-    //**************************************************************
-    //********** CREATE TABLE HEADER FROM CUSTOMER HEADER ***********
-    //***************************************************************
+    //****************** CREATE CUSTOMER HEADER *****************
     if (hasDefaultHeader === false && customHeader !== false) {
 
         var count1 = 1;
@@ -177,10 +178,7 @@ function createTableHeader() {
         tb += '</tr></thead>';
     }
 
-
-    //**************************************************************
-    //********** CREATE TABLE HEADER FROM NO HEADER ***********
-    //***************************************************************
+    //********************* CREATE NO HEADER ********************
     if (hasDefaultHeader === false && customHeader === false) {
 
         var count2 = 1;
@@ -205,15 +203,14 @@ function createTableHeader() {
 //***************************************************
 function createTableRow() {
 
-
     tb += '<tbody>';
-    //IF IT IS JSON OBJECT
+
     if (data.length > 0) {
 
         for (var j = 0; j < data.length; j++) {
 
             var rowData = data[j];
-            //var currentValue = '';
+
             preStr = '';
             tb += '<tr class="item" align="left">';
 
@@ -256,9 +253,17 @@ function createTableRow() {
         }
         tb += '</tbody></table>';
 
+        //CREATE BUTTON
         if (funInsert !== false) {
-            var btnInsert = "<button id='j2HTMLBtnInsertNewRow' class='btn btn-sm btn-primary pull-right' onclick='insertTableRow(" + JSON.stringify(editable) + ");'>Insert</button></br>";
-            tb = btnInsert.concat(tb);
+            var btnCreate = "<button id='j2HTMLBtnInsertNewRow' class='btn btn-sm btn-primary pull-right' style='margin-bottom:5px;' onclick='insertTableRow(" + JSON.stringify(editable) + ");'>Insert</button></br>";
+
+            if (createButtonAppendTo === false) {
+                tb = btnCreate.concat(tb);
+            } else {
+                $(createButtonAppendTo).append(btnCreate);
+            }
+
+
         }
     }
 }
@@ -351,8 +356,6 @@ function createRowDefaultHeader(rowData) {
     var colValuePrependValue = '';
     var colValueApendValue = '';
     var colValueList;
-
-    //if (customHeader === false && hasDefaultHeader !== false) {
 
     $.each(headerRow, function(colKey, colValue) {
 

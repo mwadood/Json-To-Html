@@ -161,3 +161,18 @@ input:checked+.switch::before {
 .switch-lg.switch {
     font-size: 25px;
 }
+
+
+/**********************************************/
+
+
+/* Important part */
+
+.modal-dialog {
+    overflow-y: initial !important
+}
+
+.modal-body {
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
+}
