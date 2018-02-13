@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Json to HTML</title>
+
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/json-to-html/css/json-to-html.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- <script src="/JsonToHtml/json-to-html/js/createTable.js"></script>
+    <script src="/JsonToHtml/json-to-html/js/createModal.js"></script> -->
+
+
+    <script src="/json-to-html/json-to-html.js"></script>
+    <script src="/json-to-html/northwindAPIs.js"></script>
+
+    <script src="client.js"></script>
+
+
+
+
+
+</head>
+
+<body>
+    <div id="main">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">WebSiteName</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Page 1</a></li>
+                    <li><a href="#">Create New Card</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="divCreateNewCard"></div>
+
+    </div>
+
+
+    <div class="container">
+
+        <input type="text" class="form-control" value="Test">
+
+        <br/>
+        <input class="btn btn-sm" type="button" onclick="openModal();" value="Open Modal" />
+        <br/><br/>
+
+        <select id="ddlTest" class="form-control">
+            <option value="-1">Select...</option>
+        </select>
+
+        <br/><br/>
+
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-12">
+                <input id="txtSearch" type="text" class="form-control" placeholder="search..." style="margin-bottom:10px">
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
+                <button class="btn btn-sm btn-primary" onclick="printCSV();">CSV</button>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
+                <button class="btn btn-sm btn-primary" onclick="printPDF();">PDF</button>
+            </div>
+        </div>
+
+
+        <input type="checkbox" id="chkTest" />
+        <label for="chkTest" class="switch switch-sm" texton="Submit" textoff="Cancel" onbgcolor="blue" oncolor="white" offbgcolor="yellow" offcolor="black"></label>
+
+
+        <div>
+            <div id="divPagination" class="pull-left"></div>
+            <!-- <div id="btnCreate" class="pull-right"></div> -->
+        </div>
+        <div id="divTable"></div>
+
+        <hr>
+        <div id="btnCreate" class="pull-left"></div>
+
+        <br><br><br><br><br><br>
+        <div id="divRadioButton"></div>
+
+        <div id="divCheckbox"></div>
+        <button class="btn btn-primary" onclick="GetSelectedVal();">Get Selected</button>
+
+        <div id="divChkList"></div>
+
+
+        <input type="text" class="form-control" oninput="filterResult('#unorderList', 'li', this.value)" placeholder="filter list ...">
+        <ul id="unorderList"></ul>
+        <ol id="orderList"></ol>
+
+
+
+
+
+    </div>
+
+</body>
+
+</html>
