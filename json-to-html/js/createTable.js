@@ -279,7 +279,7 @@ function createTableRow() {
 // IF CUSTOMER HEADER
 function createRowCustomHeader(rowData) {
 
-    editable = {};
+
     editableArray = [];
 
     $.each(headerRow, function(colKey, colValue) {
@@ -300,7 +300,7 @@ function createRowCustomHeader(rowData) {
 
                     if (addToColumn !== false) {
 
-                        editable = {};
+
 
                         var colValuePrependValue = '';
                         var colValueApendValue = '';
@@ -322,11 +322,12 @@ function createRowCustomHeader(rowData) {
 
                         if (colValuePrependValue !== '' && colValueApendValue === '') {
                             tb += '<td data-label="' + headerRow[colKey] + '">' + colValuePrependValue + currentValue + '</td>';
-                            //editable[headerRow[colKey]] = currentValue;
                             if (isColumnVisible === true) {
+                                editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = true;
                             } else {
+                                editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = false;
                             }
@@ -334,11 +335,12 @@ function createRowCustomHeader(rowData) {
                         }
                         if (colValueApendValue !== '' && colValuePrependValue === '') {
                             tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + colValueApendValue + '</td>';
-                            //edit[headerRow[colKey]] = currentValue;
                             if (isColumnVisible === true) {
+                                editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = true;
                             } else {
+                                editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = false;
                             }
@@ -347,9 +349,11 @@ function createRowCustomHeader(rowData) {
                             tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
                             //editable[headerRow[colKey]] = currentValue;
                             if (isColumnVisible === true) {
+                                editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = true;
                             } else {
+                                editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = false;
                             }
@@ -361,11 +365,12 @@ function createRowCustomHeader(rowData) {
 
                         tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
                         if (isColumnVisible === true) {
+                            editable = {};
                             editable[headerRow[colKey]] = currentValue;
                             editable.Visible = true;
 
                         } else {
-
+                            editable = {};
                             editable[headerRow[colKey]] = currentValue;
                             editable.Visible = false;
 
@@ -389,8 +394,14 @@ function createRowCustomHeader(rowData) {
             }
 
 
+            if (orginalColumnName.toLowerCase() === key.toLowerCase()) {
+                editableArray.push(editable);
+            }
+
+
+
         });
-        editableArray.push(editable);
+
     });
 
 
@@ -404,7 +415,6 @@ function createRowDefaultHeader(rowData) {
     var colValueApendValue = '';
     var colValueList;
 
-    editable = {};
     editableArray = [];
 
     $.each(headerRow, function(colKey, colValue) {
@@ -435,18 +445,24 @@ function createRowDefaultHeader(rowData) {
 
                     if (colValuePrependValue !== '' && colValueApendValue === '') {
                         tb += '<td data-label="' + toTitleCase(key) + '">' + colValuePrependValue + currentValue + '</td>';
+
+                        editable = {};
                         editable[headerRow[colKey]] = currentValue;
                         editable.Visible = true;
 
                     }
                     if (colValueApendValue !== '' && colValuePrependValue === '') {
                         tb += '<td data-label="' + toTitleCase(key) + '">' + currentValue + colValueApendValue + '</td>';
+
+                        editable = {};
                         editable[headerRow[colKey]] = currentValue;
                         editable.Visible = true;
 
                     }
                     if (colValuePrependValue === '' && colValueApendValue === '') {
                         tb += '<td data-label="' + toTitleCase(key) + '">' + currentValue + '</td>';
+
+                        editable = {};
                         editable[headerRow[colKey]] = currentValue;
                         editable.Visible = true;
 
@@ -454,10 +470,17 @@ function createRowDefaultHeader(rowData) {
 
                 } else {
                     tb += '<td data-label="' + toTitleCase(key) + '">' + currentValue + '</td>';
+
+                    editable = {};
                     editable[headerRow[colKey]] = currentValue;
                     editable.Visible = true;
 
                 }
+            }
+
+            if (headerRow[colKey].toLowerCase() === key.toLowerCase()) {
+
+                editableArray.push(editable);
             }
 
         });
@@ -466,12 +489,14 @@ function createRowDefaultHeader(rowData) {
 
     });
 
-    editableArray.push(editable);
+
 
 }
 
 // IF NO HEADER
 function createRowNoHeader(rowData) {
+
+    editableArray = [];
 
     $.each(headerRow, function(colKey, colValue) {
 
@@ -501,18 +526,24 @@ function createRowNoHeader(rowData) {
 
                     if (colValuePrependValue !== '' && colValueApendValue === '') {
                         tb += '<td>' + colValuePrependValue + currentValue + '</td>';
+
+                        editable = {};
                         editable[headerRow[colKey]] = currentValue;
                         editable.Visible = true;
 
                     }
                     if (colValueApendValue !== '' && colValuePrependValue === '') {
                         tb += '<td >' + currentValue + colValueApendValue + '</td>';
+
+                        editable = {};
                         editable[headerRow[colKey]] = currentValue;
                         editable.Visible = true;
 
                     }
                     if (colValuePrependValue === '' && colValueApendValue === '') {
                         tb += '<td>' + currentValue + '</td>';
+
+                        editable = {};
                         editable[headerRow[colKey]] = currentValue;
                         editable.Visible = true;
 
@@ -520,17 +551,24 @@ function createRowNoHeader(rowData) {
 
                 } else {
                     tb += '<td>' + currentValue + '</td>';
+
+                    editable = {};
                     editable[headerRow[colKey]] = currentValue;
                     editable.Visible = true;
                 }
 
             }
 
+            if (headerRow[colKey].toLowerCase() === key.toLowerCase()) {
+
+                editableArray.push(editable);
+            }
+
         });
 
     });
 
-    editableArray.push(editable);
+
 }
 
 
