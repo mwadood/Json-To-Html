@@ -149,12 +149,13 @@ function createTableHeader() {
                 var newColumnName = colValue.newColumnName;
                 var customColumnName = colValue.customColumnName;
                 var customColumnValue = colValue.customColumnValue;
+                var isColumnVisible = colValue.Visible;
 
                 $.each(data[0], function(key, value) {
 
                     if (orginalColumnName !== undefined && newColumnName !== undefined) {
 
-                        if (orginalColumnName.toLowerCase() === key.toLowerCase()) {
+                        if (orginalColumnName.toLowerCase() === key.toLowerCase() && isColumnVisible === true) {
 
                             if (tableSort === true) {
                                 var parm = "sort('#" + tableID + "','.item'," + "'td:nth-child(" + count1 + ")')";
@@ -165,6 +166,12 @@ function createTableHeader() {
                             headerRow.push(toTitleCase(newColumnName));
                             count1 = count1 + 1;
                         }
+                        if (orginalColumnName.toLowerCase() === key.toLowerCase() && isColumnVisible === false) {
+
+                            headerRow.push(toTitleCase(newColumnName));
+                            count1 = count1 + 1;
+                        }
+
                     }
                 });
                 if (customColumnValue !== undefined) {
