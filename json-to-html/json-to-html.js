@@ -7,7 +7,7 @@ var scripts = [
     '/JsonToHtml/json-to-html/js/createRadioButton.js',
     // '/JsonToHtml/json-to-html/js/createTable.js',
     '/JsonToHtml/json-to-html/js/createPagination.js',
-    '/JsonToHtml/json-to-html/js/createModal.js'
+    // '/JsonToHtml/json-to-html/js/createModal.js'
 ];
 
 var queue = scripts.map(function(script) {

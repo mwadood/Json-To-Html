@@ -6,12 +6,13 @@ function modal() {
 
     var modalData = false;
     var appendTo = false;
-    //var submitButton = false;
     var modalFooter = true;
     var modalHeader = true;
     var modalBody = "This is body";
     var headingText = '';
     var bodyType = 'text';
+
+    var tb = '<table>';
 
 
     var error = '';
@@ -32,9 +33,6 @@ function modal() {
     if (args.Heading !== undefined) {
         headingText = args.Heading;
     }
-    // if (args.SubmitButton !== undefined) {
-    //     submitButton = true;
-    // }
     if (args.BodyType !== undefined) {
         bodyType = args.BodyType;
     }
@@ -90,7 +88,7 @@ function modal() {
                       </div>";
         }
 
-        var tb = '<table>';
+
         if (bodyType.toLowerCase() === 'text' && updateFun === false && insertFun === false) {
             modalBody = '<div class="modal-body">';
 
