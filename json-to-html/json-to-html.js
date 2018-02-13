@@ -5,7 +5,7 @@ var scripts = [
     '/JsonToHtml/json-to-html/js/createDropdown.js',
     '/JsonToHtml/json-to-html/js/createList.js',
     '/JsonToHtml/json-to-html/js/createRadioButton.js',
-    '/JsonToHtml/json-to-html/js/createTable.js',
+    // '/JsonToHtml/json-to-html/js/createTable.js',
     '/JsonToHtml/json-to-html/js/createPagination.js',
     '/JsonToHtml/json-to-html/js/createModal.js'
 ];
