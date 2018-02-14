@@ -1,13 +1,13 @@
 var j2HTML;
 var scripts = [
-    '/json-to-html/js/common.js',
-    '/json-to-html/js/createCheckbox.js',
-    '/json-to-html/js/createDropdown.js',
-    '/json-to-html/js/createList.js',
-    '/json-to-html/js/createRadioButton.js',
-    '/json-to-html/js/createTable.js',
-    '/json-to-html/js/createPagination.js',
-    '/json-to-html/js/createModal.js'
+    '/Json2HTML/js/common.js',
+    '/Json2HTML/js/createCheckbox.js',
+    '/Json2HTML/js/createDropdown.js',
+    '/Json2HTML/js/createList.js',
+    '/Json2HTML/js/createRadioButton.js',
+    '/Json2HTML/js/createTable.js',
+    '/Json2HTML/js/createPagination.js',
+    '/Json2HTML/js/createModal.js'
 ];
 
 var queue = scripts.map(function(script) {
