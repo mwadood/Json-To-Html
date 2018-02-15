@@ -10,7 +10,7 @@ function modal() {
     var modalHeader = true;
     var modalBody = "This is body";
     var headingText = '';
-    var bodyType = 'text';
+    var display = 'text';
 
     var tb = '<table>';
 
@@ -33,8 +33,8 @@ function modal() {
     if (args.Heading !== undefined) {
         headingText = args.Heading;
     }
-    if (args.BodyType !== undefined) {
-        bodyType = args.BodyType;
+    if (args.Display !== undefined) {
+        display = args.Display;
     }
 
     if (args.UpdateFunction !== undefined) {
@@ -88,18 +88,29 @@ function modal() {
                       </div>";
         }
 
-
-        if (bodyType.toLowerCase() === 'text' && updateFun === false && insertFun === false) {
+        //IF TEXT ONLY
+        if (display.toLowerCase() === 'text' && updateFun === false && insertFun === false) {
             modalBody = '<div class="modal-body">';
 
             $.each(modalData, function(i, v) {
 
-
                 $.each(v, function(ii, vv) {
-                    tb += '<tr>';
-                    tb += '<td><b>' + ii + ': </b>' + '</td>';
-                    tb += '<td>' + vv + '</td>';
-                    tb += '</tr>';
+
+                    if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+
+                        tb += '<tr>';
+                        tb += '<td><b>' + ii + ': </b>' + '</td>';
+                        tb += '<td>' + vv + '</td>';
+                        tb += '</tr>';
+                    }
+                    if (v.hasOwnProperty('Visible') === false) {
+                        tb += '<tr>';
+                        tb += '<td><b>' + ii + ': </b>' + '</td>';
+                        tb += '<td>' + vv + '</td>';
+                        tb += '</tr>';
+                    }
+
+
                 });
 
 
@@ -110,7 +121,7 @@ function modal() {
             modalBody += '</div>';
         }
 
-        if (bodyType.toLowerCase() === 'textbox' && updateFun !== false && insertFun === false) {
+        if (display.toLowerCase() === 'textbox' && updateFun !== false && insertFun === false) {
 
             insertFun = false;
 
@@ -123,10 +134,33 @@ function modal() {
 
                     var id = 'txt' + ii + '"';
 
-                    tb += '<tr>';
-                    tb += '<td><b>' + ii + ': </b>' + '</td>';
-                    tb += '<td><input id="' + id + ' type="text" class="form-control" value="' + vv + '"></td>';
-                    tb += '</tr>';
+
+                    if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+
+                        tb += '<tr>';
+                        tb += '<td><b>' + ii + ': </b>' + '</td>';
+                        tb += '<td><input id="' + id + ' type="text" class="form-control" value="' + vv + '"></td>';
+                        tb += '</tr>';
+
+                    }
+
+
+                    if (v.hasOwnProperty('Visible') === true && v.Visible === false && ii.toLowerCase() !== 'visible') {
+
+                        tb += '<tr>';
+                        tb += '<td><b>' + ii + ': </b>' + '</td>';
+                        tb += '<td><input id="' + id + ' type="text" style="border:0;" value="' + vv + '" readonly></td>';
+                        tb += '</tr>';
+                    }
+
+                    if (v.hasOwnProperty('Visible') === false) {
+                        tb += '<tr>';
+                        tb += '<td><b>' + ii + ': </b>' + '</td>';
+                        tb += '<td><input id="' + id + ' type="text" class="form-control" value="' + vv + '"></td>';
+                        tb += '</tr>';
+                    }
+
+
                 });
 
 
@@ -139,7 +173,7 @@ function modal() {
 
 
 
-        if (bodyType.toLowerCase() === 'textbox' && updateFun === false && insertFun !== false) {
+        if (display.toLowerCase() === 'textbox' && updateFun === false && insertFun !== false) {
 
             updateFun = false;
 
@@ -147,14 +181,37 @@ function modal() {
 
             $.each(modalData, function(i, v) {
 
-
+                var count = 0;
                 $.each(v, function(ii, vv) {
 
                     var id = 'txt' + ii + '"';
 
-                    tb += '<tr>';
-                    tb += '<td><input id="' + id + ' type="text" class="form-control" placeholder="' + ii + '"></td>';
-                    tb += '</tr>';
+                    if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+
+                        tb += '<tr>';
+                        tb += '<td><b>' + ii + ': </b>' + '</td>';
+                        tb += '<td><input id="' + id + ' type="text" class="form-control" placeholder="' + ii + '"></td>';
+                        tb += '</tr>';
+
+                    }
+
+
+                    if (v.hasOwnProperty('Visible') === true && v.Visible === false && ii.toLowerCase() !== 'visible') {
+
+                        tb += '<tr>';
+                        tb += '<td><b>' + ii + ': </b>' + '</td>';
+                        tb += '<td><input id="' + id + ' type="text"  class="form-control" placeholder="' + ii + '"></td>';
+                        tb += '</tr>';
+                    }
+
+                    if (v.hasOwnProperty('Visible') === false) {
+                        tb += '<tr>';
+                        tb += '<td><b>' + ii + ': </b>' + '</td>';
+                        tb += '<td><input id="' + id + ' type="text" class="form-control" placeholder="' + ii + '"></td>';
+                        tb += '</tr>';
+                    }
+
+
                 });
 
 
@@ -220,7 +277,7 @@ function hideModal() {
     $(modalID).modal('hide');
 }
 
-
+//UPDATE ROW DATA
 function update(modalData) {
 
     var objData = {};
@@ -229,11 +286,17 @@ function update(modalData) {
 
         $.each(v, function(ii, vv) {
 
-            if ($('#txt' + ii).val() !== vv) {
+            if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
 
-                objData[ii] = $('#txt' + ii).val();
+                if ($('#txt' + ii).val() !== vv) {
+
+                    objData[ii] = $('#txt' + ii).val();
+                }
             }
 
+            if (v.hasOwnProperty('Visible') === true && v.Visible === false && ii.toLowerCase() !== 'visible') {
+                objData[ii] = $('#txt' + ii).val();
+            }
         });
 
     });
@@ -251,7 +314,7 @@ function update(modalData) {
 
 }
 
-
+//INSERT NEW ROW DATA
 function insert(modalData) {
     var objData = {};
 
@@ -259,9 +322,12 @@ function insert(modalData) {
 
         $.each(v, function(ii, vv) {
 
-            if ($('#txt' + ii).val() !== vv) {
+            if (ii.toLowerCase() !== 'visible') {
 
-                objData[ii] = $('#txt' + ii).val();
+                if ($('#txt' + ii).val() !== vv) {
+
+                    objData[ii] = $('#txt' + ii).val();
+                }
             }
 
         });

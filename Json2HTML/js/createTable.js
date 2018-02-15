@@ -263,7 +263,7 @@ function createTableRow() {
 
         //CREATE BUTTON
         if (funInsert !== false) {
-            var btnCreate = "<button id='j2HTMLBtnInsertNewRow' class='btn btn-sm btn-primary pull-right' style='margin-bottom:5px;' onclick='insertTableRow(" + JSON.stringify(editable) + ");'>Insert</button></br>";
+            var btnCreate = "<button id='j2HTMLBtnInsertNewRow' class='btn btn-sm btn-primary pull-right' style='margin-bottom:5px;' onclick='insertTableRow(" + JSON.stringify(editableArray) + ");'>Insert</button></br>";
 
             if (createButtonAppendTo === false) {
                 tb = btnCreate.concat(tb);
@@ -364,6 +364,7 @@ function createRowCustomHeader(rowData) {
                     } else {
 
                         tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
+
                         if (isColumnVisible === true) {
                             editable = {};
                             editable[headerRow[colKey]] = currentValue;
@@ -844,7 +845,7 @@ function updateTableRow(data) {
 
         Data: data,
         Heading: 'Edit',
-        BodyType: 'TextBox',
+        Display: 'TextBox',
         UpdateFunction: funUpdate
 
     }).ShowModal();
@@ -859,7 +860,7 @@ function insertTableRow(data) {
 
         Data: data,
         Heading: 'Insert',
-        BodyType: 'TextBox',
+        Display: 'TextBox',
         InsertFunction: funInsert
 
     }).ShowModal();
