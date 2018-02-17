@@ -1,5 +1,5 @@
-td:last-child {
-    white-space: nowrap;
+tr {
+    page-break-inside: avoid
 }
 
 table {
