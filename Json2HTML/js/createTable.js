@@ -237,8 +237,10 @@ function createTableRow() {
 
             var rowData = data[j];
 
+            var rowId = 'tr' + j;
+
             preStr = '';
-            tb += '<tr id="tr' + j + '" class="item" align="left">';
+            tb += '<tr id="' + rowId + '" class="item" align="left">';
 
             // IF CUSTOMER HEADER
             if (customHeader !== false && hasDefaultHeader === false) {
@@ -257,19 +259,21 @@ function createTableRow() {
                 createRowNoHeader(rowData);
             }
 
-
+            var parmDeleteFun = JSON.stringify(editableArray) + ',"' + rowId + '"';
             //UPDATE AND DELETE
             if (funUpdate !== false && funDelete !== false) {
+
                 //tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
                 tb += "<td><button class='btn btn-default' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
                 //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
-                tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
+                tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + parmDeleteFun + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
             }
 
             // DELETE ONLY
             if (funUpdate === false && funDelete !== false) {
+
                 //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
-                tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
+                tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + parmDeleteFun + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
             }
 
             //UPDATE ONLY
@@ -897,8 +901,6 @@ function createNewTableRow(data) {
         deleteButton = true;
     }
 
-
-
     j2HTML.Modal({
 
         Data: data,
@@ -912,6 +914,8 @@ function createNewTableRow(data) {
     }).ShowModal();
 }
 
-function deleteTableRow(data) {
+function deleteTableRow(data, id) {
+
+    $('#' + tableID + ' tbody tr#' + id).remove();
     funDelete(data);
 }
