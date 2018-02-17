@@ -357,8 +357,10 @@ function insert(modalData) {
     if (isThereContent === true) {
 
 
+        var rowNumber = 'tr' + $('#' + tableID + ' tbody tr').length;
+
         //INSERT ROW TO TABLE
-        var tr = '<tr>';
+        var tr = '<tr id="' + rowNumber + '">';
         $.each(modalData, function(i, v) {
 
             $.each(v, function(ii, vv) {

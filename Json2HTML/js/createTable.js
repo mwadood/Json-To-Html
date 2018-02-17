@@ -238,7 +238,7 @@ function createTableRow() {
             var rowData = data[j];
 
             preStr = '';
-            tb += '<tr class="item" align="left">';
+            tb += '<tr id="tr' + j + '" class="item" align="left">';
 
             // IF CUSTOMER HEADER
             if (customHeader !== false && hasDefaultHeader === false) {
