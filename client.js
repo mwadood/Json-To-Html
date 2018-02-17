@@ -122,7 +122,7 @@ $(function() {
         TableID: 'tbTest',
         AppendTo: '#divTable',
         //CustomHeader: customHeader,
-        //DefaultHeader: false,
+        DefaultHeader: false,
         UpdateFunction: testUpdate,
         InsertFunction: testInsert,
         DeleteFunction: testDelete,

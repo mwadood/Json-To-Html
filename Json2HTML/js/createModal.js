@@ -311,24 +311,24 @@ function update(modalData) {
 }
 
 //INSERT NEW ROW DATA
-function insert(modalData) {
-    var objData = {};
+function insert(modalData, tableID) {
+    // var objData = {};
 
-    $.each(modalData, function(i, v) {
+    // $.each(modalData, function(i, v) {
 
-        $.each(v, function(ii, vv) {
+    //     $.each(v, function(ii, vv) {
 
-            if (ii.toLowerCase() !== 'visible') {
+    //         if (ii.toLowerCase() !== 'visible') {
 
-                if ($('#txt' + ii).val() !== vv) {
+    //             if ($('#txt' + ii).val() !== vv) {
 
-                    objData[ii] = $('#txt' + ii).val();
-                }
-            }
+    //                 objData[ii] = $('#txt' + ii).val();
+    //             }
+    //         }
 
-        });
+    //     });
 
-    });
+    // });
 
     // if ($.isEmptyObject(objData) === false) {
 
@@ -339,5 +339,49 @@ function insert(modalData) {
     //     insertFun('There is no change in the content');
 
     // }
+
+    var objData = {};
+    var isContentUpdated = false;
+
+    $.each(modalData, function(i, v) {
+
+        $.each(v, function(ii, vv) {
+
+            if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+
+                if ($('#txt' + ii).val() !== vv) {
+
+                    isContentUpdated = true;
+                }
+            }
+            if (v.hasOwnProperty('Visible') === true && ii.toLowerCase() !== 'visible') {
+                objData[ii] = $('#txt' + ii).val();
+            }
+
+        });
+    });
+
+    if (isContentUpdated === true) {
+        insertFun(objData);
+    } else {
+        insertFun('There is no change in the content');
+    }
+
+
+
+    //INSERT ROW TO TABLE
+    var tr = '<tr>';
+    $.each(data, function(i, v) {
+
+        tr += '<td>' + v + '</td>';
+
+    });
+
+    tr += '</tr>';
+    if (tableID !== undefined) {
+        $(tableID + ' tbody').append(tr);
+    } else {
+        $('#tbJsonToHtml tbody').append(tr);
+    }
 
 }

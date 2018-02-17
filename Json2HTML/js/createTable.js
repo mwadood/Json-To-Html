@@ -873,9 +873,6 @@ function findReplaceCurlyBraces(jsonObj, str) {
 
 }
 
-
-
-
 function updateTableRow(data) {
 
     j2HTML.Modal({
