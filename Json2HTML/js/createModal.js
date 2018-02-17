@@ -1,6 +1,7 @@
 var updateFun = false;
 var insertFun = false;
 var modalID = 'j2HTMLModal';
+var tableID = false;
 
 function modal() {
 
@@ -19,6 +20,8 @@ function modal() {
 
     var args = arguments[0][0];
 
+
+
     if (args.Data !== undefined) {
         modalData = args.Data;
     } else {
@@ -26,6 +29,9 @@ function modal() {
     }
     if (args.ModalID !== undefined) {
         modalID = args.ModalID;
+    }
+    if (args.TableID !== undefined) {
+        tableID = args.TableID;
     }
     if (args.AppendTo !== undefined) {
         appendTo = args.AppendTo;
@@ -311,37 +317,10 @@ function update(modalData) {
 }
 
 //INSERT NEW ROW DATA
-function insert(modalData, tableID) {
-    // var objData = {};
-
-    // $.each(modalData, function(i, v) {
-
-    //     $.each(v, function(ii, vv) {
-
-    //         if (ii.toLowerCase() !== 'visible') {
-
-    //             if ($('#txt' + ii).val() !== vv) {
-
-    //                 objData[ii] = $('#txt' + ii).val();
-    //             }
-    //         }
-
-    //     });
-
-    // });
-
-    // if ($.isEmptyObject(objData) === false) {
-
-    //     insertFun(objData);
-
-    // } else {
-
-    //     insertFun('There is no change in the content');
-
-    // }
+function insert(modalData) {
 
     var objData = {};
-    var isContentUpdated = false;
+    var isThereContent = false;
 
     $.each(modalData, function(i, v) {
 
@@ -349,9 +328,9 @@ function insert(modalData, tableID) {
 
             if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
 
-                if ($('#txt' + ii).val() !== vv) {
+                if ($('#txt' + ii).val() !== '') {
 
-                    isContentUpdated = true;
+                    isThereContent = true;
                 }
             }
             if (v.hasOwnProperty('Visible') === true && ii.toLowerCase() !== 'visible') {
@@ -361,27 +340,33 @@ function insert(modalData, tableID) {
         });
     });
 
-    if (isContentUpdated === true) {
+    if (isThereContent === true) {
+
+
+        //INSERT ROW TO TABLE
+        // var tr = '<tr>';
+        // $.each(modalData, function(i, v) {
+
+        //     $.each(v, function(ii, vv) {
+
+        //         if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+        //             var newValue = $('#txt' + ii).val();
+        //             tr += '<td>' + newValue + '</td>';
+        //         }
+        //     });
+        // });
+
+        // tr += '</tr>';
+        // $('#' + tableID + ' tbody').append(tr);
+
+
         insertFun(objData);
     } else {
-        insertFun('There is no change in the content');
+        insertFun('There is no content');
     }
 
 
 
-    //INSERT ROW TO TABLE
-    var tr = '<tr>';
-    $.each(data, function(i, v) {
 
-        tr += '<td>' + v + '</td>';
-
-    });
-
-    tr += '</tr>';
-    if (tableID !== undefined) {
-        $(tableID + ' tbody').append(tr);
-    } else {
-        $('#tbJsonToHtml tbody').append(tr);
-    }
 
 }

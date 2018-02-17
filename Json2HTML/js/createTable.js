@@ -96,7 +96,7 @@ function table() {
             if (appendTo !== false) {
                 $(appendTo).html(tb);
             } else {
-                $('body').html('<div id="divJson2HTMLTable" style="max-width:80%"></div>');
+                $('body').html('<div id="divJson2HTMLTable"></div>');
                 $('#divJson2HTMLTable').html(tb);
             }
 
@@ -893,6 +893,7 @@ function insertTableRow(data) {
         Data: data,
         Heading: 'Insert',
         Display: 'TextBox',
+        TableID: tableID,
         InsertFunction: funInsert
 
     }).ShowModal();
