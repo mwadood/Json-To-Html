@@ -100,6 +100,11 @@ $(function() {
 
     ];
 
+    var addToColumn = [
+        { 'ColumanName': 'Country', 'Value': 'Country: ', 'Type': 'prepend' },
+        { 'ColumanName': 'City', 'Value': '(city name)', 'Type': 'append' }
+    ];
+
 
     //UN-Comment the following code to see the result
 
@@ -116,12 +121,13 @@ $(function() {
         Data: myObject,
         TableID: 'tbTest',
         AppendTo: '#divTable',
-        CustomHeader: customHeader,
-        DefaultHeader: false,
+        //CustomHeader: customHeader,
+        //DefaultHeader: false,
         UpdateFunction: testUpdate,
         InsertFunction: testInsert,
         DeleteFunction: testDelete,
-        CreateButtonAppendTo: '#btnCreate'
+        CreateButtonAppendTo: '#btnCreate',
+        AddToColumn: addToColumn
     }).Paging({
         TableID: 'tbTest',
         RowsPerPage: 5,
