@@ -124,7 +124,7 @@ $(function() {
         //CustomHeader: customHeader,
         DefaultHeader: false,
         UpdateFunction: testUpdate,
-        InsertFunction: testInsert,
+        CreateFunction: testInsert,
         DeleteFunction: testDelete,
         CreateButtonAppendTo: '#btnCreate',
         AddToColumn: addToColumn

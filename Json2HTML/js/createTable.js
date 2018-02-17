@@ -8,7 +8,7 @@ var addToColumn = false;
 var tableSort = true;
 
 var funUpdate = false;
-var funInsert = false;
+var funCreate = false;
 var funDelete = false;
 
 var tb = '';
@@ -69,10 +69,10 @@ function table() {
             funUpdate = false;
         }
 
-        if (args.InsertFunction !== undefined) {
-            funInsert = args.InsertFunction;
+        if (args.CreateFunction !== undefined) {
+            funCreate = args.CreateFunction;
         } else {
-            funInsert = false;
+            funCreate = false;
         }
 
         if (args.DeleteFunction !== undefined) {
@@ -284,8 +284,9 @@ function createTableRow() {
         tb += '</tbody></table>';
 
         //CREATE BUTTON
-        if (funInsert !== false) {
-            var btnCreate = "<button id='j2HTMLBtnInsertNewRow' class='btn btn-sm btn-primary pull-right' style='margin-bottom:5px;' onclick='insertTableRow(" + JSON.stringify(editableArray) + ");'>Insert</button></br>";
+        if (funCreate !== false) {
+
+            var btnCreate = "<button id='j2HTMLBtnInsertNewRow' class='btn btn-sm btn-primary pull-right' style='margin-bottom:5px;' onclick='createNewTableRow(" + JSON.stringify(editableArray) + ");'>Create</button></br>";
 
             if (createButtonAppendTo === false) {
                 tb = btnCreate.concat(tb);
@@ -883,7 +884,7 @@ function updateTableRow(data) {
 
 }
 
-function insertTableRow(data) {
+function createNewTableRow(data) {
 
 
     var updateButton = false;
@@ -904,7 +905,7 @@ function insertTableRow(data) {
         Heading: 'Insert',
         Display: 'TextBox',
         TableID: tableID,
-        InsertFunction: funInsert,
+        CreateFunction: funCreate,
         UpdateButton: updateButton,
         DeleteButton: deleteButton
 

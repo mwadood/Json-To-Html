@@ -1,5 +1,5 @@
 var updateFun = false;
-var insertFun = false;
+var createFun = false;
 var modalID = 'j2HTMLModal';
 
 //ONLY WHEN CREATING MODAL FROM TABLE
@@ -51,10 +51,10 @@ function modal() {
         updateFun = false;
     }
 
-    if (args.InsertFunction !== undefined) {
-        insertFun = args.InsertFunction;
+    if (args.CreateFunction !== undefined) {
+        createFun = args.CreateFunction;
     } else {
-        insertFun = false;
+        createFun = false;
     }
 
     //ONLY WHEN CREATING MODAL FROM TABLE
@@ -89,19 +89,19 @@ function modal() {
         }
 
         var footer = '';
-        if (modalFooter === true && updateFun === false && insertFun === false) {
+        if (modalFooter === true && updateFun === false && createFun === false) {
             footer = '<div class="modal-footer">\
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
                       </div>';
         }
-        if (modalFooter === true && updateFun !== false && insertFun === false) {
+        if (modalFooter === true && updateFun !== false && createFun === false) {
             footer = "<div class='modal-footer'>\
                         <button type='button' class='btn btn-default' onclick='update(" + JSON.stringify(modalData) + ");'>Update</button>\
                         <button type ='button' class='btn btn-default' data-dismiss='modal'> Close</button>\
                       </div>";
         }
 
-        if (modalFooter === true && updateFun === false && insertFun !== false) {
+        if (modalFooter === true && updateFun === false && createFun !== false) {
             footer = "<div class='modal-footer'>\
                         <button type='button' class='btn btn-default' onclick='insert(" + JSON.stringify(modalData) + ");'>Create</button>\
                         <button type ='button' class='btn btn-default' data-dismiss='modal'> Close</button>\
@@ -109,7 +109,7 @@ function modal() {
         }
 
         //IF TEXT ONLY
-        if (display.toLowerCase() === 'text' && updateFun === false && insertFun === false) {
+        if (display.toLowerCase() === 'text' && updateFun === false && createFun === false) {
             modalBody = '<div class="modal-body">';
 
             $.each(modalData, function(i, v) {
@@ -141,9 +141,9 @@ function modal() {
             modalBody += '</div>';
         }
 
-        if (display.toLowerCase() === 'textbox' && updateFun !== false && insertFun === false) {
+        if (display.toLowerCase() === 'textbox' && updateFun !== false && createFun === false) {
 
-            insertFun = false;
+            createFun = false;
 
             modalBody = '<div class="modal-body">';
 
@@ -193,7 +193,7 @@ function modal() {
 
 
 
-        if (display.toLowerCase() === 'textbox' && updateFun === false && insertFun !== false) {
+        if (display.toLowerCase() === 'textbox' && updateFun === false && createFun !== false) {
 
             updateFun = false;
 
@@ -397,9 +397,9 @@ function insert(modalData) {
         $('#' + tableID + ' tbody').append(tr);
 
 
-        insertFun(objData);
+        createFun(objData);
     } else {
-        insertFun('There is no content');
+        createFun('There is no content');
     }
 
 
