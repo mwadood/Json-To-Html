@@ -281,6 +281,7 @@ function hideModal() {
 function update(modalData) {
 
     var objData = {};
+    var isContentUpdated = false;
 
     $.each(modalData, function(i, v) {
 
@@ -290,25 +291,20 @@ function update(modalData) {
 
                 if ($('#txt' + ii).val() !== vv) {
 
-                    objData[ii] = $('#txt' + ii).val();
+                    isContentUpdated = true;
                 }
             }
-
-            if (v.hasOwnProperty('Visible') === true && v.Visible === false && ii.toLowerCase() !== 'visible') {
+            if (v.hasOwnProperty('Visible') === true && ii.toLowerCase() !== 'visible') {
                 objData[ii] = $('#txt' + ii).val();
             }
-        });
 
+        });
     });
 
-    if ($.isEmptyObject(objData) === false) {
-
+    if (isContentUpdated === true) {
         updateFun(objData);
-
     } else {
-
         updateFun('There is no change in the content');
-
     }
 
 
@@ -334,14 +330,14 @@ function insert(modalData) {
 
     });
 
-    if ($.isEmptyObject(objData) === false) {
+    // if ($.isEmptyObject(objData) === false) {
 
-        insertFun(objData);
+    //     insertFun(objData);
 
-    } else {
+    // } else {
 
-        insertFun('There is no change in the content');
+    //     insertFun('There is no change in the content');
 
-    }
+    // }
 
 }

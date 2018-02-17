@@ -321,8 +321,9 @@ function createRowCustomHeader(rowData) {
                         }
 
                         if (colValuePrependValue !== '' && colValueApendValue === '') {
-                            tb += '<td data-label="' + headerRow[colKey] + '">' + colValuePrependValue + currentValue + '</td>';
+
                             if (isColumnVisible === true) {
+                                tb += '<td data-label="' + headerRow[colKey] + '">' + colValuePrependValue + currentValue + '</td>';
                                 editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = true;
@@ -334,8 +335,9 @@ function createRowCustomHeader(rowData) {
 
                         }
                         if (colValueApendValue !== '' && colValuePrependValue === '') {
-                            tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + colValueApendValue + '</td>';
+
                             if (isColumnVisible === true) {
+                                tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + colValueApendValue + '</td>';
                                 editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = true;
@@ -346,9 +348,9 @@ function createRowCustomHeader(rowData) {
                             }
                         }
                         if (colValuePrependValue === '' && colValueApendValue === '') {
-                            tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
-                            //editable[headerRow[colKey]] = currentValue;
+
                             if (isColumnVisible === true) {
+                                tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
                                 editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = true;
@@ -363,9 +365,14 @@ function createRowCustomHeader(rowData) {
 
                     } else {
 
-                        tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
+
+
+
 
                         if (isColumnVisible === true) {
+
+                            tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
+
                             editable = {};
                             editable[headerRow[colKey]] = currentValue;
                             editable.Visible = true;
