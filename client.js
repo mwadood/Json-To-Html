@@ -125,7 +125,7 @@ $(function() {
         DefaultHeader: false,
         UpdateFunction: testUpdate,
         InsertFunction: testInsert,
-        DeleteFunction: testDelete,
+        //DeleteFunction: testDelete,
         CreateButtonAppendTo: '#btnCreate',
         AddToColumn: addToColumn
     }).Paging({

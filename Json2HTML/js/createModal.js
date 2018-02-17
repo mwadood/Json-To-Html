@@ -1,7 +1,12 @@
 var updateFun = false;
 var insertFun = false;
 var modalID = 'j2HTMLModal';
+
+//ONLY WHEN CREATING MODAL FROM TABLE
+//INSERT ROW, UPDATE ROW AND DELETE ROW
 var tableID = false;
+var insertButton = false;
+var deleteButton = false;
 
 function modal() {
 
@@ -30,9 +35,6 @@ function modal() {
     if (args.ModalID !== undefined) {
         modalID = args.ModalID;
     }
-    if (args.TableID !== undefined) {
-        tableID = args.TableID;
-    }
     if (args.AppendTo !== undefined) {
         appendTo = args.AppendTo;
     }
@@ -55,7 +57,19 @@ function modal() {
         insertFun = false;
     }
 
+    //ONLY WHEN CREATING MODAL FROM TABLE
+    //INSERT ROW, UPDATE ROW AND DELETE ROW
+    if (args.TableID !== undefined) {
+        tableID = args.TableID;
+    }
+    if (args.InsertButton !== false) {
+        insertButton = true;
+    }
+    if (args.DeleteButton !== false) {
+        deleteButton = true;
+    }
 
+    //ERROR CHECKING
     if (error !== '') {
         alert('Data is required');
     } else {
@@ -344,20 +358,43 @@ function insert(modalData) {
 
 
         //INSERT ROW TO TABLE
-        // var tr = '<tr>';
-        // $.each(modalData, function(i, v) {
+        var tr = '<tr>';
+        $.each(modalData, function(i, v) {
 
-        //     $.each(v, function(ii, vv) {
+            $.each(v, function(ii, vv) {
 
-        //         if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
-        //             var newValue = $('#txt' + ii).val();
-        //             tr += '<td>' + newValue + '</td>';
-        //         }
-        //     });
-        // });
+                if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+                    var newValue = $('#txt' + ii).val();
+                    tr += '<td>' + newValue + '</td>';
+                }
+            });
+        });
 
-        // tr += '</tr>';
-        // $('#' + tableID + ' tbody').append(tr);
+
+
+        if (insertButton !== false && deleteButton !== false) {
+
+            //tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
+            tr += "<td><button class='btn btn-default' onclick='updateTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
+            //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
+            tr += "<td><button class='btn btn-default' onclick='deleteTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
+        }
+        if (insertButton === false && deleteButton !== false) {
+
+            //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
+            tr += "<td><button class='btn btn-default' onclick='deleteTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
+        }
+
+        if (insertButton !== false && deleteButton === false) {
+
+            //tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
+            tr += "<td><button class='btn btn-default' onclick='updateTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
+        }
+
+
+
+        tr += '</tr>';
+        $('#' + tableID + ' tbody').append(tr);
 
 
         insertFun(objData);

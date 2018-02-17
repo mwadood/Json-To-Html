@@ -888,13 +888,28 @@ function updateTableRow(data) {
 
 function insertTableRow(data) {
 
+
+    var insertButton = false;
+    var deleteButton = false;
+
+    if (funInsert !== false) {
+        insertButton = true;
+    }
+    if (funDelete !== false) {
+        deleteButton = true;
+    }
+
+
+
     j2HTML.Modal({
 
         Data: data,
         Heading: 'Insert',
         Display: 'TextBox',
         TableID: tableID,
-        InsertFunction: funInsert
+        InsertFunction: funInsert,
+        InsertButton: insertButton,
+        DeleteButton: deleteButton
 
     }).ShowModal();
 }
