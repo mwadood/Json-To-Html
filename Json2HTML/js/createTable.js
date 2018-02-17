@@ -878,8 +878,6 @@ function findReplaceCurlyBraces(jsonObj, str) {
 
 function updateTableRow(data) {
 
-    //var modalData = [];
-    //modalData.push(data);
     j2HTML.Modal({
 
         Data: data,
@@ -893,8 +891,6 @@ function updateTableRow(data) {
 
 function insertTableRow(data) {
 
-    //var modalData = [];
-    //modalData.push(data);
     j2HTML.Modal({
 
         Data: data,

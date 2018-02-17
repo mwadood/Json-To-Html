@@ -1,4 +1,4 @@
-table>tbody>tr>td:last-child {
+td:last-child {
     white-space: nowrap;
 }
 
