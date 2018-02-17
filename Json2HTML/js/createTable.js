@@ -244,42 +244,42 @@ function createTableRow() {
 
             // IF CUSTOMER HEADER
             if (customHeader !== false && hasDefaultHeader === false) {
-                createRowCustomHeader(rowData);
+                createRowCustomHeader(rowData, j);
             }
 
             // IF DEFAULT HEADER
             if (customHeader === false && hasDefaultHeader !== false) {
-                createRowDefaultHeader(rowData);
+                createRowDefaultHeader(rowData, j);
             }
 
 
             // IF NO HEADER 
             if (customHeader === false && hasDefaultHeader === false) {
 
-                createRowNoHeader(rowData);
+                createRowNoHeader(rowData, j);
             }
 
-            var parmDeleteFun = JSON.stringify(editableArray) + ',"' + rowId + '"';
+            var parmFun = JSON.stringify(editableArray) + ',"' + rowId + '"';
             //UPDATE AND DELETE
             if (funUpdate !== false && funDelete !== false) {
 
                 //tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
-                tb += "<td><button class='btn btn-default' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
+                tb += "<td><button class='btn btn-default' onclick='updateTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
                 //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
-                tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + parmDeleteFun + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
+                tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
             }
 
             // DELETE ONLY
             if (funUpdate === false && funDelete !== false) {
 
                 //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
-                tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + parmDeleteFun + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
+                tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
             }
 
             //UPDATE ONLY
             if (funUpdate !== false && funDelete === false) {
                 // tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
-                tb += "<td><button class='btn btn-default' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
+                tb += "<td><button class='btn btn-default' onclick='updateTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
             }
 
 
@@ -304,8 +304,7 @@ function createTableRow() {
 }
 
 // IF CUSTOMER HEADER
-function createRowCustomHeader(rowData) {
-
+function createRowCustomHeader(rowData, id) {
 
     editableArray = [];
 
@@ -313,6 +312,7 @@ function createRowCustomHeader(rowData) {
 
         $.each(rowData, function(key, value) {
 
+            var colId = 'td' + id + key;
             currentValue = value;
 
             var orginalColumnName = customHeader[colKey].orginalColumnName;
@@ -350,7 +350,7 @@ function createRowCustomHeader(rowData) {
                         if (colValuePrependValue !== '' && colValueApendValue === '') {
 
                             if (isColumnVisible === true) {
-                                tb += '<td data-label="' + headerRow[colKey] + '">' + colValuePrependValue + currentValue + '</td>';
+                                tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + colValuePrependValue + currentValue + '</td>';
                                 editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = true;
@@ -364,7 +364,7 @@ function createRowCustomHeader(rowData) {
                         if (colValueApendValue !== '' && colValuePrependValue === '') {
 
                             if (isColumnVisible === true) {
-                                tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + colValueApendValue + '</td>';
+                                tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + currentValue + colValueApendValue + '</td>';
                                 editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = true;
@@ -377,7 +377,7 @@ function createRowCustomHeader(rowData) {
                         if (colValuePrependValue === '' && colValueApendValue === '') {
 
                             if (isColumnVisible === true) {
-                                tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
+                                tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + currentValue + '</td>';
                                 editable = {};
                                 editable[headerRow[colKey]] = currentValue;
                                 editable.Visible = true;
@@ -394,7 +394,7 @@ function createRowCustomHeader(rowData) {
 
                         if (isColumnVisible === true) {
 
-                            tb += '<td data-label="' + headerRow[colKey] + '">' + currentValue + '</td>';
+                            tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + currentValue + '</td>';
 
                             editable = {};
                             editable[headerRow[colKey]] = currentValue;
@@ -409,6 +409,10 @@ function createRowCustomHeader(rowData) {
                     }
 
 
+                }
+
+                if (orginalColumnName.toLowerCase() === key.toLowerCase()) {
+                    editableArray.push(editable);
                 }
             } else {
                 //CREATE CUSTOM COULMN
@@ -425,9 +429,7 @@ function createRowCustomHeader(rowData) {
             }
 
 
-            if (orginalColumnName.toLowerCase() === key.toLowerCase()) {
-                editableArray.push(editable);
-            }
+
 
 
 
@@ -440,7 +442,7 @@ function createRowCustomHeader(rowData) {
 }
 
 // IF DEFAULT HEADER
-function createRowDefaultHeader(rowData) {
+function createRowDefaultHeader(rowData, id) {
 
     var colValuePrependValue = '';
     var colValueApendValue = '';
@@ -451,6 +453,8 @@ function createRowDefaultHeader(rowData) {
     $.each(headerRow, function(colKey, colValue) {
 
         $.each(rowData, function(key, value) {
+
+            var colId = 'td' + id + key;
 
             currentValue = value;
 
@@ -475,7 +479,7 @@ function createRowDefaultHeader(rowData) {
                     }
 
                     if (colValuePrependValue === '' && colValueApendValue === '') {
-                        tb += '<td data-label="' + toTitleCase(key) + '">' + currentValue + '</td>';
+                        tb += '<td data-label="' + toTitleCase(key) + '" id="' + colId + '">' + currentValue + '</td>';
 
                         editable = {};
                         editable[headerRow[colKey]] = currentValue;
@@ -485,7 +489,7 @@ function createRowDefaultHeader(rowData) {
 
                     if (colValuePrependValue !== '' && colValueApendValue === '') {
 
-                        tb += '<td data-label="' + toTitleCase(key) + '">' + colValuePrependValue + currentValue + '</td>';
+                        tb += '<td data-label="' + toTitleCase(key) + '" id="' + colId + '">' + colValuePrependValue + currentValue + '</td>';
 
                         editable = {};
                         editable[headerRow[colKey]] = currentValue;
@@ -494,7 +498,7 @@ function createRowDefaultHeader(rowData) {
 
                     }
                     if (colValuePrependValue === '' && colValueApendValue !== '') {
-                        tb += '<td data-label="' + toTitleCase(key) + '">' + currentValue + colValueApendValue + '</td>';
+                        tb += '<td data-label="' + toTitleCase(key) + '" id="' + colId + '">' + currentValue + colValueApendValue + '</td>';
 
                         editable = {};
                         editable[headerRow[colKey]] = currentValue;
@@ -506,7 +510,7 @@ function createRowDefaultHeader(rowData) {
 
                 } else {
 
-                    tb += '<td data-label="' + toTitleCase(key) + '">' + currentValue + '</td>';
+                    tb += '<td data-label="' + toTitleCase(key) + '" id="' + colId + '">' + currentValue + '</td>';
 
                     editable = {};
                     editable[headerRow[colKey]] = currentValue;
@@ -531,7 +535,7 @@ function createRowDefaultHeader(rowData) {
 }
 
 // IF NO HEADER
-function createRowNoHeader(rowData) {
+function createRowNoHeader(rowData, id) {
 
     var colValuePrependValue = '';
     var colValueApendValue = '';
@@ -543,6 +547,8 @@ function createRowNoHeader(rowData) {
 
 
         $.each(rowData, function(key, value) {
+
+            var colId = 'td' + id + key;
 
             currentValue = value;
 
@@ -566,14 +572,14 @@ function createRowNoHeader(rowData) {
                     }
 
                     if (colValuePrependValue === '' && colValueApendValue === '') {
-                        tb += '<td>' + currentValue + '</td>';
+                        tb += '<td id="' + colId + '">' + currentValue + '</td>';
 
                         editable = {};
                         editable[headerRow[colKey]] = currentValue;
                         editable.Visible = true;
                     }
                     if (colValuePrependValue === '' && colValueApendValue !== '') {
-                        tb += '<td >' + currentValue + colValueApendValue + '</td>';
+                        tb += '<td id="' + colId + '">' + currentValue + colValueApendValue + '</td>';
 
                         editable = {};
                         editable[headerRow[colKey]] = currentValue;
@@ -582,7 +588,7 @@ function createRowNoHeader(rowData) {
 
                     }
                     if (colValuePrependValue !== '' && colValueApendValue === '') {
-                        tb += '<td>' + colValuePrependValue + currentValue + '</td>';
+                        tb += '<td id="' + colId + '">' + colValuePrependValue + currentValue + '</td>';
 
                         editable = {};
                         editable[headerRow[colKey]] = currentValue;
@@ -592,7 +598,7 @@ function createRowNoHeader(rowData) {
                     }
 
                 } else {
-                    tb += '<td>' + currentValue + '</td>';
+                    tb += '<td id="' + colId + '">' + currentValue + '</td>';
 
                     editable = {};
                     editable[headerRow[colKey]] = currentValue;
@@ -875,21 +881,24 @@ function findReplaceCurlyBraces(jsonObj, str) {
 
 }
 
-function updateTableRow(data) {
+//UPDATE TABLE ROW
+function updateTableRow(data, id) {
 
     j2HTML.Modal({
 
         Data: data,
         Heading: 'Edit',
         Display: 'TextBox',
-        UpdateFunction: funUpdate
+        UpdateFunction: funUpdate,
+        TableID: tableID,
+        RowID: id
 
     }).ShowModal();
 
 }
 
+//CREATE NEW TABLE ROW
 function createNewTableRow(data) {
-
 
     var updateButton = false;
     var deleteButton = false;
@@ -914,6 +923,7 @@ function createNewTableRow(data) {
     }).ShowModal();
 }
 
+//DELETE TABLE ROW
 function deleteTableRow(modalData, id) {
 
     $('#' + tableID + ' tbody tr#' + id).remove();

@@ -92,7 +92,7 @@ $(function() {
         { 'orginalColumnName': 'CustomerID', 'newColumnName': 'ID', 'Visible': false },
         { 'orginalColumnName': 'CompanyName', 'newColumnName': 'Company', 'Visible': true },
         //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' },
-        //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' },
+        { 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' },
         { 'orginalColumnName': 'City', 'newColumnName': 'City', 'Visible': true },
         { 'orginalColumnName': 'Country', 'newColumnName': 'Country', 'Visible': true },
         //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' }
@@ -121,7 +121,7 @@ $(function() {
         Data: myObject,
         TableID: 'tbTest',
         AppendTo: '#divTable',
-        //CustomHeader: customHeader,
+        CustomHeader: customHeader,
         DefaultHeader: false,
         UpdateFunction: testUpdate,
         CreateFunction: testInsert,

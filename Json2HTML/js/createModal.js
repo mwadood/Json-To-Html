@@ -7,6 +7,7 @@ var modalID = 'j2HTMLModal';
 var tableID = false;
 var updateButton = false;
 var deleteButton = false;
+var rowId = false;
 
 function modal() {
 
@@ -67,6 +68,10 @@ function modal() {
     }
     if (args.DeleteButton !== false) {
         deleteButton = true;
+    }
+
+    if (args.RowID !== false) {
+        rowId = args.RowID;
     }
 
     //ERROR CHECKING
@@ -300,6 +305,12 @@ function hideModal() {
 //UPDATE ROW DATA
 function update(modalData) {
 
+    var id = '';
+
+    if (rowId !== false) {
+        id = rowId;
+    }
+
     var objData = {};
     var isContentUpdated = false;
 
@@ -310,6 +321,9 @@ function update(modalData) {
             if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
 
                 if ($('#txt' + ii).val() !== vv) {
+
+
+                    $('#' + tableID + ' tbody tr#' + id + ' td#' + ii);
 
                     isContentUpdated = true;
                 }
