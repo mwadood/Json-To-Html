@@ -264,9 +264,6 @@ function createTableRow() {
                 tb += "<td><button class='btn btn-default' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
                 //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
                 tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
-
-
-
             }
 
             // DELETE ONLY
@@ -889,11 +886,11 @@ function updateTableRow(data) {
 function insertTableRow(data) {
 
 
-    var insertButton = false;
+    var updateButton = false;
     var deleteButton = false;
 
-    if (funInsert !== false) {
-        insertButton = true;
+    if (funUpdate !== false) {
+        updateButton = true;
     }
     if (funDelete !== false) {
         deleteButton = true;
@@ -908,7 +905,7 @@ function insertTableRow(data) {
         Display: 'TextBox',
         TableID: tableID,
         InsertFunction: funInsert,
-        InsertButton: insertButton,
+        UpdateButton: updateButton,
         DeleteButton: deleteButton
 
     }).ShowModal();

@@ -5,7 +5,7 @@ var modalID = 'j2HTMLModal';
 //ONLY WHEN CREATING MODAL FROM TABLE
 //INSERT ROW, UPDATE ROW AND DELETE ROW
 var tableID = false;
-var insertButton = false;
+var updateButton = false;
 var deleteButton = false;
 
 function modal() {
@@ -62,8 +62,8 @@ function modal() {
     if (args.TableID !== undefined) {
         tableID = args.TableID;
     }
-    if (args.InsertButton !== false) {
-        insertButton = true;
+    if (args.UpdateButton !== false) {
+        updateButton = true;
     }
     if (args.DeleteButton !== false) {
         deleteButton = true;
@@ -372,20 +372,20 @@ function insert(modalData) {
 
 
 
-        if (insertButton !== false && deleteButton !== false) {
+        if (updateButton !== false && deleteButton !== false) {
 
             //tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
             tr += "<td><button class='btn btn-default' onclick='updateTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
             //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
             tr += "<td><button class='btn btn-default' onclick='deleteTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
         }
-        if (insertButton === false && deleteButton !== false) {
+        if (updateButton === false && deleteButton !== false) {
 
             //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
             tr += "<td><button class='btn btn-default' onclick='deleteTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
         }
 
-        if (insertButton !== false && deleteButton === false) {
+        if (updateButton !== false && deleteButton === false) {
 
             //tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
             tr += "<td><button class='btn btn-default' onclick='updateTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
