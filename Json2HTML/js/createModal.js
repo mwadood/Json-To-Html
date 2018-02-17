@@ -356,7 +356,6 @@ function insert(modalData) {
 
     if (isThereContent === true) {
 
-
         var rowNumber = 'tr' + $('#' + tableID + ' tbody tr').length;
 
         //INSERT ROW TO TABLE
@@ -403,9 +402,4 @@ function insert(modalData) {
     } else {
         createFun('There is no content');
     }
-
-
-
-
-
 }

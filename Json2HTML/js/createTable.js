@@ -914,8 +914,22 @@ function createNewTableRow(data) {
     }).ShowModal();
 }
 
-function deleteTableRow(data, id) {
+function deleteTableRow(modalData, id) {
 
     $('#' + tableID + ' tbody tr#' + id).remove();
-    funDelete(data);
+
+    var objData = {};
+    $.each(modalData, function(i, v) {
+
+        $.each(v, function(ii, vv) {
+
+            if (v.hasOwnProperty('Visible') === true && ii.toLowerCase() !== 'visible') {
+                objData[ii] = vv;
+            }
+
+        });
+    });
+
+    funDelete(objData);
+
 }
