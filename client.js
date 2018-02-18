@@ -121,13 +121,13 @@ $(function() {
         Data: myObject,
         TableID: 'tbTest',
         AppendTo: '#divTable',
-        CustomHeader: customHeader,
-        DefaultHeader: false,
+        //CustomHeader: customHeader,
+        //DefaultHeader: false,
         UpdateFunction: testUpdate,
         CreateFunction: testInsert,
         DeleteFunction: testDelete,
         CreateButtonAppendTo: '#btnCreate',
-        AddToColumn: addToColumn
+        //AddToColumn: addToColumn
     }).Paging({
         TableID: 'tbTest',
         RowsPerPage: 5,

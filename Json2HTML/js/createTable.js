@@ -312,7 +312,7 @@ function createRowCustomHeader(rowData, id) {
 
         $.each(rowData, function(key, value) {
 
-            var colId = 'td' + id + key;
+
             currentValue = value;
 
             var orginalColumnName = customHeader[colKey].orginalColumnName;
@@ -320,6 +320,9 @@ function createRowCustomHeader(rowData, id) {
             var customColumnName = customHeader[colKey].customColumnName;
             var customColumnValue = customHeader[colKey].customColumnValue;
             var isColumnVisible = customHeader[colKey].Visible;
+
+            var colId = 'td' + id + newColumnName;
+
 
             if (orginalColumnName !== undefined) {
 

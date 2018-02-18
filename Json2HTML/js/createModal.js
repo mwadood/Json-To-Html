@@ -308,7 +308,7 @@ function update(modalData) {
     var id = '';
 
     if (rowId !== false) {
-        id = rowId;
+        id = rowId.substring(2, rowId.length);
     }
 
     var objData = {};
@@ -322,8 +322,9 @@ function update(modalData) {
 
                 if ($('#txt' + ii).val() !== vv) {
 
-
-                    $('#' + tableID + ' tbody tr#' + id + ' td#' + ii);
+                    var colID = 'td' + id + ii;
+                    $('#' + tableID + ' tbody tr#tr' + id + ' td#' + colID).empty()
+                    $('#' + tableID + ' tbody tr#tr' + id + ' td#' + colID).append($('#txt' + ii).val());
 
                     isContentUpdated = true;
                 }
