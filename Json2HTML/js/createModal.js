@@ -1,6 +1,6 @@
 var updateFun = false;
 var createFun = false;
-var modalID = 'j2HTMLModal';
+var modalID = '#j2HTMLModal';
 
 //ONLY WHEN CREATING MODAL FROM TABLE
 //INSERT ROW, UPDATE ROW AND DELETE ROW
@@ -79,6 +79,13 @@ function modal() {
         alert('Data is required');
     } else {
 
+        var ddlIDmodalBodyId = '';
+
+        if (appendTo === false) {
+            modalBodyId = modalID.replace('#', '') + 'Body';
+        } else {
+            modalBodyId = modalID.replace('#', '') + 'ModalBody';
+        }
 
         if ($(modalID).length !== 0) {
             $(modalID).remove();
@@ -113,36 +120,62 @@ function modal() {
                       </div>";
         }
 
+
+        //IF RADIO BUTTON
+        if (display.toLowerCase() === 'RadioButton'.toLowerCase() && updateFun === false && createFun === false) {
+
+            modalBody = '<div id="' + modalBodyId + '"class="modal-body"></div>';
+        }
+
+        //IF CHECKBOX
+        if (display.toLowerCase() === 'Checkbox'.toLowerCase() && updateFun === false && createFun === false) {
+
+            modalBody = '<div id="' + modalBodyId + '"class="modal-body"></div>';
+        }
+
+        //IF DROPDOWN
+        if (display.toLowerCase() === 'Dropdown'.toLowerCase() && updateFun === false && createFun === false) {
+
+            modalBody = '<div id="' + modalBodyId + '"class="modal-body"></div>';
+        }
+
+
         //IF TEXT ONLY
         if (display.toLowerCase() === 'text' && updateFun === false && createFun === false) {
-            modalBody = '<div class="modal-body">';
+
+            modalBody = '<div id="' + modalBodyId + '"class="modal-body">';
+
+            var ntb = '';
 
             $.each(modalData, function(i, v) {
+
+                ntb = '<table>';
 
                 $.each(v, function(ii, vv) {
 
                     if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
 
-                        tb += '<tr>';
-                        tb += '<td><b>' + ii + ': </b>' + '</td>';
-                        tb += '<td>' + vv + '</td>';
-                        tb += '</tr>';
+                        ntb += '<tr>';
+                        ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                        ntb += '<td>' + vv + '</td>';
+                        ntb += '</tr>';
                     }
                     if (v.hasOwnProperty('Visible') === false) {
-                        tb += '<tr>';
-                        tb += '<td><b>' + ii + ': </b>' + '</td>';
-                        tb += '<td>' + vv + '</td>';
-                        tb += '</tr>';
+
+                        ntb += '<tr>';
+                        ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                        ntb += '<td>' + vv + '</td>';
+                        ntb += '</tr>';
                     }
 
 
                 });
 
-
+                ntb += '</table><hr>';
+                modalBody += ntb;
             });
 
-            tb += '</table>';
-            modalBody += tb;
+            modalBody = modalBody.slice(0, -2);
             modalBody += '</div>';
         }
 
@@ -150,7 +183,7 @@ function modal() {
 
             createFun = false;
 
-            modalBody = '<div class="modal-body">';
+            modalBody = '<div id="' + modalBodyId + '" class="modal-body">';
 
             $.each(modalData, function(i, v) {
 
@@ -202,7 +235,7 @@ function modal() {
 
             updateFun = false;
 
-            modalBody = '<div class="modal-body">';
+            modalBody = '<div id="' + modalBodyId + '" class="modal-body">';
 
             $.each(modalData, function(i, v) {
 
@@ -247,6 +280,8 @@ function modal() {
             modalBody += '</div>';
         }
 
+
+
         var strModal = '<div id="' + modalID.replace('#', '') + '" class="modal fade" role="dialog">\
                         <div class="modal-dialog">\
                         <!-- Modal content-->\
@@ -257,13 +292,33 @@ function modal() {
             '</div >\
                         </div>\
                         </div>';
+
+        var ddlID = 'ddl' + modalID.replace('#', '');
         if (appendTo === false) {
 
             $('body').append(strModal);
 
+            //IF DROPDOWN
+            if (display.toLowerCase() === 'Dropdown'.toLowerCase() && updateFun === false && createFun === false) {
+
+                var ddl = '<select id="' + ddlID + '" class="form-control" ><option value="-1">Select...</option></select>';
+                $('#' + modalBodyId).html(ddl);
+
+
+            }
+
         } else {
 
             $(appendTo).append(strModal);
+            //IF DROPDOWN
+            if (display.toLowerCase() === 'Dropdown'.toLowerCase() && updateFun === false && createFun === false) {
+
+
+                var ddl1 = '<select id="' + ddlID + '" class="form-control" ><option value="-1">Select...</option></select>';
+                $('#' + modalBodyId).html(ddl1);
+
+
+            }
 
         }
 
@@ -272,11 +327,13 @@ function modal() {
 
 }
 
+
+
+
 function showModal() {
 
     var args = arguments[0][0];
 
-    //var modalID = false;
     if (args !== undefined) {
         if (args.ModalID !== undefined) {
             modalID = args.ModalID;

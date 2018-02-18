@@ -55,12 +55,105 @@ function openModal() {
         { "Company": "Gourmet Lanchonetes11", "City": "Campinas11", "Country": "Brazil11" }
     ];
 
+    // //EXAMPLE (DEFAULT)
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     //Display: 'RadioButton',
+    //     //ModalID: '#testModal'
+
+    // }).ShowModal();
+
+
+
+    // //EXAMPLE WITH MODAL ID (RADIO BUTTON)
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     Display: 'RadioButton',
+    //     ModalID: '#testModal'
+
+    // }).Radio({
+
+    //     Data: modalData,
+    //     AppendTo: '#testModalBody',
+    //     Text: 'Country',
+    //     //Value: 'CategoryID',
+    //     Direction: 'Vertical',
+    //     GroupName: 'rdbCategories',
+
+    // }).ShowModal({
+    //     ModalID: '#testModal'
+    //     });
+
+    // //EXAMPLE WITHOUT MODAL ID (RADIO BUTTON)
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     Display: 'RadioButton',
+    //     //ModalID: '#testModal'
+
+    // }).Radio({
+
+    //     Data: modalData,
+    //     AppendTo: '#j2HTMLModalBody',
+    //     Text: 'Country',
+    //     //Value: 'CategoryID',
+    //     Direction: 'Vertical',
+    //     GroupName: 'rdbCategories',
+
+    // }).ShowModal();
+
+
+    // //EXAMPLE WITHOUT MODAL ID (CHECKBOX)
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     Display: 'Checkbox',
+    //     //ModalID: '#testModal'
+
+    // }).Checkbox({
+
+    //     Data: modalData,
+    //     AppendTo: '#j2HTMLModalBody',
+    //     Text: 'Country',
+    //     Value: 'City',
+    //     Direction: 'Vertical'
+
+    // }).ShowModal();
+
+
+
+    // //EXAMPLE WITHOUT MODAL ID (dropdown)
     j2HTML.Modal({
 
         Data: modalData,
-        Heading: 'Company'
+        Heading: 'Company',
+        Display: 'Dropdown',
+        //ModalID: '#testModal'
+
+    }).Dropdown({
+
+        Data: modalData,
+        AppendTo: '#ddlj2HTMLModal',
+        Text: 'City'
 
     }).ShowModal();
+
+
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     Display: 'Dropdown',
+    //     //ModalID: '#testModal'
+
+    // }).ShowModal();
+
 
 }
 
