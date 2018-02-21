@@ -7,7 +7,8 @@ var scripts = [
     '/Json2HTML/js/createRadioButton.js',
     '/Json2HTML/js/createTable.js',
     '/Json2HTML/js/createPagination.js',
-    '/Json2HTML/js/createModal.js'
+    '/Json2HTML/js/createModal.js',
+    // '/Json2HTML/js/createPopupModal.js'
 ];
 
 var queue = scripts.map(function(script) {
@@ -121,6 +122,24 @@ var jsonToHtml = function() {
         return this;
     };
 
+    var PopupMessage = function() {
+        args = arguments;
+        popupMessage(args);
+        return this;
+    };
+
+    var ShowPopup = function() {
+        args = arguments;
+        showPopup(args);
+        return this;
+    };
+
+    var HidePopup = function() {
+        args = arguments;
+        hidePopup(args);
+        return this;
+    };
+
     return {
         Table: Table,
         HeadingStyle: HeadingStyle,
@@ -136,6 +155,10 @@ var jsonToHtml = function() {
         Switch: Switch,
         Modal: Modal,
         ShowModal: ShowModal,
-        HideModal: HideModal
+        HideModal: HideModal,
+        PopupMessage: PopupMessage,
+        ShowPopup: ShowPopup,
+        HidePopup: HidePopup
+
     };
 };

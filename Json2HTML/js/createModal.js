@@ -11,6 +11,8 @@ var rowId = false;
 
 function modal() {
 
+    var args = arguments[0][0];
+
     var modalData = false;
     var appendTo = false;
     var modalFooter = true;
@@ -24,7 +26,6 @@ function modal() {
 
     var error = '';
 
-    var args = arguments[0][0];
 
 
 
@@ -45,18 +46,14 @@ function modal() {
     if (args.Display !== undefined) {
         display = args.Display;
     }
-
-    if (args.UpdateFunction !== undefined) {
-        updateFun = args.UpdateFunction;
-    } else {
-        updateFun = false;
+    if (args.Header !== undefined) {
+        modalHeader = args.Header;
+    }
+    if (args.Footer !== undefined) {
+        modalFooter = args.Footer;
     }
 
-    if (args.CreateFunction !== undefined) {
-        createFun = args.CreateFunction;
-    } else {
-        createFun = false;
-    }
+
 
     //ONLY WHEN CREATING MODAL FROM TABLE
     //INSERT ROW, UPDATE ROW AND DELETE ROW
@@ -74,6 +71,18 @@ function modal() {
         rowId = args.RowID;
     }
 
+    if (args.UpdateFunction !== undefined) {
+        updateFun = args.UpdateFunction;
+    } else {
+        updateFun = false;
+    }
+
+    if (args.CreateFunction !== undefined) {
+        createFun = args.CreateFunction;
+    } else {
+        createFun = false;
+    }
+
     //ERROR CHECKING
     if (error !== '') {
         alert('Data is required');
@@ -82,12 +91,6 @@ function modal() {
         var ddlIDmodalBodyId = '';
 
         modalBodyId = modalID.replace('#', '');
-
-        // if (appendTo === false) {
-        //     modalBodyId = modalID.replace('#', '');
-        // } else {
-        //     modalBodyId = modalID.replace('#', '');
-        // }
 
         if ($(modalID).length !== 0) {
             $(modalID).remove();

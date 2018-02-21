@@ -180,6 +180,32 @@ function testDelete(data) {
 }
 
 
+function showPopupMessage() {
+
+    j2HTML.PopupMessage({
+
+        Type: 'Confirm',
+        Heading: 'Confirmation',
+        Message: 'Would you like to close the application',
+        ConfirmFunction: confirmationTest
+
+
+
+    }).ShowPopup();
+}
+
+
+function confirmationTest() {
+
+    var test = 'hello';
+
+}
+
+
+
+
+
+
 $(function() {
 
 
@@ -686,6 +712,8 @@ $(function() {
                 OPTIONAL
                     Display: Default TEXT other options CHECKBOX, RADIONBUTTON, TEXTBOX, DROPDOWN
                     ModalID: Default 'j2HTMLModal'
+                    Header: Default is 'True'
+                    Footer: Default is 'True'
 */
 
 // function openModal() {
@@ -906,12 +934,12 @@ $(function() {
 
 
 
-function printPDF() {
+// function printPDF() {
 
-    var p = new jsonToHtml();
-    p.Print({
+//     var p = new jsonToHtml();
+//     p.Print({
 
-        TableID: 'tbTest',
-        Print: 'PDF'
-    });
-}
+//         TableID: 'tbTest',
+//         Print: 'PDF'
+//     });
+// }
