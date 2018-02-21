@@ -128,21 +128,25 @@ function openModal() {
 
 
 
+    var modalName = 'testModal';
     // //EXAMPLE WITHOUT MODAL ID (dropdown)
     j2HTML.Modal({
 
         Data: modalData,
         Heading: 'Company',
         Display: 'Dropdown',
-        //ModalID: '#testModal'
+        ModalID: '#' + modalName
 
     }).Dropdown({
 
         Data: modalData,
-        AppendTo: '#ddlj2HTMLModal',
+        //AppendTo: '#ddlj2HTMLModal',
+        AppendTo: '#ddl' + modalName,
         Text: 'City'
 
-    }).ShowModal();
+    }).ShowModal({
+        ModalID: '#' + modalName
+    });
 
 
     // j2HTML.Modal({
