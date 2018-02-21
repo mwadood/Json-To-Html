@@ -140,12 +140,11 @@ function modal() {
         }
 
 
+        var ntb = '';
         //IF TEXT ONLY
         if (display.toLowerCase() === 'text' && updateFun === false && createFun === false) {
 
             modalBody = '<div id="' + modalBodyId + '"class="modal-body">';
-
-            var ntb = '';
 
             $.each(modalData, function(i, v) {
 
@@ -178,6 +177,65 @@ function modal() {
             modalBody = modalBody.slice(0, -2);
             modalBody += '</div>';
         }
+
+        //IF TEXTBOX ONLY
+        if (display.toLowerCase() === 'textbox' && updateFun === false && createFun === false) {
+
+            modalBody = '<div id="' + modalBodyId + '"class="modal-body">';
+
+
+
+            $.each(modalData, function(i, v) {
+
+                ntb = '<table>';
+
+                $.each(v, function(ii, vv) {
+
+                    var id = 'txt' + ii + '"';
+
+                    if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+
+                        ntb += '<tr>';
+                        ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                        ntb += '<td><input id="' + id + ' type="text" class="form-control" value="' + vv + '"></td>';
+                        ntb += '</tr>';
+                    }
+                    if (v.hasOwnProperty('Visible') === false) {
+
+                        ntb += '<tr>';
+                        ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                        ntb += '<td><input id="' + id + ' type="text" class="form-control" value="' + vv + '"></td>';
+                        ntb += '</tr>';
+                    }
+
+
+                });
+
+                ntb += '</table><hr>';
+                modalBody += ntb;
+            });
+
+            modalBody = modalBody.slice(0, -2);
+            modalBody += '</div>';
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         if (display.toLowerCase() === 'textbox' && updateFun !== false && createFun === false) {
 
@@ -228,8 +286,6 @@ function modal() {
             modalBody += tb;
             modalBody += '</div>';
         }
-
-
 
         if (display.toLowerCase() === 'textbox' && updateFun === false && createFun !== false) {
 

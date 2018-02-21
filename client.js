@@ -49,117 +49,119 @@ function GetSelectedVal() {
     }
 }
 
-function openModal() {
-    var modalData = [
-        { "Company": "Gourmet Lanchonetes", "City": "Campinas", "Country": "Brazil" },
-        { "Company": "Gourmet Lanchonetes11", "City": "Campinas11", "Country": "Brazil11" }
-    ];
-
-    // //EXAMPLE (DEFAULT)
-    // j2HTML.Modal({
-
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     //Display: 'RadioButton',
-    //     //ModalID: '#testModal'
-
-    // }).ShowModal();
+//function openModal() {
 
 
+// var modalData = [
+//     { "Company": "Gourmet Lanchonetes", "City": "Campinas", "Country": "Brazil" },
+//     { "Company": "Gourmet Lanchonetes11", "City": "Campinas11", "Country": "Brazil11" }
+// ];
 
-    // //EXAMPLE WITH MODAL ID (RADIO BUTTON)
-    // j2HTML.Modal({
+// //EXAMPLE (DEFAULT)
+// j2HTML.Modal({
 
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     Display: 'RadioButton',
-    //     ModalID: '#testModal'
+//     Data: modalData,
+//     Heading: 'Company',
+//     //Display: 'RadioButton',
+//     //ModalID: '#testModal'
 
-    // }).Radio({
-
-    //     Data: modalData,
-    //     AppendTo: '#testModalBody',
-    //     Text: 'Country',
-    //     //Value: 'CategoryID',
-    //     Direction: 'Vertical',
-    //     GroupName: 'rdbCategories',
-
-    // }).ShowModal({
-    //     ModalID: '#testModal'
-    //     });
-
-    // //EXAMPLE WITHOUT MODAL ID (RADIO BUTTON)
-    // j2HTML.Modal({
-
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     Display: 'RadioButton',
-    //     //ModalID: '#testModal'
-
-    // }).Radio({
-
-    //     Data: modalData,
-    //     AppendTo: '#j2HTMLModalBody',
-    //     Text: 'Country',
-    //     //Value: 'CategoryID',
-    //     Direction: 'Vertical',
-    //     GroupName: 'rdbCategories',
-
-    // }).ShowModal();
-
-
-    // //EXAMPLE WITHOUT MODAL ID (CHECKBOX)
-    // j2HTML.Modal({
-
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     Display: 'Checkbox',
-    //     //ModalID: '#testModal'
-
-    // }).Checkbox({
-
-    //     Data: modalData,
-    //     AppendTo: '#j2HTMLModalBody',
-    //     Text: 'Country',
-    //     Value: 'City',
-    //     Direction: 'Vertical'
-
-    // }).ShowModal();
+// }).ShowModal();
 
 
 
-    var modalName = 'testModal';
-    // //EXAMPLE WITHOUT MODAL ID (dropdown)
-    j2HTML.Modal({
+// //EXAMPLE WITH MODAL ID (RADIO BUTTON)
+// j2HTML.Modal({
 
-        Data: modalData,
-        Heading: 'Company',
-        Display: 'Dropdown',
-        ModalID: '#' + modalName
+//     Data: modalData,
+//     Heading: 'Company',
+//     Display: 'RadioButton',
+//     ModalID: '#testModal'
 
-    }).Dropdown({
+// }).Radio({
 
-        Data: modalData,
-        //AppendTo: '#ddlj2HTMLModal',
-        AppendTo: '#ddl' + modalName,
-        Text: 'City'
+//     Data: modalData,
+//     AppendTo: '#testModalBody',
+//     Text: 'Country',
+//     //Value: 'CategoryID',
+//     Direction: 'Vertical',
+//     GroupName: 'rdbCategories',
 
-    }).ShowModal({
-        ModalID: '#' + modalName
-    });
+// }).ShowModal({
+//     ModalID: '#testModal'
+//     });
+
+// //EXAMPLE WITHOUT MODAL ID (RADIO BUTTON)
+// j2HTML.Modal({
+
+//     Data: modalData,
+//     Heading: 'Company',
+//     Display: 'RadioButton',
+//     //ModalID: '#testModal'
+
+// }).Radio({
+
+//     Data: modalData,
+//     AppendTo: '#j2HTMLModalBody',
+//     Text: 'Country',
+//     //Value: 'CategoryID',
+//     Direction: 'Vertical',
+//     GroupName: 'rdbCategories',
+
+// }).ShowModal();
 
 
-    // j2HTML.Modal({
+// //EXAMPLE WITHOUT MODAL ID (CHECKBOX)
+// j2HTML.Modal({
 
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     Display: 'Dropdown',
-    //     //ModalID: '#testModal'
+//     Data: modalData,
+//     Heading: 'Company',
+//     Display: 'Checkbox',
+//     //ModalID: '#testModal'
 
-    // }).ShowModal();
+// }).Checkbox({
+
+//     Data: modalData,
+//     AppendTo: '#j2HTMLModalBody',
+//     Text: 'Country',
+//     Value: 'City',
+//     Direction: 'Vertical'
+
+// }).ShowModal();
 
 
-}
+
+// var modalName = 'testModal';
+// // //EXAMPLE WITHOUT MODAL ID (dropdown)
+// j2HTML.Modal({
+
+//     Data: modalData,
+//     Heading: 'Company',
+//     Display: 'Dropdown',
+//     ModalID: '#' + modalName
+
+// }).Dropdown({
+
+//     Data: modalData,
+//     //AppendTo: '#ddlj2HTMLModal',
+//     AppendTo: '#ddl' + modalName,
+//     Text: 'City'
+
+// }).ShowModal({
+//     ModalID: '#' + modalName
+// });
+
+
+// j2HTML.Modal({
+
+//     Data: modalData,
+//     Heading: 'Company',
+//     Display: 'Dropdown',
+//     //ModalID: '#testModal'
+
+// }).ShowModal();
+
+
+//}
 
 function testUpdate(data) {
     var test = data;
@@ -423,7 +425,7 @@ $(function() {
                         
                     In the following Example Text:'CITY' will get all the Cities from the 
                     JSON object and bind to Radio button    
-                */
+    */
 
     // x.Checkbox({
 
@@ -433,7 +435,6 @@ $(function() {
     //     Direction: 'Vertical'
 
     // });
-
 
 
     /* 
@@ -669,6 +670,179 @@ $(function() {
     // });
 
 });
+
+
+
+/* 
+ ***************************************************************************** 
+ ************************************* MODAL ******************************
+ ***************************************************************************** 
+ */
+
+/*
+                REQUIRED    
+                    Data: JSON OBJECT
+                    Heading: MODAL HEADING
+                OPTIONAL
+                    Display: Default TEXT other options CHECKBOX, RADIONBUTTON, TEXTBOX, DROPDOWN
+                    ModalID: Default 'j2HTMLModal'
+*/
+
+function openModal() {
+
+    var modalData = '';
+    GetEmployees(function(data) {
+
+        modalData = data;
+
+        ////1. EXAMPLE (DEFAULT)
+        // j2HTML.Modal({
+
+        //     Data: modalData,
+        //     Heading: 'Employee Information',
+        //     //Display: 'RadioButton',
+        //     //ModalID: '#testModal'
+
+        // }).ShowModal();
+
+
+        ////2. EXAMPLE WITH MODAL NAME
+        // j2HTML.Modal({
+
+        //     Data: modalData,
+        //     Heading: 'Employee Information',
+        //     //Display: 'RadioButton',
+        //     ModalID: '#testModal'
+
+        // }).ShowModal({
+        //     ModalID: '#testModal'
+        //});
+
+
+        ////3. EXAMPLE DISPLAY TYPE TEXTBOX
+        j2HTML.Modal({
+
+            Data: modalData,
+            Heading: 'Employee Information',
+            Display: 'TextBox',
+            //ModalID: '#testModal'
+
+        }).ShowModal();
+
+
+
+    });
+
+    // var modalData = [
+    //     { "Company": "Gourmet Lanchonetes", "City": "Campinas", "Country": "Brazil" },
+    //     { "Company": "Gourmet Lanchonetes11", "City": "Campinas11", "Country": "Brazil11" }
+    // ];
+
+    // //EXAMPLE (DEFAULT)
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     //Display: 'RadioButton',
+    //     //ModalID: '#testModal'
+
+    // }).ShowModal();
+
+
+
+    // //EXAMPLE WITH MODAL ID (RADIO BUTTON)
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     Display: 'RadioButton',
+    //     ModalID: '#testModal'
+
+    // }).Radio({
+
+    //     Data: modalData,
+    //     AppendTo: '#testModalBody',
+    //     Text: 'Country',
+    //     //Value: 'CategoryID',
+    //     Direction: 'Vertical',
+    //     GroupName: 'rdbCategories',
+
+    // }).ShowModal({
+    //     ModalID: '#testModal'
+    //     });
+
+    // //EXAMPLE WITHOUT MODAL ID (RADIO BUTTON)
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     Display: 'RadioButton',
+    //     //ModalID: '#testModal'
+
+    // }).Radio({
+
+    //     Data: modalData,
+    //     AppendTo: '#j2HTMLModalBody',
+    //     Text: 'Country',
+    //     //Value: 'CategoryID',
+    //     Direction: 'Vertical',
+    //     GroupName: 'rdbCategories',
+
+    // }).ShowModal();
+
+
+    // //EXAMPLE WITHOUT MODAL ID (CHECKBOX)
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     Display: 'Checkbox',
+    //     //ModalID: '#testModal'
+
+    // }).Checkbox({
+
+    //     Data: modalData,
+    //     AppendTo: '#j2HTMLModalBody',
+    //     Text: 'Country',
+    //     Value: 'City',
+    //     Direction: 'Vertical'
+
+    // }).ShowModal();
+
+
+
+    // var modalName = 'testModal';
+    // // //EXAMPLE WITHOUT MODAL ID (dropdown)
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     Display: 'Dropdown',
+    //     ModalID: '#' + modalName
+
+    // }).Dropdown({
+
+    //     Data: modalData,
+    //     //AppendTo: '#ddlj2HTMLModal',
+    //     AppendTo: '#ddl' + modalName,
+    //     Text: 'City'
+
+    // }).ShowModal({
+    //     ModalID: '#' + modalName
+    // });
+
+
+    // j2HTML.Modal({
+
+    //     Data: modalData,
+    //     Heading: 'Company',
+    //     Display: 'Dropdown',
+    //     //ModalID: '#testModal'
+
+    // }).ShowModal();
+
+
+}
 
 
 //**************************************************
