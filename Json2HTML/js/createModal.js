@@ -81,11 +81,13 @@ function modal() {
 
         var ddlIDmodalBodyId = '';
 
-        if (appendTo === false) {
-            modalBodyId = modalID.replace('#', '') + 'Body';
-        } else {
-            modalBodyId = modalID.replace('#', '') + 'ModalBody';
-        }
+        modalBodyId = modalID.replace('#', '');
+
+        // if (appendTo === false) {
+        //     modalBodyId = modalID.replace('#', '');
+        // } else {
+        //     modalBodyId = modalID.replace('#', '');
+        // }
 
         if ($(modalID).length !== 0) {
             $(modalID).remove();
@@ -124,19 +126,19 @@ function modal() {
         //IF RADIO BUTTON
         if (display.toLowerCase() === 'RadioButton'.toLowerCase() && updateFun === false && createFun === false) {
 
-            modalBody = '<div id="' + modalBodyId + '"class="modal-body"></div>';
+            modalBody = '<div id="rdb' + modalBodyId + '"class="modal-body"></div>';
         }
 
         //IF CHECKBOX
         if (display.toLowerCase() === 'Checkbox'.toLowerCase() && updateFun === false && createFun === false) {
 
-            modalBody = '<div id="' + modalBodyId + '"class="modal-body"></div>';
+            modalBody = '<div id="chk' + modalBodyId + '"class="modal-body"></div>';
         }
 
         //IF DROPDOWN
         if (display.toLowerCase() === 'Dropdown'.toLowerCase() && updateFun === false && createFun === false) {
 
-            modalBody = '<div id="' + modalBodyId + '"class="modal-body"></div>';
+            modalBody = '<div id="' + modalBodyId + 'ModalBody" class="modal-body"></div>';
         }
 
 
@@ -144,7 +146,7 @@ function modal() {
         //IF TEXT ONLY
         if (display.toLowerCase() === 'text' && updateFun === false && createFun === false) {
 
-            modalBody = '<div id="' + modalBodyId + '"class="modal-body">';
+            modalBody = '<div id="' + modalBodyId + 'ModalBody"class="modal-body">';
 
             $.each(modalData, function(i, v) {
 
@@ -218,23 +220,6 @@ function modal() {
             modalBody = modalBody.slice(0, -2);
             modalBody += '</div>';
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         if (display.toLowerCase() === 'textbox' && updateFun !== false && createFun === false) {
@@ -349,7 +334,7 @@ function modal() {
                         </div>\
                         </div>';
 
-        var ddlID = 'ddl' + modalID.replace('#', '');
+        //var ddlID = 'ddl' + modalID.replace('#', '');
         if (appendTo === false) {
 
             $('body').append(strModal);
@@ -357,8 +342,8 @@ function modal() {
             //IF DROPDOWN
             if (display.toLowerCase() === 'Dropdown'.toLowerCase() && updateFun === false && createFun === false) {
 
-                var ddl = '<select id="' + ddlID + '" class="form-control" ><option value="-1">Select...</option></select>';
-                $('#' + modalBodyId).html(ddl);
+                var ddl = '<select id="ddl' + modalBodyId + '" class="form-control" ><option value="-1">Select...</option></select>';
+                $('#' + modalBodyId + 'ModalBody').html(ddl);
 
 
             }
@@ -370,8 +355,8 @@ function modal() {
             if (display.toLowerCase() === 'Dropdown'.toLowerCase() && updateFun === false && createFun === false) {
 
 
-                var ddl1 = '<select id="' + ddlID + '" class="form-control" ><option value="-1">Select...</option></select>';
-                $('#' + modalBodyId).html(ddl1);
+                var ddl1 = '<select id="ddl' + modalBodyId + '" class="form-control" ><option value="-1">Select...</option></select>';
+                $('#' + modalBodyId + 'ModalBody').html(ddl1);
 
 
             }

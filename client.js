@@ -688,161 +688,173 @@ $(function() {
                     ModalID: Default 'j2HTMLModal'
 */
 
-function openModal() {
+// function openModal() {
 
-    var modalData = '';
-    GetEmployees(function(data) {
+//     var modalData = '';
+//     GetEmployees(function(data) {
 
-        modalData = data;
+//         modalData = data;
 
-        ////1. EXAMPLE (DEFAULT)
-        // j2HTML.Modal({
+////1. EXAMPLE (DEFAULT)
+// j2HTML.Modal({
 
-        //     Data: modalData,
-        //     Heading: 'Employee Information',
-        //     //Display: 'RadioButton',
-        //     //ModalID: '#testModal'
+//     Data: modalData,
+//     Heading: 'Employee Information',
+//     //Display: 'RadioButton',
+//     //ModalID: '#testModal'
 
-        // }).ShowModal();
-
-
-        ////2. EXAMPLE WITH MODAL NAME
-        // j2HTML.Modal({
-
-        //     Data: modalData,
-        //     Heading: 'Employee Information',
-        //     //Display: 'RadioButton',
-        //     ModalID: '#testModal'
-
-        // }).ShowModal({
-        //     ModalID: '#testModal'
-        //});
+// }).ShowModal();
 
 
-        ////3. EXAMPLE DISPLAY TYPE TEXTBOX
-        j2HTML.Modal({
+////2. EXAMPLE WITH MODAL NAME
+// j2HTML.Modal({
 
-            Data: modalData,
-            Heading: 'Employee Information',
-            Display: 'TextBox',
-            //ModalID: '#testModal'
+//     Data: modalData,
+//     Heading: 'Employee Information',
+//     //Display: 'RadioButton',
+//     ModalID: '#testModal'
 
-        }).ShowModal();
-
-
-
-    });
-
-    // var modalData = [
-    //     { "Company": "Gourmet Lanchonetes", "City": "Campinas", "Country": "Brazil" },
-    //     { "Company": "Gourmet Lanchonetes11", "City": "Campinas11", "Country": "Brazil11" }
-    // ];
-
-    // //EXAMPLE (DEFAULT)
-    // j2HTML.Modal({
-
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     //Display: 'RadioButton',
-    //     //ModalID: '#testModal'
-
-    // }).ShowModal();
+// }).ShowModal({
+//     ModalID: '#testModal'
+//});
 
 
+////3. EXAMPLE DISPLAY TYPE TEXTBOX
+// j2HTML.Modal({
 
-    // //EXAMPLE WITH MODAL ID (RADIO BUTTON)
-    // j2HTML.Modal({
+//     Data: modalData,
+//     Heading: 'Employee Information',
+//     Display: 'TextBox',
+//     //ModalID: '#testModal'
 
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     Display: 'RadioButton',
-    //     ModalID: '#testModal'
-
-    // }).Radio({
-
-    //     Data: modalData,
-    //     AppendTo: '#testModalBody',
-    //     Text: 'Country',
-    //     //Value: 'CategoryID',
-    //     Direction: 'Vertical',
-    //     GroupName: 'rdbCategories',
-
-    // }).ShowModal({
-    //     ModalID: '#testModal'
-    //     });
-
-    // //EXAMPLE WITHOUT MODAL ID (RADIO BUTTON)
-    // j2HTML.Modal({
-
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     Display: 'RadioButton',
-    //     //ModalID: '#testModal'
-
-    // }).Radio({
-
-    //     Data: modalData,
-    //     AppendTo: '#j2HTMLModalBody',
-    //     Text: 'Country',
-    //     //Value: 'CategoryID',
-    //     Direction: 'Vertical',
-    //     GroupName: 'rdbCategories',
-
-    // }).ShowModal();
+// }).ShowModal();
 
 
-    // //EXAMPLE WITHOUT MODAL ID (CHECKBOX)
-    // j2HTML.Modal({
+//// 4. EXAMPLE WITHOUT MODAL ID (RADIO BUTTON)
+// j2HTML.Modal({
 
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     Display: 'Checkbox',
-    //     //ModalID: '#testModal'
+//     Data: modalData,
+//     Heading: 'Company',
+//     Display: 'RadioButton',
+//     //ModalID: '#' + modalID
 
-    // }).Checkbox({
+// }).Radio({
 
-    //     Data: modalData,
-    //     AppendTo: '#j2HTMLModalBody',
-    //     Text: 'Country',
-    //     Value: 'City',
-    //     Direction: 'Vertical'
+//     Data: modalData,
+//     AppendTo: '#rdbj2HTMLModal',
+//     Text: 'Title',
+//     Value: 'EmployeeID',
+//     Direction: 'Vertical',
+//     GroupName: 'rdbCategories',
 
-    // }).ShowModal();
+//}).ShowModal();
 
 
 
-    // var modalName = 'testModal';
-    // // //EXAMPLE WITHOUT MODAL ID (dropdown)
-    // j2HTML.Modal({
+//// 5. EXAMPLE WITH MODAL ID (RADIO BUTTON)
+// var modalID = 'testModal';
+// j2HTML.Modal({
 
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     Display: 'Dropdown',
-    //     ModalID: '#' + modalName
+//     Data: modalData,
+//     Heading: 'Company',
+//     Display: 'RadioButton',
+//     ModalID: '#' + modalID
 
-    // }).Dropdown({
+// }).Radio({
 
-    //     Data: modalData,
-    //     //AppendTo: '#ddlj2HTMLModal',
-    //     AppendTo: '#ddl' + modalName,
-    //     Text: 'City'
+//     Data: modalData,
+//     AppendTo: '#rdb' + modalID,
+//     Text: 'Title',
+//     Value: 'EmployeeID',
+//     Direction: 'Vertical',
+//     GroupName: 'rdbCategories',
 
-    // }).ShowModal({
-    //     ModalID: '#' + modalName
-    // });
-
-
-    // j2HTML.Modal({
-
-    //     Data: modalData,
-    //     Heading: 'Company',
-    //     Display: 'Dropdown',
-    //     //ModalID: '#testModal'
-
-    // }).ShowModal();
+// }).ShowModal({
+//     ModalID: '#' + modalID
+// });
 
 
-}
+////6. EXAMPLE WITHOUT MODAL ID (CHECKBOX)
+// j2HTML.Modal({
+
+//     Data: modalData,
+//     Heading: 'Employee Information',
+//     Display: 'Checkbox',
+
+// }).Checkbox({
+
+//     Data: modalData,
+//     AppendTo: '#chkj2HTMLModal',
+//     Text: 'LastName',
+//     Value: 'EmployeeID',
+//     Direction: 'Vertical'
+
+//     }).ShowModal();
+
+
+////7. EXAMPLE WITH MODAL ID (CHECKBOX)
+// var modalID = 'testModal';
+// j2HTML.Modal({
+
+//     Data: modalData,
+//     Heading: 'Employee Information',
+//     Display: 'Checkbox',
+//     ModalID: '#' + modalID
+
+// }).Checkbox({
+
+//     Data: modalData,
+//     AppendTo: '#chk' + modalID,
+//     Text: 'LastName',
+//     Value: 'EmployeeID',
+//     Direction: 'Vertical'
+
+// }).ShowModal({
+//     ModalID: '#' + modalID
+// });
+
+
+
+////8. EXAMPLE WITHOUT MODAL ID (dropdown)
+// j2HTML.Modal({
+
+//     Data: modalData,
+//     Heading: 'Company',
+//     Display: 'Dropdown',
+
+// }).Dropdown({
+
+//     Data: modalData,
+//     AppendTo: '#ddlj2HTMLModal',
+//     Text: 'Title'
+
+// }).ShowModal();
+
+
+
+////9. EXAMPLE WITHOUT MODAL ID (dropdown)
+// var modalName = 'testModal';
+// j2HTML.Modal({
+
+//     Data: modalData,
+//     Heading: 'Company',
+//     Display: 'Dropdown',
+//     ModalID: '#' + modalName
+
+// }).Dropdown({
+
+//     Data: modalData,
+//     AppendTo: '#ddl' + modalName,
+//     Text: 'Title'
+
+// }).ShowModal({
+//     ModalID: '#' + modalName
+// });
+
+
+//});
+
+//}
 
 
 //**************************************************
