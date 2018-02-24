@@ -7,7 +7,7 @@ $(document).ready(function() {
     $('footer').empty();
     $('footer').load('/Examples/footer.html', function() {
 
-        $('#txtFooter').html('&copy; ' + new Date().getFullYear() + ' - NRJ Boutique');
+        $('#txtFooter').html('&copy; ' + new Date().getFullYear() + ' - Wahid Technology');
 
     });
     //loadPage('index.html');
