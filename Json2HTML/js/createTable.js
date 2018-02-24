@@ -142,7 +142,7 @@ function createTableHeader() {
 
                 if (tableSort === true) {
 
-                    var parm = "sort('" + tableID + "','.item'," + "'td:nth-child(" + count + ")')";
+                    var parm = "j2HTMLSort('" + tableID + "','.item'," + "'td:nth-child(" + count + ")')";
                     tb += '<th onclick="' + parm + '" style="cursor:pointer">' + toTitleCase(key) + '</th>';
 
 
@@ -198,7 +198,7 @@ function createTableHeader() {
                         if (orginalColumnName.toLowerCase() === key.toLowerCase() && isColumnVisible === true) {
 
                             if (tableSort === true) {
-                                var parm = "sort('" + tableID + "','.item'," + "'td:nth-child(" + count1 + ")')";
+                                var parm = "j2HTMLSort('" + tableID + "','.item'," + "'td:nth-child(" + count1 + ")')";
                                 tb += '<th onclick="' + parm + '" style="cursor:pointer">' + toTitleCase(newColumnName) + '</th>';
                             } else {
                                 tb += '<th>' + toTitleCase(newColumnName) + '</th>';
@@ -669,7 +669,6 @@ function j2HTMLHeadingStyle() {
 }
 
 
-
 //****************************************************************************
 //*************************** TABLE STYLE **********************************
 //****************************************************************************
@@ -694,7 +693,7 @@ function j2HTMLTableStyle() {
 //****************************************************************************
 //******************************** SEARCH ************************************
 //****************************************************************************
-function search() {
+function j2HTMLSearch() {
 
     var args = arguments[0][0];
 
@@ -758,7 +757,7 @@ function search() {
 //****************************************************************************
 //******************************** PRINT ************************************
 //****************************************************************************
-function print() {
+function j2HTMLPrint() {
 
     var args = arguments[0][0];
 
@@ -815,7 +814,6 @@ function toPDF(tableId, filename) {
     }
 }
 
-
 //****************************************************************************
 //******************************** To CSV ************************************
 //****************************************************************************
@@ -870,8 +868,6 @@ function _tableToCSV(table) {
 }
 
 //**************************** END CSV ************************************
-
-
 
 function findReplaceString(string, find, replace) {
     if ((/[a-zA-Z\_]+/g).test(string)) {

@@ -52,14 +52,14 @@ var jsonToHtml = function() {
     var Search = function() {
 
         args = arguments;
-        search(args);
+        j2HTMLSearch(args);
         return this;
 
     };
 
     var Print = function() {
         args = arguments;
-        print(args);
+        j2HTMLPrint(args);
         return this;
     };
 
@@ -95,7 +95,7 @@ var jsonToHtml = function() {
         var liName = args[1];
         var Val = args[2];
 
-        filter(controlName, liName, Val);
+        j2HTMLFilter(controlName, liName, Val);
         return this;
     };
 
