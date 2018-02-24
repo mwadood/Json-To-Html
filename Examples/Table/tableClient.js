@@ -129,7 +129,7 @@ function appendAndPrepandWithCustomColumns() {
 
 
 //**************************************************
-//********* EXAMPLE-4 (HEADING STYLE)***************
+//********* EXAMPLE-4.1 (HEADING STYLE)***************
 //**************************************************
 /*
      BY USING HEADINGSTYLE FUNCTION WILL CHANGE THE TABLE HEADER FORECOLOR AND BACKGROUND COLOR
@@ -140,11 +140,11 @@ function tableHeadingStyle() {
         //BIND TABLE
         j2HTML.Table({
             Data: myObject,
-            TableID: 'tbTest',
+            TableID: '#tbTest',
             AppendTo: '#divTable',
         }).HeadingStyle({
 
-            TableID: 'tbTest',
+            TableID: '#tbTest',
             BackgroundColor: 'black',
             Forecolor: 'white'
 
@@ -155,14 +155,64 @@ function tableHeadingStyle() {
 }
 
 //**************************************************
-//********** EXAMPLE-5 (TABLE STYLE)****************
+//********** EXAMPLE-4.2 (TABLE STYLE)****************
 //**************************************************
 /*
     BY USING TABLESTYLE FUNCTION WILL CHANGE THE TABLE FORECOLOR AND BACKGROUND COLOR 
 */
 
-function tableHeadingStyle() {
+function tableBodyStyle() {
 
+    GetCategories(function(myObject) {
+
+
+        j2HTML.Table({
+            Data: myObject,
+            TableID: '#tbTest',
+            AppendTo: '#divTable',
+        }).TableStyle({
+
+            TableID: '#tbTest',
+            BackgroundColor: 'black',
+            Forecolor: 'lightblue'
+
+        });
+
+    });
+}
+
+//**************************************************
+//********** EXAMPLE-4.3 (TABLE STYLE)****************
+//**************************************************
+/*
+    1. BY USING HEADINGSTYLE FUNCTION WILL CHANGE THE TABLE HEADER FORECOLOR AND BACKGROUND COLOR
+    2. BY USING TABLESTYLE FUNCTION WILL CHANGE THE TABLE FORECOLOR AND BACKGROUND COLOR 
+*/
+
+function headerAndTableStyle() {
+
+    GetCategories(function(myObject) {
+
+
+        j2HTML.Table({
+            Data: myObject,
+            TableID: '#tbTest',
+            AppendTo: '#divTable',
+        }).HeadingStyle({
+
+            TableID: '#tbTest',
+            BackgroundColor: 'lightyellow',
+            Forecolor: 'black'
+
+        }).TableStyle({
+
+            TableID: '#tbTest',
+            BackgroundColor: 'black',
+            Forecolor: 'lightblue'
+
+        });
+
+    });
 
 
 }
@@ -202,105 +252,7 @@ function testDelete(data) {
 
 
 
-/* 
- ***************************************************************************** 
- ********************************** TABLE ************************************
- ***************************************************************************** 
- */
 
-//**************************************************
-//************ EXAMPLE-1 (BASIC) *******************
-//**************************************************
-
-// x.Table({
-
-//     Data: myObject,
-//     AppendTo: 'divTable'
-// });
-
-
-//**************************************************
-//********** EXAMPLE-2 (CUSTOMHEADER) **************
-//**************************************************
-//Adding customer header to display or change single or multiple     
-//column name 
-
-
-/*
- 1. WILL DISPLAY ONY ONE COLUMN ‘CustomerName’ with ‘Name’ header ---
-    
- UN-Comment the following code to for to display one column with custom header name
-   
-*/
-
-
-// var customHeader = [
-//     { 'orginalColumnName': 'CustomerName', 'newColumnName': 'Name' }
-// ];
-
-/*
-   2. FOLLOWING WILL SHOW ALL COLUMN
-   UN-Comment the following code to display all column with custom header name
-*/
-
-// var customHeader = [
-//     { 'orginalColumnName': 'CustomerName', 'newColumnName': 'Name' },
-//     { 'orginalColumnName': 'City', 'newColumnName': 'Customer City Name' },
-//     { 'orginalColumnName': 'Country', 'newColumnName': 'Country' }
-// ];
-
-
-//UN-Comment the following code to see the result
-
-// x.Table({
-
-//     Data: myObject,
-//     AppendTo: 'divTable', //div created in step 2
-//     DefaultHeader: false, //MUST BE FALSE
-//     CustomHeader: customHeader
-// });
-
-
-//***************************************************************
-//*************** EXAMPLE-3 (APPEND OR PREPAND VALYE) ***********
-//***************************************************************
-/*
-    Append or Prepend value to Column(s)
-    UN-Comment the following code to see the result
-*/
-
-// var addToColumn = [
-//     { 'ColumanName': 'CustomerName', 'Value': 'Name: ', 'Type': 'prepend' },
-//     { 'ColumanName': 'City', 'Value': '(city name)', 'Type': 'append' }
-// ];
-
-// x.Table({
-
-//     Data: myObject,
-//     AppendTo: 'divTable', //div created in step 2
-//     AddToColumn: addToColumn
-// });
-
-//**************************************************
-//********* EXAMPLE-4 (HEADING STYLE)***************
-//**************************************************
-
-/*
-     BY USING HEADINGSTYLE FUNCTION WILL CHANGE THE TABLE HEADER FORECOLOR AND BACKGROUND COLOR
-     UN-Comment the following code to see the result
-*/
-
-// x.Table({
-//     Data: myObject,
-//     TableID: 'tbTest',
-//     AppendTo: 'divTable', //div created in step 2
-// }).HeadingStyle({
-
-//     TableID: 'tbTest',
-//     BackgroundColor: 'black',
-//     Forecolor: 'white'
-
-// });
 
 
 

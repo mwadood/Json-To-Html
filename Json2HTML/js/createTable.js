@@ -1,7 +1,7 @@
 var appendTo = false;
 var createButtonAppendTo = false;
 var data = false;
-var tableID = 'tbJsonToHtml';
+var tableID = '#tbJsonToHtml';
 var hasDefaultHeader = true;
 var customHeader = false;
 var addToColumn = false;
@@ -24,16 +24,10 @@ var preStr = '';
 //****************************************************************************
 function table() {
 
-
-
-
-
-
-
     appendTo = false;
     createButtonAppendTo = false;
     data = false;
-    tableID = 'tbJsonToHtml';
+    tableID = '#tbJsonToHtml';
     hasDefaultHeader = true;
     customHeader = false;
     addToColumn = false;
@@ -50,17 +44,6 @@ function table() {
     editable = {};
     editableArray = [];
     preStr = '';
-
-
-
-
-
-
-
-
-
-
-
 
     var args = arguments[0][0];
 
@@ -122,7 +105,7 @@ function table() {
         //***************************************************
         //****************** CREATE TABLE  ******************
         //***************************************************
-        tb = '<table id="' + tableID + '" class="table table-striped table-hover">';
+        tb = '<table id="' + tableID.slice(1, tableID.length) + '" class="table table-striped table-hover">';
         createTableHeader();
 
         if (hasDefaultHeader === true && customHeader !== false) {
@@ -159,7 +142,7 @@ function createTableHeader() {
 
                 if (tableSort === true) {
 
-                    var parm = "sort('#" + tableID + "','.item'," + "'td:nth-child(" + count + ")')";
+                    var parm = "sort('" + tableID + "','.item'," + "'td:nth-child(" + count + ")')";
                     tb += '<th onclick="' + parm + '" style="cursor:pointer">' + toTitleCase(key) + '</th>';
 
 
@@ -215,7 +198,7 @@ function createTableHeader() {
                         if (orginalColumnName.toLowerCase() === key.toLowerCase() && isColumnVisible === true) {
 
                             if (tableSort === true) {
-                                var parm = "sort('#" + tableID + "','.item'," + "'td:nth-child(" + count1 + ")')";
+                                var parm = "sort('" + tableID + "','.item'," + "'td:nth-child(" + count1 + ")')";
                                 tb += '<th onclick="' + parm + '" style="cursor:pointer">' + toTitleCase(newColumnName) + '</th>';
                             } else {
                                 tb += '<th>' + toTitleCase(newColumnName) + '</th>';
@@ -679,7 +662,7 @@ function headingStyle() {
     var forecolor = args.Forecolor;
 
     if (tableName !== undefined) {
-        $('#' + tableName + ' thead tr').css({ 'background-color': backgroundColor, 'color': forecolor });
+        $(tableName + ' thead tr').css({ 'background-color': backgroundColor, 'color': forecolor });
     } else {
         $('#tbJsonToHtml thead tr').css({ 'background-color': backgroundColor, 'color': forecolor });
     }
@@ -698,8 +681,8 @@ function tableStyle() {
     var forecolor = args.Forecolor;
 
     if (tableName !== undefined) {
-        $('#' + tableName).css({ 'background-color': backgroundColor, 'color': forecolor });
-        $('#' + tableName).removeClass('table-striped');
+        $(tableName).css({ 'background-color': backgroundColor, 'color': forecolor });
+        $(tableName).removeClass('table-striped');
     } else {
         $('#tbJsonToHtml').css({ 'background-color': backgroundColor, 'color': forecolor });
         $('#tbJsonToHtml').removeClass('table-striped');
@@ -971,7 +954,7 @@ function createNewTableRow(data) {
 //DELETE TABLE ROW
 function deleteTableRow(modalData, id) {
 
-    $('#' + tableID + ' tbody tr#' + id).remove();
+    $(tableID + ' tbody tr#' + id).remove();
 
     var objData = {};
     $.each(modalData, function(i, v) {
