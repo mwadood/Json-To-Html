@@ -24,7 +24,42 @@ var preStr = '';
 //****************************************************************************
 function table() {
 
+
+
+
+
+
+
+    appendTo = false;
+    createButtonAppendTo = false;
+    data = false;
+    tableID = 'tbJsonToHtml';
+    hasDefaultHeader = true;
     customHeader = false;
+    addToColumn = false;
+    tableSort = true;
+
+    funUpdate = false;
+    funCreate = false;
+    funDelete = false;
+
+    tb = '';
+    headerRow = [];
+
+    //var modalData = '';
+    editable = {};
+    editableArray = [];
+    preStr = '';
+
+
+
+
+
+
+
+
+
+
 
 
     var args = arguments[0][0];
@@ -99,7 +134,7 @@ function table() {
             if (appendTo !== false) {
                 $(appendTo).html(tb);
             } else {
-                $('body').html('<div id="divJson2HTMLTable"></div>');
+                $('body').html('<div id="divJson2HTMLTable" style="overflow-x:auto;"></div>');
                 $('#divJson2HTMLTable').html(tb);
             }
 

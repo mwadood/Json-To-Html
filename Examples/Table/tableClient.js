@@ -134,7 +134,6 @@ function appendAndPrepandWithCustomColumns() {
 /*
      BY USING HEADINGSTYLE FUNCTION WILL CHANGE THE TABLE HEADER FORECOLOR AND BACKGROUND COLOR
 */
-
 function tableHeadingStyle() {
     GetEmployees(function(myObject) {
 
@@ -155,6 +154,18 @@ function tableHeadingStyle() {
     });
 }
 
+//**************************************************
+//********** EXAMPLE-5 (TABLE STYLE)****************
+//**************************************************
+/*
+    BY USING TABLESTYLE FUNCTION WILL CHANGE THE TABLE FORECOLOR AND BACKGROUND COLOR 
+*/
+
+function tableHeadingStyle() {
+
+
+
+});
 
 
 
