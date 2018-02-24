@@ -8,7 +8,8 @@ var scripts = [
     '/Json2HTML/js/createTable.js',
     '/Json2HTML/js/createPagination.js',
     '/Json2HTML/js/createModal.js',
-    // '/Json2HTML/js/createPopupModal.js'
+    '/Json2HTML/js/createPopupModal.js',
+    '/Json2HTML/js/createTextBox.js'
 ];
 
 var queue = scripts.map(function(script) {
@@ -140,6 +141,12 @@ var jsonToHtml = function() {
         return this;
     };
 
+    var TextBox = function() {
+        args = arguments;
+        textBox(args);
+        return this;
+    };
+
     return {
         Table: Table,
         HeadingStyle: HeadingStyle,
@@ -158,7 +165,8 @@ var jsonToHtml = function() {
         HideModal: HideModal,
         PopupMessage: PopupMessage,
         ShowPopup: ShowPopup,
-        HidePopup: HidePopup
+        HidePopup: HidePopup,
+        TextBox: TextBox
 
     };
 };
