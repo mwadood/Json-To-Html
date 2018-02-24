@@ -1,54 +1,19 @@
-function exampleOne() {
+function basic() {
 
     //GET DATA FROM DATABASE
     GetCustomers(function(data) {
 
         var myObject = data;
 
-
-
-        //CREATE CUSTOM HEADER
-        var customHeader = [
-
-            //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' },
-            //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' },
-            { 'orginalColumnName': 'CustomerID', 'newColumnName': 'ID', 'Visible': false },
-            { 'orginalColumnName': 'CompanyName', 'newColumnName': 'Company', 'Visible': true },
-            //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' },
-            { 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' },
-            { 'orginalColumnName': 'City', 'newColumnName': 'City', 'Visible': true },
-            { 'orginalColumnName': 'Country', 'newColumnName': 'Country', 'Visible': true },
-            //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' }
-            //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' }
-
-        ];
-
-        //ADD COLUMN TO
-        var addToColumn = [
-            { 'ColumanName': 'Country', 'Value': 'Country: ', 'Type': 'prepend' },
-            { 'ColumanName': 'City', 'Value': '(city name)', 'Type': 'append' }
-        ];
-
-
         j2HTML.Table({
-            Data: myObject,
-            TableID: 'tbTest',
-            AppendTo: '#divTable',
-            //CustomHeader: customHeader,
-            //DefaultHeader: false,
-            UpdateFunction: testUpdate,
-            CreateFunction: testInsert,
-            DeleteFunction: testDelete,
-            //CreateButtonAppendTo: '#btnCreate',
-            //AddToColumn: addToColumn
-        }).Paging({
-            TableID: 'tbTest',
-            RowsPerPage: 5,
-            ShowPages: 8,
-            PaginationAppendTo: 'divPagination',
-            StartPage: 7
 
+            Data: myObject,
+            AppendTo: 'divTable'
         });
+
+
+
+
 
     });
 
@@ -304,3 +269,50 @@ function testDelete(data) {
 //         Print: 'CSV'
 //     });
 // }
+
+
+
+
+
+// //CREATE CUSTOM HEADER
+// var customHeader = [
+
+//     //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' },
+//     //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' },
+//     { 'orginalColumnName': 'CustomerID', 'newColumnName': 'ID', 'Visible': false },
+//     { 'orginalColumnName': 'CompanyName', 'newColumnName': 'Company', 'Visible': true },
+//     //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' },
+//     { 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' },
+//     { 'orginalColumnName': 'City', 'newColumnName': 'City', 'Visible': true },
+//     { 'orginalColumnName': 'Country', 'newColumnName': 'Country', 'Visible': true },
+//     //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' }
+//     //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' }
+
+// ];
+
+// //ADD COLUMN TO
+// var addToColumn = [
+//     { 'ColumanName': 'Country', 'Value': 'Country: ', 'Type': 'prepend' },
+//     { 'ColumanName': 'City', 'Value': '(city name)', 'Type': 'append' }
+// ];
+
+
+// j2HTML.Table({
+//     Data: myObject,
+//     TableID: 'tbTest',
+//     AppendTo: '#divTable',
+//     //CustomHeader: customHeader,
+//     //DefaultHeader: false,
+//     UpdateFunction: testUpdate,
+//     CreateFunction: testInsert,
+//     DeleteFunction: testDelete,
+//     //CreateButtonAppendTo: '#btnCreate',
+//     //AddToColumn: addToColumn
+// }).Paging({
+//     TableID: 'tbTest',
+//     RowsPerPage: 5,
+//     ShowPages: 8,
+//     PaginationAppendTo: 'divPagination',
+//     StartPage: 7
+
+// });
