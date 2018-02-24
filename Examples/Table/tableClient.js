@@ -58,7 +58,7 @@ function addCustomHeader() {
 }
 
 //***************************************************************
-//*************** EXAMPLE-3.1 (APPEND OR PREPAND VALUE) ***********
+//**** EXAMPLE-3.1 (APPEND OR PREPAND -- VALUE DEFAULT COLUMN) **
 //***************************************************************
 /*
     Append or Prepend value to Column(s)
@@ -87,7 +87,7 @@ function appendAndPrepandWithDefaultColumns() {
 
 
 //***************************************************************
-//*************** EXAMPLE-3.2 (APPEND OR PREPAND VALUE) ***********
+//*** EXAMPLE-3.2 (APPEND OR PREPAND VALUE -- CUSTOM COLUMN) ****
 //***************************************************************
 /*
     Append or Prepend value to Column(s)
@@ -128,9 +128,32 @@ function appendAndPrepandWithCustomColumns() {
 }
 
 
+//**************************************************
+//********* EXAMPLE-4 (HEADING STYLE)***************
+//**************************************************
+/*
+     BY USING HEADINGSTYLE FUNCTION WILL CHANGE THE TABLE HEADER FORECOLOR AND BACKGROUND COLOR
+*/
+
+function tableHeadingStyle() {
+    GetEmployees(function(myObject) {
+
+        //BIND TABLE
+        j2HTML.Table({
+            Data: myObject,
+            TableID: 'tbTest',
+            AppendTo: '#divTable',
+        }).HeadingStyle({
+
+            TableID: 'tbTest',
+            BackgroundColor: 'black',
+            Forecolor: 'white'
+
+        });
 
 
-
+    });
+}
 
 
 
