@@ -1,4 +1,4 @@
-$(function() {
+function exampleOne() {
 
     //GET DATA FROM DATABASE
     GetCustomers(function(data) {
