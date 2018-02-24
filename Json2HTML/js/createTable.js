@@ -654,7 +654,7 @@ function createRowNoHeader(rowData, id) {
 //****************************************************************************
 //*************************** HEADING STYLE **********************************
 //****************************************************************************
-function headingStyle() {
+function j2HTMLHeadingStyle() {
 
     var args = arguments[0][0];
     var tableName = args.TableID;
@@ -673,7 +673,7 @@ function headingStyle() {
 //****************************************************************************
 //*************************** TABLE STYLE **********************************
 //****************************************************************************
-function tableStyle() {
+function j2HTMLTableStyle() {
 
     var args = arguments[0][0];
     var tableName = args.TableID;
@@ -681,10 +681,10 @@ function tableStyle() {
     var forecolor = args.Forecolor;
 
     if (tableName !== undefined) {
-        $(tableName).css({ 'background-color': backgroundColor, 'color': forecolor });
+        $(tableName + ' tbody tr').css({ 'background-color': backgroundColor, 'color': forecolor });
         $(tableName).removeClass('table-striped');
     } else {
-        $('#tbJsonToHtml').css({ 'background-color': backgroundColor, 'color': forecolor });
+        $('#tbJsonToHtml tbody tr').css({ 'background-color': backgroundColor, 'color': forecolor });
         $('#tbJsonToHtml').removeClass('table-striped');
     }
 }

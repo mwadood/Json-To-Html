@@ -33,13 +33,13 @@ var jsonToHtml = function() {
     };
     var HeadingStyle = function() {
         args = arguments;
-        headingStyle(args);
+        j2HTMLHeadingStyle(args);
         return this;
     };
 
     var TableStyle = function() {
         args = arguments;
-        tableStyle(args);
+        j2HTMLTableStyle(args);
         return this;
     };
     var Paging = function() {
