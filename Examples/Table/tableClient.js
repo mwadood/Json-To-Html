@@ -1,23 +1,149 @@
+/* 
+ ***************************************************************************** 
+ ********************************** TABLE ************************************
+ ***************************************************************************** 
+ */
+
+
+
+//**************************************************
+//************ EXAMPLE-1 (BASIC) *******************
+//**************************************************
 function basic() {
 
     //GET DATA FROM DATABASE
-    GetCustomers(function(data) {
+    GetCustomers(function(myObject) {
 
-        var myObject = data;
-
+        //BIND TABLE
         j2HTML.Table({
-
             Data: myObject,
-            AppendTo: 'divTable'
+            AppendTo: '#divTable'
         });
-
-
-
-
 
     });
 
 }
+
+//**************************************************
+//********** EXAMPLE-2 (CUSTOMHEADER) **************
+//**************************************************
+//Adding customer header to display or change single or multiple     
+//column name 
+function addCustomHeader() {
+
+
+    GetCustomers(function(myObject) {
+
+        ////CREATE CUSTOM HEADER
+        var customHeader = [
+
+
+            { 'orginalColumnName': 'CustomerID', 'newColumnName': 'ID', 'Visible': false },
+            { 'orginalColumnName': 'CompanyName', 'newColumnName': 'Company', 'Visible': true },
+            { 'orginalColumnName': 'City', 'newColumnName': 'City', 'Visible': true },
+            { 'orginalColumnName': 'Country', 'newColumnName': 'Country', 'Visible': true },
+
+
+        ];
+
+        j2HTML.Table({
+
+            Data: myObject,
+            AppendTo: '#divTable',
+            DefaultHeader: false, //MUST BE FALSE
+            CustomHeader: customHeader
+        });
+
+    });
+}
+
+//***************************************************************
+//*************** EXAMPLE-3.1 (APPEND OR PREPAND VALUE) ***********
+//***************************************************************
+/*
+    Append or Prepend value to Column(s)
+    UN-Comment the following code to see the result
+*/
+function appendAndPrepandWithDefaultColumns() {
+
+    GetCustomers(function(myObject) {
+
+
+        var addToColumn = [
+            { 'ColumanName': 'CustomerID', 'Value': 'ID: ', 'Type': 'prepend' },
+            { 'ColumanName': 'City', 'Value': '(city name)', 'Type': 'append' }
+        ];
+
+        //BIND TABLE
+        j2HTML.Table({
+            Data: myObject,
+            AppendTo: '#divTable',
+            AddToColumn: addToColumn
+        });
+
+    });
+}
+
+
+
+//***************************************************************
+//*************** EXAMPLE-3.2 (APPEND OR PREPAND VALUE) ***********
+//***************************************************************
+/*
+    Append or Prepend value to Column(s)
+    UN-Comment the following code to see the result
+*/
+function appendAndPrepandWithCustomColumns() {
+
+    GetCustomers(function(myObject) {
+
+
+        ////CREATE CUSTOM HEADER
+        var customHeader = [
+
+
+            { 'orginalColumnName': 'CustomerID', 'newColumnName': 'ID', 'Visible': false },
+            { 'orginalColumnName': 'CompanyName', 'newColumnName': 'Company', 'Visible': true },
+            { 'orginalColumnName': 'City', 'newColumnName': 'City', 'Visible': true },
+            { 'orginalColumnName': 'Country', 'newColumnName': 'Country', 'Visible': true },
+
+
+        ];
+
+        var addToColumn = [
+            { 'ColumanName': 'CompanyName', 'Value': 'Company: ', 'Type': 'prepend' },
+            { 'ColumanName': 'City', 'Value': '(city name)', 'Type': 'append' }
+        ];
+
+        //BIND TABLE
+        j2HTML.Table({
+            Data: myObject,
+            AppendTo: '#divTable',
+            AddToColumn: addToColumn,
+            DefaultHeader: false, //MUST BE FALSE
+            CustomHeader: customHeader
+        });
+
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

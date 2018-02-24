@@ -1,4 +1,38 @@
-<button class="btn btn-sm btn-primary" onclick="basic();">Example -1 (Basic)</button>
+<!-- <button class="btn btn-sm btn-primary" onclick="basic();">Basic</button>
+<button class="btn btn-sm btn-primary" onclick="addCustomHeader();">Custom Header</button>
+<button class="btn btn-sm btn-primary" onclick="appendAndPrepand();">Append and Prepand</button> -->
+
+
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">TABLE</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="#" onclick="basic();">Basic</a></li>
+            <li><a href="#" onclick="addCustomHeader();">Custom Header</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Append and Prepand
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="appendAndPrepandWithDefaultColumns();">Append and Prepand with Default Columns</a></li>
+                    <li><a href="#" onclick="appendAndPrepandWithCustomColumns();">Append and Prepand with Custom Columns</a></li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+
 <div>
     <div id="divPagination" class="pull-left"></div>
     <!-- <div id="btnCreate" class="pull-right"></div> -->

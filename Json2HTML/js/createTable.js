@@ -24,6 +24,9 @@ var preStr = '';
 //****************************************************************************
 function table() {
 
+    customHeader = false;
+
+
     var args = arguments[0][0];
 
     if (args.Data === undefined) {
@@ -315,125 +318,129 @@ function createRowCustomHeader(rowData, id) {
 
             currentValue = value;
 
-            var orginalColumnName = customHeader[colKey].orginalColumnName;
-            var newColumnName = customHeader[colKey].newColumnName;
-            var customColumnName = customHeader[colKey].customColumnName;
-            var customColumnValue = customHeader[colKey].customColumnValue;
-            var isColumnVisible = customHeader[colKey].Visible;
+            if (customHeader[colKey] !== undefined) {
 
-            var colId = 'td' + id + newColumnName;
+                var orginalColumnName = customHeader[colKey].orginalColumnName;
+                var newColumnName = customHeader[colKey].newColumnName;
+                var customColumnName = customHeader[colKey].customColumnName;
+                var customColumnValue = customHeader[colKey].customColumnValue;
+                var isColumnVisible = customHeader[colKey].Visible;
 
-
-            if (orginalColumnName !== undefined) {
-
-                if (orginalColumnName.toLowerCase() === key.toLowerCase()) {
-
-                    if (addToColumn !== false) {
+                var colId = 'td' + id + newColumnName;
 
 
+                if (orginalColumnName !== undefined) {
 
-                        var colValuePrependValue = '';
-                        var colValueApendValue = '';
+                    if (orginalColumnName.toLowerCase() === key.toLowerCase()) {
 
-                        for (var ii = 0; ii < addToColumn.length; ii++) {
+                        if (addToColumn !== false) {
 
-                            var colValueList = addToColumn[ii];
 
-                            if (colValueList.ColumanName.toLowerCase() === key.toLowerCase()) {
 
-                                if (colValueList.Type.toLowerCase() === 'prepend') {
-                                    colValuePrependValue = colValueList.Value;
+                            var colValuePrependValue = '';
+                            var colValueApendValue = '';
+
+                            for (var ii = 0; ii < addToColumn.length; ii++) {
+
+                                var colValueList = addToColumn[ii];
+
+                                if (colValueList.ColumanName.toLowerCase() === key.toLowerCase()) {
+
+                                    if (colValueList.Type.toLowerCase() === 'prepend') {
+                                        colValuePrependValue = colValueList.Value;
+                                    }
+                                    if (colValueList.Type.toLowerCase() === 'append') {
+                                        colValueApendValue = colValueList.Value;
+                                    }
                                 }
-                                if (colValueList.Type.toLowerCase() === 'append') {
-                                    colValueApendValue = colValueList.Value;
+                            }
+
+                            if (colValuePrependValue !== '' && colValueApendValue === '') {
+
+                                if (isColumnVisible === true) {
+                                    tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + colValuePrependValue + currentValue + '</td>';
+                                    editable = {};
+                                    editable[headerRow[colKey]] = currentValue;
+                                    editable.Visible = true;
+                                } else {
+                                    editable = {};
+                                    editable[headerRow[colKey]] = currentValue;
+                                    editable.Visible = false;
+                                }
+
+                            }
+                            if (colValueApendValue !== '' && colValuePrependValue === '') {
+
+                                if (isColumnVisible === true) {
+                                    tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + currentValue + colValueApendValue + '</td>';
+                                    editable = {};
+                                    editable[headerRow[colKey]] = currentValue;
+                                    editable.Visible = true;
+                                } else {
+                                    editable = {};
+                                    editable[headerRow[colKey]] = currentValue;
+                                    editable.Visible = false;
                                 }
                             }
-                        }
+                            if (colValuePrependValue === '' && colValueApendValue === '') {
 
-                        if (colValuePrependValue !== '' && colValueApendValue === '') {
-
-                            if (isColumnVisible === true) {
-                                tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + colValuePrependValue + currentValue + '</td>';
-                                editable = {};
-                                editable[headerRow[colKey]] = currentValue;
-                                editable.Visible = true;
-                            } else {
-                                editable = {};
-                                editable[headerRow[colKey]] = currentValue;
-                                editable.Visible = false;
+                                if (isColumnVisible === true) {
+                                    tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + currentValue + '</td>';
+                                    editable = {};
+                                    editable[headerRow[colKey]] = currentValue;
+                                    editable.Visible = true;
+                                } else {
+                                    editable = {};
+                                    editable[headerRow[colKey]] = currentValue;
+                                    editable.Visible = false;
+                                }
                             }
 
-                        }
-                        if (colValueApendValue !== '' && colValuePrependValue === '') {
 
-                            if (isColumnVisible === true) {
-                                tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + currentValue + colValueApendValue + '</td>';
-                                editable = {};
-                                editable[headerRow[colKey]] = currentValue;
-                                editable.Visible = true;
-                            } else {
-                                editable = {};
-                                editable[headerRow[colKey]] = currentValue;
-                                editable.Visible = false;
-                            }
-                        }
-                        if (colValuePrependValue === '' && colValueApendValue === '') {
-
-                            if (isColumnVisible === true) {
-                                tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + currentValue + '</td>';
-                                editable = {};
-                                editable[headerRow[colKey]] = currentValue;
-                                editable.Visible = true;
-                            } else {
-                                editable = {};
-                                editable[headerRow[colKey]] = currentValue;
-                                editable.Visible = false;
-                            }
-                        }
-
-
-
-                    } else {
-
-                        if (isColumnVisible === true) {
-
-                            tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + currentValue + '</td>';
-
-                            editable = {};
-                            editable[headerRow[colKey]] = currentValue;
-                            editable.Visible = true;
 
                         } else {
-                            editable = {};
-                            editable[headerRow[colKey]] = currentValue;
-                            editable.Visible = false;
 
+                            if (isColumnVisible === true) {
+
+                                tb += '<td data-label="' + headerRow[colKey] + '" id="' + colId + '">' + currentValue + '</td>';
+
+                                editable = {};
+                                editable[headerRow[colKey]] = currentValue;
+                                editable.Visible = true;
+
+                            } else {
+                                editable = {};
+                                editable[headerRow[colKey]] = currentValue;
+                                editable.Visible = false;
+
+                            }
                         }
+
+
+                    }
+
+                    if (orginalColumnName.toLowerCase() === key.toLowerCase()) {
+                        editableArray.push(editable);
                     }
 
 
-                }
+                } else {
+                    //CREATE CUSTOM COULMN
+                    if (customColumnName !== undefined && customColumnValue !== undefined) {
 
-                if (orginalColumnName.toLowerCase() === key.toLowerCase()) {
-                    editableArray.push(editable);
-                }
-            } else {
-                //CREATE CUSTOM COULMN
-                if (customColumnName !== undefined && customColumnValue !== undefined) {
+                        var strVal = findReplaceCurlyBraces(rowData, customColumnValue);
+                        if (preStr != strVal) {
+                            tb += '<td data-label="' + headerRow[colKey] + '">' + strVal + '</td>';
+                            preStr = strVal;
+                        }
 
-                    var strVal = findReplaceCurlyBraces(rowData, customColumnValue);
-                    if (preStr != strVal) {
-                        tb += '<td data-label="' + headerRow[colKey] + '">' + strVal + '</td>';
-                        preStr = strVal;
+
                     }
-
-
                 }
+
+
+
             }
-
-
-
-
 
 
         });

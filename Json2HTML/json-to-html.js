@@ -5,7 +5,7 @@ var scripts = [
     '/Json2HTML/js/createDropdown.js',
     '/Json2HTML/js/createList.js',
     '/Json2HTML/js/createRadioButton.js',
-    '/Json2HTML/js/createTable.js',
+    // '/Json2HTML/js/createTable.js',
     '/Json2HTML/js/createPagination.js',
     '/Json2HTML/js/createModal.js',
     '/Json2HTML/js/createPopupModal.js',

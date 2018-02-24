@@ -85,7 +85,7 @@ function httpGet(url, params, callback) {
         type: "GET",
         url: url,
         headers: params,
-        async: false,
+        //async: false,
         withCredentials: false
     }).done(function(data) {
 
