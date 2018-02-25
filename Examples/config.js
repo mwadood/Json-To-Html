@@ -44,6 +44,9 @@ function loadPage(pageName, callback) {
 
     $('main').load(pageName, function() {
 
+        $('.j2HTMLMenu').removeClass('active');
+        $(this).addClass('active');
+
         if (callback !== undefined) {
             callback();
         }
