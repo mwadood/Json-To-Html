@@ -1,4 +1,26 @@
-/* 
+function chkHome() {
+
+    $('#divJ2HTMLCheckboxExamples').hide();
+    $('#divJ2HTMLCheckbox').show();
+}
+
+
+function setTableMenu(id) {
+    if ($('#divJ2HTMLCheckboxExamples').is(':visible') === false) {
+        $('#divJ2HTMLCheckbox').hide();
+        $('#divJ2HTMLCheckboxExamples').show();
+        $('.j2HTMLCheckBoxMenu').removeClass('active');
+        $('#' + id).addClass('active');
+    } else {
+        $('.j2HTMLCheckBoxMenu').removeClass('active');
+        $('#' + id).addClass('active');
+    }
+}
+
+
+
+
+/*
  ***************************************************************************** 
  ************************************* CHECKBOX ******************************
  ***************************************************************************** 
@@ -32,17 +54,32 @@ function verticalCheckbox() {
         j2HTML.Checkbox({
 
             Data: myObject,
-            AppendTo: 'divCheckbox',
+            AppendTo: '#divCheckbox',
             Text: 'City',
             Direction: 'Vertical'
 
         });
-
+        setTableMenu('VerticalCHK');
 
     });
 }
 
+function horizontalCheckbox() {
 
+    GetCustomers(function(myObject) {
+
+        j2HTML.Checkbox({
+
+            Data: myObject,
+            AppendTo: '#divCheckbox',
+            Text: 'City',
+            //Direction: 'Vertical'
+
+        });
+
+        setTableMenu('HorizontalCHK');
+    });
+}
 
 
 
