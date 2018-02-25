@@ -3,7 +3,8 @@
 
         <ul class="nav navbar-nav">
             <li id="ListHome" class="j2HTMLListMenu active"><a href="#" onclick="ListHome()">Home</a></li>
-            <li id="list" class="j2HTMLListMenu"><a href="#" onclick="getJ2HTMLList();">List</a></li>
+            <li id="list" class="j2HTMLListMenu"><a href="#" onclick="J2HTMLList();">List</a></li>
+            <li id="filterList" class="j2HTMLListMenu"><a href="#" onclick="J2HTMLListFilter();">Filter List</a></li>
 
         </ul>
     </div>
@@ -18,5 +19,7 @@
 
 
 <div id="divJ2HTMLListExamples" style="display:none">
+
+    <input type="text" id="txtFilterList" class="form-control" oninput="filterResult('#unorderList', 'li', this.value)" placeholder="filter list ..." style="display:none">
     <ul id="unorderList"></ul>
 </div>

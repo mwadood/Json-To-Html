@@ -34,7 +34,7 @@ function setTableMenu(id) {
     
 */
 
-function getJ2HTMLList() {
+function J2HTMLList() {
 
     GetProducts(function(myObject) {
 
@@ -46,8 +46,47 @@ function getJ2HTMLList() {
 
         });
 
-
+        $('#txtFilterList').hide();
         setTableMenu('list');
 
     });
+}
+
+
+
+//**************************************************
+//*************** FILTER LIST **********************
+//**************************************************
+/*
+     BY USING FILTER FUNCTION, FILTER THE LIST
+    
+     1. input to HTML 
+            <input type="text" class="form-control" oninput="filterResult('#unorderList', 'li', this.value)" placeholder="filter list ...">
+          
+    CREATE function filterResult ASSUMPTION: list is avaiable in HTML
+            <ul id="unorderList"></ul>
+    
+*/
+
+function J2HTMLListFilter() {
+
+    GetProducts(function(myObject) {
+
+        j2HTML.List({
+
+            Data: myObject,
+            AppendTo: '#unorderList',
+            Text: 'ProductName'
+
+        });
+
+        $('#txtFilterList').show();
+        setTableMenu('filterList');
+
+    });
+}
+
+function filterResult(controlName, li, value) {
+
+    j2HTML.Filter(controlName, li, value);
 }

@@ -31,9 +31,6 @@ function list() {
     var li = '';
 
     if (error === '') {
-        //IF OBJECT
-        //if (data.length > 0) {
-
         $.each(data, function(i, v) {
 
             var count = 0;
@@ -55,27 +52,6 @@ function list() {
         });
         $(appendTo).empty();
         $(appendTo).append(li);
-        //}
-        // // IF ARRAY
-        // else {
-        //     var count = 0;
-        //     var liText = '';
-        //     $.each(data, function(ii, vv) {
-
-        //         if (ii === text) {
-        //             liText = vv;
-        //         }
-
-        //         count = count + 1;
-
-        //         if (Object.keys(data).length == count) {
-
-        //             li += '<option>' + liText + '</option>';
-        //         }
-        //     });
-        //     $(appendTo).empty();
-        //     $(appendTo).append(li);
-        // }
 
     } else {
         alert(error);
