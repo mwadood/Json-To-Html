@@ -2,6 +2,19 @@
  ***************************************************************************** 
  ********************************** TABLE ************************************
  ***************************************************************************** 
+       
+             REQUIRED PARAMETER(s)
+             1. Data: Jason data	required
+                BY DEFAULT ATABLE APPEND TO BODY TAG
+
+             OPTIONAL PARAMETER(s)
+             1. TableID: Table  id  if you want to assign specific id to table	optional
+             2. AppendTo:	HTML Element ID to append table to, by default table will be append to <body>	optional
+             3. DefaultHeader:	By default show the default header 	
+             4. CustomerHeader:	Set column(s) to display and custom header 	optional
+             5. AddToColumn:	Append or Prepend value to column	optional
+             6. Sort: 	By default it is On	(True or False)
+      
  */
 
 
@@ -133,6 +146,11 @@ function appendAndPrepandWithCustomColumns() {
 //**************************************************
 /*
      BY USING HEADINGSTYLE FUNCTION WILL CHANGE THE TABLE HEADER FORECOLOR AND BACKGROUND COLOR
+     REQUIRED PARAMETER(s)
+             1. TableID: Specific ID of table
+             2. BackgroundColor: Background color of table's heading
+             3. ForeColor: ForeColor of table of table's heading
+
 */
 function tableHeadingStyle() {
     GetEmployees(function(myObject) {
@@ -146,7 +164,7 @@ function tableHeadingStyle() {
 
             TableID: '#tbTest',
             BackgroundColor: 'black',
-            Forecolor: 'white'
+            ForeColor: 'white'
 
         });
 
@@ -174,7 +192,7 @@ function tableBodyStyle() {
 
             TableID: '#tbTest',
             BackgroundColor: 'black',
-            Forecolor: 'lightblue'
+            ForeColor: 'lightblue'
 
         });
 
@@ -198,17 +216,18 @@ function headerAndTableStyle() {
             Data: myObject,
             TableID: '#tbTest',
             AppendTo: '#divTable',
+
         }).HeadingStyle({
 
             TableID: '#tbTest',
             BackgroundColor: 'lightyellow',
-            Forecolor: 'black'
+            ForeColor: 'black'
 
         }).TableStyle({
 
             TableID: '#tbTest',
             BackgroundColor: 'black',
-            Forecolor: 'lightblue'
+            ForeColor: 'lightblue'
 
         });
 
@@ -298,6 +317,7 @@ function tablePaging() {
         }).Paging({
 
             TableID: '#tbTest',
+            PaginationAppendTo: '#divPagination',
             RowsPerPage: 5,
             ShowPages: 8,
             StartPage: 7
@@ -308,7 +328,55 @@ function tablePaging() {
 }
 
 
+//**************************************************
+//*************** EXAMPLE-8 ************************
+//**************************************************
 
+/*
+     BY USING PRINT FUNCTION YOU CAN EXPORT HTML TABLE TO CSV OR PDF
+    
+     1. ADD button to HTML 
+            <button class="btn btn-sm btn-primary" onclick="printCSV();">CSV</button>
+            
+    CREATE function printCSV ASSUMPTION: table is avaiable in HTML
+     
+*/
+function exportTable() {
+
+
+    GetCustomers(function(myObject) {
+
+        $('#btnExportToCVS').show();
+
+
+        j2HTML.Table({
+            Data: myObject,
+            TableID: '#tbTest',
+            AppendTo: '#divTable',
+        }).Paging({
+
+            TableID: '#tbTest',
+            PaginationAppendTo: '#divPagination',
+            RowsPerPage: 5,
+            ShowPages: 8,
+            StartPage: 7
+
+        });
+
+    });
+
+}
+
+
+
+function printCSV() {
+
+    j2HTML.Print({
+
+        TableID: '#tbTest',
+        Print: 'CSV'
+    });
+}
 
 
 
@@ -363,30 +431,7 @@ function testDelete(data) {
 //     RowsPerPage: 5
 // });
 
-//**************************************************
-//*************** EXAMPLE-8 ************************
-//**************************************************
 
-/*
-     BY USING PRINT FUNCTION YOU CAn EXPORT HTML TABLE TO CSV OR PDF
-    
-     1. ADD button to HTML 
-            <button class="btn btn-sm btn-primary" onclick="printCSV();">CSV</button>
-            
-    CREATE function printCSV ASSUMPTION: table is avaiable in HTML
-    
-    UN-Comment the following code to see the result
-    
-*/
-// function printCSV() {
-
-//     var p = new jsonToHtml();
-//     p.Print({
-
-//         //TableID: 'tbTest',
-//         Print: 'CSV'
-//     });
-// }
 
 
 

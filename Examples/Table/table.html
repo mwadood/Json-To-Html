@@ -40,6 +40,7 @@
             </li>
 
             <li><a href="#" onclick="tablePaging();">Paging</a></li>
+            <li><a href="#" onclick="exportTable();">Print</a></li>
             <!-- <li><a href="#" onclick="tableHeadingStyle();">Header Style</a></li> -->
         </ul>
     </div>
@@ -59,7 +60,7 @@
         <input id="txtSearch" type="text" class="form-control" placeholder="search..." style="margin-bottom:10px; display:none">
     </div>
     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
-        <button class="btn btn-sm btn-primary" onclick="printCSV();" style="display:none">CSV</button>
+        <button id="btnExportToCVS" class="btn btn-sm btn-primary" onclick="printCSV();" style="display:none">CSV</button>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
         <button class="btn btn-sm btn-primary" onclick="printPDF();" style="display:none">PDF</button>

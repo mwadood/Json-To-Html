@@ -657,15 +657,35 @@ function createRowNoHeader(rowData, id) {
 function j2HTMLHeadingStyle() {
 
     var args = arguments[0][0];
-    var tableName = args.TableID;
-    var backgroundColor = args.BackgroundColor;
-    var forecolor = args.Forecolor;
 
-    if (tableName !== undefined) {
-        $(tableName + ' thead tr').css({ 'background-color': backgroundColor, 'color': forecolor });
-    } else {
-        $('#tbJsonToHtml thead tr').css({ 'background-color': backgroundColor, 'color': forecolor });
+    var error = '';
+
+    if (args.TableID === undefined) {
+        error += 'Table Id is required\n';
     }
+    if (args.BackgroundColor === undefined) {
+        error += 'Header background color is required\n';
+    }
+    if (args.ForeColor === undefined) {
+        error += 'Header fore color is required\n';
+    }
+
+    if (error === '') {
+        var tableName = args.TableID;
+        var backgroundColor = args.BackgroundColor;
+        var forecolor = args.ForeColor;
+
+        if (tableName !== undefined) {
+            $(tableName + ' thead tr').css({ 'background-color': backgroundColor, 'color': forecolor });
+        } else {
+            $('#tbJsonToHtml thead tr').css({ 'background-color': backgroundColor, 'color': forecolor });
+        }
+    } else {
+        alert(error);
+    }
+
+
+
 }
 
 
@@ -675,16 +695,34 @@ function j2HTMLHeadingStyle() {
 function j2HTMLTableStyle() {
 
     var args = arguments[0][0];
-    var tableName = args.TableID;
-    var backgroundColor = args.BackgroundColor;
-    var forecolor = args.Forecolor;
 
-    if (tableName !== undefined) {
-        $(tableName + ' tbody tr').css({ 'background-color': backgroundColor, 'color': forecolor });
-        $(tableName).removeClass('table-striped');
+    var error = '';
+
+    if (args.TableID === undefined) {
+        error += 'Table Id is required\n';
+    }
+    if (args.BackgroundColor === undefined) {
+        error += 'Table background color is required\n';
+    }
+    if (args.ForeColor === undefined) {
+        error += 'Table forecolor is required\n';
+    }
+
+    if (error === '') {
+
+        var tableName = args.TableID;
+        var backgroundColor = args.BackgroundColor;
+        var forecolor = args.ForeColor;
+
+        if (tableName !== undefined) {
+            $(tableName + ' tbody tr').css({ 'background-color': backgroundColor, 'color': forecolor });
+            $(tableName).removeClass('table-striped');
+        } else {
+            $('#tbJsonToHtml tbody tr').css({ 'background-color': backgroundColor, 'color': forecolor });
+            $('#tbJsonToHtml').removeClass('table-striped');
+        }
     } else {
-        $('#tbJsonToHtml tbody tr').css({ 'background-color': backgroundColor, 'color': forecolor });
-        $('#tbJsonToHtml').removeClass('table-striped');
+        alert(error);
     }
 }
 
@@ -766,29 +804,31 @@ function j2HTMLPrint() {
 
     //var csv = false;
     var fileName = false;
-    var tableID = 'tbJsonToHtml';
+    var tableID = '#tbJsonToHtml';
 
     if (args.TableID !== undefined) {
 
         tableID = args.TableID;
     }
 
-
+    var printTableID = tableID.slice(1, tableID.length);
     // PRINT CSV
     if (args.Print === 'CSV' || args.Print === 'CSV') {
+
+
         if (args.FileName !== undefined) {
-            toCSV(tableID, args.FileName);
+            toCSV(printTableID, args.FileName);
         } else {
-            toCSV(tableID);
+            toCSV(printTableID);
         }
     }
 
     // PRINT PDF
     if (args.Print === 'PDF' || args.Print === 'pdf') {
         if (args.FileName !== undefined) {
-            toPDF(tableID, args.FileName);
+            toPDF(printTableID, args.FileName);
         } else {
-            toPDF(tableID);
+            toPDF(printTableID);
         }
     }
 
@@ -822,6 +862,7 @@ function toPDF(tableId, filename) {
 //****************************************************************************
 
 function toCSV(tableId, filename) {
+
     this._filename = (typeof filename === 'undefined') ? tableId : filename;
     // Generate our CSV string from out HTML Table
     var csv = _tableToCSV(document.getElementById(tableId));
@@ -854,6 +895,9 @@ function _downloadAnchor(content, ext) {
 }
 
 function _tableToCSV(table) {
+
+
+
     // We'll be co-opting `slice` to create arrays
     var slice = Array.prototype.slice;
 
