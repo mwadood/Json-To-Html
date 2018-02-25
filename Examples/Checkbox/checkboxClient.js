@@ -23,6 +23,48 @@
                 JSON object and bind to Radio button    
 */
 
+
+
+function verticalCheckbox() {
+
+    GetCustomers(function(myObject) {
+
+        j2HTML.Checkbox({
+
+            Data: myObject,
+            AppendTo: 'divCheckbox',
+            Text: 'City',
+            Direction: 'Vertical'
+
+        });
+
+
+    });
+}
+
+
+
+
+
+// $(function() {
+
+//     GetCustomers(function(myObject) {
+
+//         j2HTML.Checkbox({
+
+//             Data: myObject,
+//             AppendTo: 'divCheckbox',
+//             Text: 'City',
+//             Direction: 'Vertical'
+
+//         });
+
+
+//     });
+
+// });
+
+
 // x.Checkbox({
 
 //     Data: myObject,

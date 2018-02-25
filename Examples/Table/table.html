@@ -1,12 +1,13 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">TABLE</a>
-        </div>
+        <!-- <div class="navbar-header">
+            <a class="navbar-brand" href="#" onclick="tableHome();">TABLE</a>
+        </div> -->
         <ul class="nav navbar-nav">
-            <li><a href="#" onclick="basic();">Basic</a></li>
-            <li><a href="#" onclick="addCustomHeader();">Custom Header</a></li>
-            <li class="dropdown">
+            <li id="tableHome" class="j2HTMLTableMenu active"><a href="#" onclick="tableHome">Home</a></li>
+            <li id="BasicExample" class="j2HTMLTableMenu"><a href="#" onclick="basic();">Basic</a></li>
+            <li id="AddCustomHeaderExample" class="j2HTMLTableMenu"><a href="#" onclick="addCustomHeader();">Custom Header</a></li>
+            <li id="AppendAndPrepandExample" class="dropdown j2HTMLTableMenu">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Append and Prepand
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -17,7 +18,7 @@
             </li>
 
 
-            <li class="dropdown">
+            <li id="Style" class="dropdown j2HTMLTableMenu">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Style
                         <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -29,7 +30,7 @@
             </li>
 
 
-            <li class="dropdown">
+            <li id="Search" class="dropdown j2HTMLTableMenu">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Search
                             <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -39,11 +40,11 @@
                 </ul>
             </li>
 
-            <li><a href="#" onclick="tablePaging();">Paging</a></li>
-            <li><a href="#" onclick="exportTable();">Print</a></li>
-            <li><a href="#" onclick="AddColumnToTable();">Add Column</a></li>
+            <li id="Paging" class="j2HTMLTableMenu"><a href="#" onclick="tablePaging();">Paging</a></li>
+            <li id="Print" class="j2HTMLTableMenu"><a href="#" onclick="exportTable();">Print</a></li>
+            <li id="AddColumn" class="j2HTMLTableMenu"><a href="#" onclick="AddColumnToTable();">Add Column</a></li>
 
-            <li class="dropdown">
+            <li id="CurdOperations" class="dropdown j2HTMLTableMenu">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">CRUD Operations
                                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -62,26 +63,32 @@
 
 
 
-<div>
-    <div id="divPagination" class="pull-left"></div>
-    <!-- <div id="btnCreate" class="pull-right"></div> -->
+<div id="divJ2HTMLTable">
+    <h1>Table Detail</h1>
 </div>
 
 
+<div id="divJ2HTMLTableExamples" style="display:none">
+    <div>
+        <div id="divPagination" class="pull-left"></div>
+        <!-- <div id="btnCreate" class="pull-right"></div> -->
+    </div>
 
-<div class="row">
-    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-12">
-        <input id="txtSearch" type="text" class="form-control" placeholder="search..." style="margin-bottom:10px; display:none">
+
+
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-12">
+            <input id="txtSearch" type="text" class="form-control" placeholder="search..." style="margin-bottom:10px; display:none">
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
+            <button id="btnExportToCVS" class="btn btn-sm btn-primary" onclick="printCSV();" style="display:none">CSV</button>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
+            <button class="btn btn-sm btn-primary" onclick="printPDF();" style="display:none">PDF</button>
+        </div>
     </div>
-    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
-        <button id="btnExportToCVS" class="btn btn-sm btn-primary" onclick="printCSV();" style="display:none">CSV</button>
-    </div>
-    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
-        <button class="btn btn-sm btn-primary" onclick="printPDF();" style="display:none">PDF</button>
-    </div>
+
 </div>
-
-
 
 
 

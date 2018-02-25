@@ -1,4 +1,28 @@
-/* 
+function tableHome() {
+
+    $('#divJ2HTMLTableExamples').hide();
+    $('#divJ2HTMLTable').show();
+}
+
+
+function setTableMenu(id) {
+    if ($('#divJ2HTMLTableExamples').is(':visible') === false) {
+        $('#divJ2HTMLTable').hide();
+        $('#divJ2HTMLTableExamples').show();
+        $('.j2HTMLTableMenu').removeClass('active');
+        $('#' + id).addClass('active');
+    } else {
+        $('.j2HTMLTableMenu').removeClass('active');
+        $('#' + id).addClass('active');
+    }
+}
+
+
+
+
+
+
+/*
  ***************************************************************************** 
  ********************************** TABLE ************************************
  ***************************************************************************** 
@@ -18,11 +42,13 @@
              8. CreateFunction: To insert row to table
              9. DeleteFunction: To Delete table row
 
-
+*/
 //**************************************************
 //************ EXAMPLE-1 (BASIC) *******************
 //**************************************************
 function basic() {
+
+
 
     //GET DATA FROM DATABASE
     GetCustomers(function(myObject) {
@@ -32,6 +58,9 @@ function basic() {
             Data: myObject,
             AppendTo: '#divTable'
         });
+
+        setTableMenu('BasicExample');
+
 
     });
 
@@ -67,6 +96,9 @@ function addCustomHeader() {
             CustomHeader: customHeader
         });
 
+        setTableMenu('AddCustomHeaderExample');
+
+
     });
 }
 
@@ -93,6 +125,8 @@ function appendAndPrepandWithDefaultColumns() {
             AppendTo: '#divTable',
             AddToColumn: addToColumn
         });
+
+        setTableMenu('AppendAndPrepandExample');
 
     });
 }
@@ -137,6 +171,8 @@ function appendAndPrepandWithCustomColumns() {
             CustomHeader: customHeader
         });
 
+        setTableMenu('AppendAndPrepandExample');
+
     });
 }
 
@@ -168,6 +204,7 @@ function tableHeadingStyle() {
 
         });
 
+        setTableMenu('Style');
 
     });
 }
@@ -195,6 +232,8 @@ function tableBodyStyle() {
             ForeColor: 'lightblue'
 
         });
+
+        setTableMenu('Style');
 
     });
 }
@@ -230,6 +269,8 @@ function headerAndTableStyle() {
             ForeColor: 'lightblue'
 
         });
+
+        setTableMenu('Style');
 
     });
 
@@ -268,6 +309,8 @@ function searchWholeTable() {
 
         });
 
+        setTableMenu('Search');
+
     });
 }
 
@@ -291,6 +334,8 @@ function searchWithInSpecificColumn() {
             SearchInColumns: ['ProductID', 'ProductName']
 
         });
+
+        setTableMenu('Search');
 
     });
 }
@@ -323,6 +368,8 @@ function tablePaging() {
             StartPage: 7
 
         });
+
+        setTableMenu('Paging');
 
     });
 }
@@ -361,6 +408,9 @@ function exportTable() {
             StartPage: 7
 
         });
+
+
+        setTableMenu('Print');
 
     });
 
@@ -416,6 +466,8 @@ function AddColumnToTable() {
 
         });
 
+        setTableMenu('AddColumn');
+
     });
 }
 
@@ -456,6 +508,8 @@ function insertNewRow() {
             StartPage: 7
 
         });
+
+        setTableMenu('CurdOperations');
 
     });
 }
@@ -501,6 +555,8 @@ function updateTableRow() {
 
         });
 
+        setTableMenu('CurdOperations');
+
     });
 }
 
@@ -545,53 +601,11 @@ function deleteTableRow() {
 
         });
 
+        setTableMenu('CurdOperations');
+
     });
 }
 
 function testDelete(data) {
     var test = data;
 }
-
-
-// //CREATE CUSTOM HEADER
-// var customHeader = [
-
-//     //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' },
-//     //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' },
-//     { 'orginalColumnName': 'CustomerID', 'newColumnName': 'ID', 'Visible': false },
-//     { 'orginalColumnName': 'CompanyName', 'newColumnName': 'Company', 'Visible': true },
-//     //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' },
-//     { 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' },
-//     { 'orginalColumnName': 'City', 'newColumnName': 'City', 'Visible': true },
-//     { 'orginalColumnName': 'Country', 'newColumnName': 'Country', 'Visible': true },
-//     //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary" value="{{Country}}">{{CustomerID}}</button>' }
-//     //{ 'customColumnName': ' ', 'customColumnValue': '<button class="btn btn-sm btn-primary">Submit</button>' }
-
-// ];
-
-// //ADD COLUMN TO
-// var addToColumn = [
-//     { 'ColumanName': 'Country', 'Value': 'Country: ', 'Type': 'prepend' },
-//     { 'ColumanName': 'City', 'Value': '(city name)', 'Type': 'append' }
-// ];
-
-
-// j2HTML.Table({
-//     Data: myObject,
-//     TableID: 'tbTest',
-//     AppendTo: '#divTable',
-//     //CustomHeader: customHeader,
-//     //DefaultHeader: false,
-//     UpdateFunction: testUpdate,
-//     CreateFunction: testInsert,
-//     DeleteFunction: testDelete,
-//     //CreateButtonAppendTo: '#btnCreate',
-//     //AddToColumn: addToColumn
-// }).Paging({
-//     TableID: 'tbTest',
-//     RowsPerPage: 5,
-//     ShowPages: 8,
-//     PaginationAppendTo: 'divPagination',
-//     StartPage: 7
-
-// });
