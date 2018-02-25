@@ -10,10 +10,8 @@ $(document).ready(function() {
         $('#txtFooter').html('&copy; ' + new Date().getFullYear() + ' - Wahid Technology');
 
     });
-    //loadPage('index.html');
 
-    //$('#divModals').empty();
-    //$('#divModals').load('/html/modals.html');
+    $('main').load('j2HTML.html');
 
 });
 
@@ -38,14 +36,14 @@ window.addEventListener('popstate', function(e) {
 
 function loadPage(pageName, callback) {
 
+    $('.j2HTMLMenu').removeClass('active');
+    $(this).addClass('active');
+
     $('main').empty();
 
     addHistory(pageName);
 
     $('main').load(pageName, function() {
-
-        $('.j2HTMLMenu').removeClass('active');
-        $(this).addClass('active');
 
         if (callback !== undefined) {
             callback();
