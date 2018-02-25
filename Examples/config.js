@@ -34,10 +34,10 @@ window.addEventListener('popstate', function(e) {
     }
 });
 
-function loadPage(pageName, callback) {
+function loadPage(pageName, id, callback) {
 
     $('.j2HTMLMenu').removeClass('active');
-    $(this).addClass('active');
+    $('#' + id).addClass('active');
 
     $('main').empty();
 
