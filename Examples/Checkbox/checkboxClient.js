@@ -16,10 +16,6 @@ function setTableMenu(id) {
         $('#' + id).addClass('active');
     }
 }
-
-
-
-
 /*
  ***************************************************************************** 
  ************************************* CHECKBOX ******************************
@@ -73,7 +69,8 @@ function horizontalCheckbox() {
             Data: myObject,
             AppendTo: '#divCheckbox',
             Text: 'City',
-            //Direction: 'Vertical'
+            Value: 'CustomerID'
+                //Direction: 'Vertical'
 
         });
 

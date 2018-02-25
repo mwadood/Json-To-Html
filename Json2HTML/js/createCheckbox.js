@@ -9,6 +9,8 @@ function checkbox() {
     var direction = 'Horizontal';
     var appendTo = false;
 
+    var error = '';
+
     if (args.Data !== undefined) {
         data = args.Data;
     }
@@ -17,9 +19,25 @@ function checkbox() {
     }
     if (args.Value !== undefined) {
         value = args.Value;
+
+        if (data !== false) {
+            if (data[0].hasOwnProperty(value) === false) {
+                error += 'Value "' + value + '" not found\n';
+            }
+        }
+
+
     }
     if (args.Text !== undefined) {
         text = args.Text;
+
+        if (data !== false) {
+            if (data[0].hasOwnProperty(text) === false) {
+                error += 'Text "' + text + '" not found\n';
+            }
+        }
+    } else {
+        error += 'Text is required';
     }
     if (args.Direction !== undefined) {
         direction = args.Direction;
@@ -28,16 +46,16 @@ function checkbox() {
         appendTo = args.AppendTo;
     }
 
-    var error = '';
+    //var error = '';
     if (data === false) {
         error += 'Data is required \n';
     }
     if (appendTo === false) {
         error += 'Control ID is required to append radion button(AppendTo) \n';
     }
-    if (text === false) {
-        error += 'Text for radio button is required';
-    }
+    // if (text === false) {
+    //     error += 'Text for radio button is required';
+    // }
 
 
     var chk = '';
