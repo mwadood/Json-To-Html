@@ -106,13 +106,13 @@ function table() {
         //****************** CREATE TABLE  ******************
         //***************************************************
         tb = '<table id="' + tableID.slice(1, tableID.length) + '" class="table table-striped table-hover">';
-        createTableHeader();
+        j2HTMLCreateTableHeader();
 
         if (hasDefaultHeader === true && customHeader !== false) {
             alert("hasDefaultHeader and custom header both cannot be present at same time");
         } else {
 
-            createTableRow();
+            j2HTMLCreateTableRow();
 
             if (appendTo !== false) {
                 $(appendTo).html(tb);
@@ -128,7 +128,7 @@ function table() {
 //***************************************************************
 //***************    CREATE TABLE HEADER    *********************
 //***************************************************************
-function createTableHeader() {
+function j2HTMLCreateTableHeader() {
 
     //***************** CREATE DEFAULT HEADER ***************
     if (hasDefaultHeader === true && customHeader === false) {
@@ -248,7 +248,7 @@ function createTableHeader() {
 //***************************************************
 //************** CREATE TABLE ROW *******************
 //***************************************************
-function createTableRow() {
+function j2HTMLCreateTableRow() {
 
     tb += '<tbody>';
 
@@ -284,23 +284,23 @@ function createTableRow() {
             //UPDATE AND DELETE
             if (funUpdate !== false && funDelete !== false) {
 
-                //tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
-                tb += "<td><button class='btn btn-default' onclick='updateTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
-                //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
-                tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
+                //tb += "<td><a href='#' onclick='j2HTMLUpdateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
+                tb += "<td><button class='btn btn-default' onclick='j2HTMLUpdateTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
+                //tb += "<td><a href='#' onclick='deletej2HTMLDeleteTableRowTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
+                tb += "<td><button class='btn btn-default' onclick='j2HTMLDeleteTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
             }
 
             // DELETE ONLY
             if (funUpdate === false && funDelete !== false) {
 
-                //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
-                tb += "<td><button class='btn btn-default' onclick='deleteTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
+                //tb += "<td><a href='#' onclick='j2HTMLDeleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
+                tb += "<td><button class='btn btn-default' onclick='j2HTMLDeleteTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
             }
 
             //UPDATE ONLY
             if (funUpdate !== false && funDelete === false) {
-                // tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
-                tb += "<td><button class='btn btn-default' onclick='updateTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
+                // tb += "<td><a href='#' onclick='j2HTMLUpdateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
+                tb += "<td><button class='btn btn-default' onclick='j2HTMLUpdateTableRow(" + parmFun + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
             }
 
 
@@ -311,7 +311,7 @@ function createTableRow() {
         //CREATE BUTTON
         if (funCreate !== false) {
 
-            var btnCreate = "<button id='j2HTMLBtnInsertNewRow' class='btn btn-sm btn-primary pull-right' style='margin-bottom:5px;' onclick='createNewTableRow(" + JSON.stringify(editableArray) + ");'>Create</button></br>";
+            var btnCreate = "<button id='j2HTMLBtnInsertNewRow' class='btn btn-sm btn-primary pull-right' style='margin-bottom:5px;' onclick='j2HTMLCreateNewTableRow(" + JSON.stringify(editableArray) + ");'>Create</button></br>";
 
             if (createButtonAppendTo === false) {
                 tb = btnCreate.concat(tb);
@@ -953,7 +953,7 @@ function findReplaceCurlyBraces(jsonObj, str) {
 }
 
 //UPDATE TABLE ROW
-function updateTableRow(data, id) {
+function j2HTMLUpdateTableRow(data, id) {
 
     j2HTML.Modal({
 
@@ -969,7 +969,7 @@ function updateTableRow(data, id) {
 }
 
 //CREATE NEW TABLE ROW
-function createNewTableRow(data) {
+function j2HTMLCreateNewTableRow(data) {
 
     var updateButton = false;
     var deleteButton = false;
@@ -995,7 +995,7 @@ function createNewTableRow(data) {
 }
 
 //DELETE TABLE ROW
-function deleteTableRow(modalData, id) {
+function j2HTMLDeleteTableRow(modalData, id) {
 
     $(tableID + ' tbody tr#' + id).remove();
 

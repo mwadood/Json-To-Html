@@ -424,8 +424,8 @@ function update(modalData) {
                 if ($('#txt' + ii).val() !== vv) {
 
                     var colID = 'td' + id + ii;
-                    $('#' + tableID + ' tbody tr#tr' + id + ' td#' + colID).empty()
-                    $('#' + tableID + ' tbody tr#tr' + id + ' td#' + colID).append($('#txt' + ii).val());
+                    $(tableID + ' tbody tr#tr' + id + ' td#' + colID).empty()
+                    $(tableID + ' tbody tr#tr' + id + ' td#' + colID).append($('#txt' + ii).val());
 
                     isContentUpdated = true;
                 }
@@ -472,7 +472,7 @@ function insert(modalData) {
 
     if (isThereContent === true) {
 
-        var rowNumber = 'tr' + $('#' + tableID + ' tbody tr').length;
+        var rowNumber = 'tr' + $(tableID + ' tbody tr').length;
 
         //INSERT ROW TO TABLE
         var tr = '<tr id="' + rowNumber + '">';
@@ -491,27 +491,27 @@ function insert(modalData) {
 
         if (updateButton !== false && deleteButton !== false) {
 
-            //tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
-            tr += "<td><button class='btn btn-default' onclick='updateTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
+            //tb += "<td><a href='#' onclick='j2HTMLUpdateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
+            tr += "<td><button class='btn btn-default' onclick='j2HTMLUpdateTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
             //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
-            tr += "<td><button class='btn btn-default' onclick='deleteTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
+            tr += "<td><button class='btn btn-default' onclick='j2HTMLDeleteTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
         }
         if (updateButton === false && deleteButton !== false) {
 
             //tb += "<td><a href='#' onclick='deleteTableRow(" + JSON.stringify(editableArray) + ");'>Delete</a> </td>";
-            tr += "<td><button class='btn btn-default' onclick='deleteTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
+            tr += "<td><button class='btn btn-default' onclick='j2HTMLDeleteTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-trash'></span></button></td>";
         }
 
         if (updateButton !== false && deleteButton === false) {
 
             //tb += "<td><a href='#' onclick='updateTableRow(" + JSON.stringify(editableArray) + ");'>Edit</a> </td>";
-            tr += "<td><button class='btn btn-default' onclick='updateTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
+            tr += "<td><button class='btn btn-default' onclick='j2HTMLUpdateTableRow(" + JSON.stringify(objData) + ");'><span class='glyphicon glyphicon-pencil'></span></button></td>";
         }
 
 
 
         tr += '</tr>';
-        $('#' + tableID + ' tbody').append(tr);
+        $(tableID + ' tbody').append(tr);
 
 
         createFun(objData);
