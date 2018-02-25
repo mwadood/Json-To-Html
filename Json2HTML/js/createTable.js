@@ -697,19 +697,22 @@ function j2HTMLSearch() {
 
     var args = arguments[0][0];
 
+    var searchBoxID = args.SearchTextBoxID.slice(1, args.SearchTextBoxID.length);
+
+
     if (args.SearchTextBoxID !== undefined) {
 
-        $('#' + args.SearchTextBoxID).on('keyup', function() {
+        $(args.SearchTextBoxID).on('keyup', function() {
 
             var searchText = $(this).val().toLowerCase();
-            var tableName = 'tbJsonToHtml';
+            var tableName = '#tbJsonToHtml';
 
             if (args.TableID !== undefined) {
                 tableName = args.TableID;
             }
 
             if (args.SearchInColumns === undefined) {
-                $.each($('#' + tableName + ' tbody tr'), function(i, v) {
+                $.each($(tableName + ' tbody tr'), function(i, v) {
 
                     if ($(this).text().toLowerCase().indexOf(searchText) === -1) {
                         $(this).hide();
@@ -719,12 +722,12 @@ function j2HTMLSearch() {
 
                 });
             } else {
-                $.each($('#' + tableName + ' tbody tr'), function(i, v) {
+                $.each($(tableName + ' tbody tr'), function(i, v) {
 
                     $row = $(this);
 
                     //var $tds = $(this).find('td');
-                    $.each($('#' + tableName + ' thead tr th'), function(colIndex, ColValue) {
+                    $.each($(tableName + ' thead tr th'), function(colIndex, ColValue) {
 
                         if ($.inArray($(ColValue).text(), args.SearchInColumns) != -1) {
 

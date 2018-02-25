@@ -3,7 +3,7 @@
 //****************************************************************************
 var paginationAppendTo = false;
 var rowsPerPage = 10;
-var tableName = 'tbJsonToHtml';
+var tableName = '#tbJsonToHtml';
 var startPage = 1;
 
 var showPages = false;
@@ -12,11 +12,10 @@ var endPageNumber = false;
 
 
 var totalRows;
-//var selectedPageNumber;
 var totalPages;
 
 
-function paging() {
+function paging(stPage, edPage) {
 
     var error = '';
 
@@ -45,7 +44,7 @@ function paging() {
     }
 
 
-    totalRows = $('#' + tableName).find('tbody tr:has(td)').length;
+    totalRows = $(tableName).find('tbody tr:has(td)').length;
     totalPages = Math.ceil(totalRows / rowsPerPage);
 
     if (totalPages < parseInt(startPage)) {
@@ -88,12 +87,20 @@ function paging() {
         pagination = createPagination(totalPages, showPages, startPageNumber, endPageNumber);
 
         if (paginationAppendTo !== false) {
-            $('#' + paginationAppendTo).empty();
-            $('#' + paginationAppendTo).append(pagination);
+            $(paginationAppendTo).empty();
+            $(paginationAppendTo).append(pagination);
         } else {
-            var div = '<div id="pages">' + pagination + '</div>';
-            $('#' + tableName).after(div);
-
+            var div = '';
+            if ($('#pages').length === 0) {
+                div = '<div id="pages">' + pagination + '</div>';
+                $(tableName).after(div);
+            } else {
+                $('#pages').empty();
+                $('#pages').append(pagination);
+                // $('#pages').remove();
+                // div = '<div id="pages">' + pagination + '</div>';
+                // $(tableName).after(div);
+            }
         }
 
         //SHOW DATA
@@ -109,17 +116,19 @@ function paging() {
         }
     }
 
-    showSelectedPage();
+    showSelectedPage(rowsPerPage);
     showPreviousPages();
     showNextPages();
+
+    //return false;
 }
 
 
 //SHOW PAGINATION DATA
 function showPaginationData(startPageNumber, rowsPerPage) {
 
-    $('#' + tableName).find('tbody tr:has(td)').hide();
-    var tr = $('#' + tableName + ' tbody tr:has(td)');
+    $(tableName).find('tbody tr:has(td)').hide();
+    var tr = $(tableName + ' tbody tr:has(td)');
 
     var nBegin = (startPageNumber - 1) * rowsPerPage;
     var nEnd = startPageNumber * rowsPerPage;
@@ -190,7 +199,7 @@ function createPagination(totalPages, showPages, startPageNumber, endPageNumber)
 }
 
 //PAGINATION
-function showSelectedPage() {
+function showSelectedPage(rowsPerPage) {
 
     $('.pageNumber').click(function() {
 
@@ -206,7 +215,7 @@ function showSelectedPage() {
 //PREVIOUS PAGES
 function showPreviousPages() {
 
-    $('#liPreviousPages').click(function() {
+    $('#liPreviousPages').click(function(e) {
 
         var setStartPage = 1;
         var setEndPage;
@@ -215,21 +224,28 @@ function showPreviousPages() {
         var pStart;
         var pEnd;
 
-        if ($($('#divPagination ul li')).length - 2 === showPages) {
-            setEndPage = parseInt(showPages);
-        } else {
-
-            setEndPage = $($('#divPagination ul li')).length - 2;
-        }
-
         if (paginationAppendTo === false) {
-            Id = 'pages';
+            Id = '#pages';
         } else {
             Id = paginationAppendTo;
         }
 
-        pStart = parseInt($($('#' + Id + ' ul li')[setStartPage]).text());
-        pEnd = parseInt($($('#' + Id + ' ul li')[setEndPage]).text());
+        // if ($($('#divPagination ul li')).length - 2 === showPages) {
+        //     setEndPage = parseInt(showPages);
+        // } else {
+
+        //     setEndPage = $($('#divPagination ul li')).length - 2;
+        // }
+
+        if ($($(Id + ' ul li')).length - 2 === showPages) {
+            setEndPage = parseInt(showPages);
+        } else {
+
+            setEndPage = $($(Id + ' ul li')).length - 2;
+        }
+
+        pStart = parseInt($($(Id + ' ul li')[setStartPage]).text());
+        pEnd = parseInt($($(Id + ' ul li')[setEndPage]).text());
 
         if (pEnd == totalPages) {
             pEnd = pEnd + (showPages - (pEnd % showPages));
@@ -252,15 +268,17 @@ function showPreviousPages() {
         }
         $($('.pageNumber')).parent().removeClass('active');
         $($('.pageNumber')[0]).parent().addClass('active');
-    });
 
+        e.preventDefault();
+    });
     return false;
+
 }
 
 //NEXT SET OF PAGES
 function showNextPages() {
 
-    $('#liNextPages').click(function() {
+    $('#liNextPages').click(function(e) {
 
         var setStartPage = 1;
         var setEndPage = parseInt(showPages);
@@ -269,13 +287,13 @@ function showNextPages() {
         var Id;
 
         if (paginationAppendTo === false) {
-            Id = 'pages';
+            Id = '#pages';
         } else {
             Id = paginationAppendTo;
         }
 
-        var pStart = parseInt($($('#' + Id + ' ul li')[setStartPage]).text());
-        var pEnd = parseInt($($('#' + Id + ' ul li')[setEndPage]).text());
+        var pStart = parseInt($($(Id + ' ul li')[setStartPage]).text());
+        var pEnd = parseInt($($(Id + ' ul li')[setEndPage]).text());
 
         startPageNumber = pStart + parseInt(showPages) - 1;
         endPageNumber = pEnd + parseInt(showPages);
@@ -293,6 +311,10 @@ function showNextPages() {
 
         $($('.pageNumber')).parent().removeClass('active');
         $($('.pageNumber')[0]).parent().addClass('active');
+
+        //return false;
+
+        e.preventDefault();
 
     });
 

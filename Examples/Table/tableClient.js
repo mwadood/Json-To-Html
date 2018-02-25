@@ -218,11 +218,94 @@ function headerAndTableStyle() {
 }
 
 
+//**************************************************
+//*********** EXAMPLE-6 (SEARCH) *******************
+//**************************************************
+
+/*
+   BY USING SEARCH FUNCTION SEARCH WITH IN TABLE OR WITHIN SPECIFIC COLUMN(s)
+   ADD  <input id="txtSearch" type="text" class="form-control" placeholder="search..."> to your page 
+   
+   1. SEARCH WITH IN WHOLE TABLE 
+      
+*/
+function searchWholeTable() {
+
+    GetProducts(function(myObject) {
+
+        $('#txtSearch').show();
+
+        j2HTML.Table({
+
+            Data: myObject,
+            TableID: '#tbTest',
+            AppendTo: '#divTable', //div created in step 1
+
+        }).Search({
+
+            TableID: '#tbTest',
+            SearchTextBoxID: '#txtSearch'
+
+
+        });
+
+    });
+}
+
+
+function searchWithInSpecificColumn() {
+
+    GetProducts(function(myObject) {
+
+        $('#txtSearch').show();
+
+        j2HTML.Table({
+
+            Data: myObject,
+            TableID: '#tbTest',
+            AppendTo: '#divTable', //div created in step 1
+
+        }).Search({
+
+            TableID: '#tbTest',
+            SearchTextBoxID: '#txtSearch',
+            SearchInColumns: ['ProductID', 'ProductName']
+
+        });
+
+    });
+}
 
 
 
 
+//**************************************************
+//********** EXAMPLE-7 (PAGING)*********************
+//**************************************************
 
+/*
+    BY USING PAGING FUNCTION ADD PAGE TO TABLE
+    
+*/
+
+function tablePaging() {
+    GetCustomers(function(myObject) {
+
+        j2HTML.Table({
+            Data: myObject,
+            TableID: '#tbTest',
+            AppendTo: '#divTable',
+        }).Paging({
+
+            TableID: '#tbTest',
+            RowsPerPage: 5,
+            ShowPages: 8,
+            StartPage: 7
+
+        });
+
+    });
+}
 
 
 
@@ -256,85 +339,8 @@ function testDelete(data) {
 
 
 
-//**************************************************
-//********** EXAMPLE-5 (TABLE STYLE)****************
-//**************************************************
-
-/*
-    BY USING TABLESTYLE FUNCTION WILL CHANGE THE TABLE FORECOLOR AND BACKGROUND COLOR 
-    UN-Comment the following code to see the result
-*/
-
-// x.Table({
-//     Data: myObject,
-//     TableID: 'tbTest',
-//     AppendTo: 'divTable', //div created in step 2
-
-// }).HeadingStyle({
-
-//     TableID: 'tbTest',
-//     BackgroundColor: 'lightyellow',
-//     Forecolor: 'black'
-
-// }).TableStyle({
-
-//     TableID: 'tbTest',
-//     BackgroundColor: 'black',
-//     Forecolor: 'lightblue'
-
-// });
 
 
-//**************************************************
-//*********** EXAMPLE-6 (SEARCH) *******************
-//**************************************************
-
-/*
-   BY USING SEARCH FUNCTION SEARCH WITH IN TABLE OR WITHIN SPECIFIC COLUMN(s)
-   ADD  <input id="txtSearch" type="text" class="form-control" placeholder="search..."> to your page 
-   
-   1. SEARCH WITH IN WHOLE TABLE 
-   
-   UN-Comment the following code to see the result
-   
-*/
-
-// x.Table({
-
-//     Data: myObject,
-//     TableID: 'tbTest',
-//     AppendTo: 'divTable', //div created in step 1
-
-// }).Search({
-
-//     TableID: 'tbTest',
-//     SearchTextBoxID: 'txtSearch'
-
-// });
-
-
-/*
-  
-   1. SEARCH WITH IN SPECIFIC COLUMN(s) 
-   IN THIS EXAMPLE WE ARE SEARECH WITH city and Country column
-   
-   UN-Comment the following code to see the result
-   
-*/
-
-// x.Table({
-
-//     Data: myObject,
-//     TableID: 'tbTest',
-//     AppendTo: 'divTable', //div created in step 1
-
-// }).Search({
-
-//     TableID: 'tbTest',
-//     SearchTextBoxID: 'txtSearch',
-//     SearchInColumns: ['City', 'Country']
-
-// });
 
 
 //**************************************************

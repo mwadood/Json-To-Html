@@ -29,7 +29,17 @@
             </li>
 
 
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Search
+                            <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="searchWholeTable();">Search Whole Table</a></li>
+                    <li><a href="#" onclick="searchWithInSpecificColumn();">Search in Specific Column</a></li>
 
+                </ul>
+            </li>
+
+            <li><a href="#" onclick="tablePaging();">Paging</a></li>
             <!-- <li><a href="#" onclick="tableHeadingStyle();">Header Style</a></li> -->
         </ul>
     </div>
@@ -41,6 +51,27 @@
     <div id="divPagination" class="pull-left"></div>
     <!-- <div id="btnCreate" class="pull-right"></div> -->
 </div>
+
+
+
+<div class="row">
+    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-12">
+        <input id="txtSearch" type="text" class="form-control" placeholder="search..." style="margin-bottom:10px; display:none">
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
+        <button class="btn btn-sm btn-primary" onclick="printCSV();" style="display:none">CSV</button>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
+        <button class="btn btn-sm btn-primary" onclick="printPDF();" style="display:none">PDF</button>
+    </div>
+</div>
+
+
+
+
+
+
+
 
 <br>
 <div id="divTable" style="overflow-x:auto;"></div>
