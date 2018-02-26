@@ -5,7 +5,7 @@ function ListHome() {
 }
 
 
-function setTableMenu(id) {
+function setListMenu(id) {
     if ($('#divJ2HTMLListExamples').is(':visible') === false) {
         $('#divJ2HTMLList').hide();
         $('#divJ2HTMLListExamples').show();
@@ -47,7 +47,7 @@ function J2HTMLList() {
         });
 
         $('#txtFilterList').hide();
-        setTableMenu('list');
+        setListMenu('list');
 
     });
 }
@@ -81,7 +81,7 @@ function J2HTMLListFilter() {
         });
 
         $('#txtFilterList').show();
-        setTableMenu('filterList');
+        setListMenu('filterList');
 
     });
 }

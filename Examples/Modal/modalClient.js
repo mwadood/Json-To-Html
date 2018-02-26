@@ -1,3 +1,14 @@
+function setTableMenu(id) {
+
+    $('.j2HTMLListMenu').removeClass('active');
+    $('#' + id).addClass('active');
+
+}
+
+
+
+
+
 /* 
  ***************************************************************************** 
  ************************************* MODAL ******************************
@@ -14,6 +25,23 @@
                     Header: Default is 'True'
                     Footer: Default is 'True'
 */
+
+////1. EXAMPLE (DEFAULT)
+function J2HTMLBasicModal() {
+    GetEmployees(function(modalData) {
+
+        j2HTML.Modal({
+
+            Data: modalData,
+            Heading: 'Employee Information',
+            //Display: 'RadioButton',
+            //ModalID: '#testModal'
+
+        }).ShowModal();
+    });
+}
+
+
 
 function openModal() {
 
