@@ -5,7 +5,7 @@ function chkHome() {
 }
 
 
-function setTableMenu(id) {
+function setCheckboxMenu(id) {
     if ($('#divJ2HTMLCheckboxExamples').is(':visible') === false) {
         $('#divJ2HTMLCheckbox').hide();
         $('#divJ2HTMLCheckboxExamples').show();
@@ -55,7 +55,7 @@ function verticalCheckbox() {
             Direction: 'Vertical'
 
         });
-        setTableMenu('VerticalCHK');
+        setCheckboxMenu('VerticalCHK');
 
     });
 }
@@ -70,11 +70,10 @@ function horizontalCheckbox() {
             AppendTo: '#divCheckbox',
             Text: 'City',
             Value: 'CustomerID'
-                //Direction: 'Vertical'
 
         });
 
-        setTableMenu('HorizontalCHK');
+        setCheckboxMenu('HorizontalCHK');
     });
 }
 

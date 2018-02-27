@@ -5,7 +5,7 @@ function ddlHome() {
 }
 
 
-function setTableMenu(id) {
+function setDropdownMenu(id) {
     if ($('#divJ2HTMLDropdownExamples').is(':visible') === false) {
         $('#divJ2HTMLDropdown').hide();
         $('#divJ2HTMLDropdownExamples').show();
@@ -51,7 +51,7 @@ function j2HTMLDDL() {
             Value: 'ProductID'
 
         });
-        setTableMenu('DDL');
+        setDropdownMenu('DDL');
 
     });
 }
