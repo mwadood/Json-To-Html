@@ -146,7 +146,9 @@ function modal() {
 
 
         var ntb = '';
-        //IF TEXT ONLY
+        //*********************************************/
+        // ************ IF TEXT ONLY ********************
+        //*********************************************/
         if (display.toLowerCase() === 'text' && updateFun === false && createFun === false) {
 
             modalBody = '<div id="' + modalBodyId + 'ModalBody"class="modal-body">';
@@ -182,8 +184,9 @@ function modal() {
             modalBody = modalBody.slice(0, -2);
             modalBody += '</div>';
         }
-
-        //IF TEXTBOX ONLY
+        //*********************************************/
+        // ********** IF TEXTBOX ONLY ******************
+        //*********************************************/
         if (display.toLowerCase() === 'textbox' && updateFun === false && createFun === false) {
 
             modalBody = '<div id="' + modalBodyId + '"class="modal-body">';
@@ -325,7 +328,6 @@ function modal() {
         }
 
 
-
         var strModal = '<div id="' + modalID.replace('#', '') + '" class="modal fade" role="dialog">\
                         <div class="modal-dialog">\
                         <!-- Modal content-->\
@@ -337,12 +339,15 @@ function modal() {
                         </div>\
                         </div>';
 
-        //var ddlID = 'ddl' + modalID.replace('#', '');
+
         if (appendTo === false) {
 
             $('body').append(strModal);
 
-            //IF DROPDOWN
+
+            //*********************************************/
+            // ************ IF DROPDOWN ********************
+            //*********************************************/
             if (display.toLowerCase() === 'Dropdown'.toLowerCase() && updateFun === false && createFun === false) {
 
                 var ddl = '<select id="ddl' + modalBodyId + '" class="form-control" ><option value="-1">Select...</option></select>';
@@ -403,7 +408,14 @@ function hideModal() {
     $(modalID).modal('hide');
 }
 
-//UPDATE ROW DATA
+
+
+
+/**
+ * Update modal for table
+ * 
+ * @param {any} modalData 
+ */
 function update(modalData) {
 
     var id = '';
@@ -446,7 +458,13 @@ function update(modalData) {
 
 }
 
-//INSERT NEW ROW DATA
+
+
+/**
+ * Insert modal for Table
+ * 
+ * @param {any} modalData 
+ */
 function insert(modalData) {
 
     var objData = {};
