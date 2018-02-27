@@ -28,6 +28,10 @@ function setTableMenu(id) {
 
 ////1. EXAMPLE (DEFAULT)
 function J2HTMLBasicModal() {
+
+    $('#loadingModal').modal('show');
+
+
     GetEmployees(function(modalData) {
 
         j2HTML.Modal({
@@ -38,6 +42,9 @@ function J2HTMLBasicModal() {
             //ModalID: '#testModal'
 
         }).ShowModal();
+
+        $('#loadingModal').modal('hide');
+
     });
 }
 
