@@ -31,7 +31,6 @@ function J2HTMLBasicModal() {
 
     $('#loadingModal').modal('show');
 
-
     GetEmployees(function(modalData) {
 
         j2HTML.Modal({
