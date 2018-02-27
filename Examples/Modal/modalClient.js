@@ -1,4 +1,4 @@
-function setTableMenu(id) {
+function setModalMenu(id) {
 
     $('.j2HTMLListMenu').removeClass('active');
     $('#' + id).addClass('active');
