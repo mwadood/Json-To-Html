@@ -21,6 +21,9 @@ function modal() {
     var headingText = '';
     var display = 'text';
 
+    var customColumns = false;
+
+
     var tb = '<table>';
 
 
@@ -51,6 +54,9 @@ function modal() {
     }
     if (args.Footer !== undefined) {
         modalFooter = args.Footer;
+    }
+    if (args.CustomColumns !== undefined) {
+        customColumns = args.CustomColumns;
     }
 
 
@@ -147,7 +153,7 @@ function modal() {
 
         var ntb = '';
         //*********************************************/
-        // ************ IF TEXT ONLY ********************
+        // ************ TEXT ONLY ********************
         //*********************************************/
         if (display.toLowerCase() === 'text' && updateFun === false && createFun === false) {
 
@@ -157,25 +163,72 @@ function modal() {
 
                 ntb = '<table>';
 
-                $.each(v, function(ii, vv) {
+                //************ CUSTOM COLUMN *************************/
+                if (customColumns !== false) {
 
-                    if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+                    //var orginalColumnName = customColumns[i].orginalColumnName;
+                    //var newColumnName = customColumns[i].newColumnName;
+                    var isColumnVisible = customColumns[i].Visible;
 
-                        ntb += '<tr>';
-                        ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                        ntb += '<td>' + vv + '</td>';
-                        ntb += '</tr>';
-                    }
-                    if (v.hasOwnProperty('Visible') === false) {
+                    $.each(customColumns[i], function(colKey, colVal) {
 
-                        ntb += '<tr>';
-                        ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                        ntb += '<td>' + vv + '</td>';
-                        ntb += '</tr>';
-                    }
+                        $.each(v, function(ii, vv) {
+
+                            if (colVal.toLowerCase() === ii.toLowerCase() && isColumnVisible === true) {
+
+                                ntb += '<tr>';
+                                ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                                ntb += '<td>' + vv + '</td>';
+                                ntb += '</tr>';
+
+                            }
+
+                        });
+
+                    });
 
 
-                });
+                } else {
+                    $.each(v, function(ii, vv) {
+
+                        if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+
+                            ntb += '<tr>';
+                            ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                            ntb += '<td>' + vv + '</td>';
+                            ntb += '</tr>';
+                        }
+                        if (v.hasOwnProperty('Visible') === false) {
+
+                            ntb += '<tr>';
+                            ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                            ntb += '<td>' + vv + '</td>';
+                            ntb += '</tr>';
+                        }
+
+
+                    });
+                }
+
+                // $.each(v, function(ii, vv) {
+
+                //     if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+
+                //         ntb += '<tr>';
+                //         ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                //         ntb += '<td>' + vv + '</td>';
+                //         ntb += '</tr>';
+                //     }
+                //     if (v.hasOwnProperty('Visible') === false) {
+
+                //         ntb += '<tr>';
+                //         ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                //         ntb += '<td>' + vv + '</td>';
+                //         ntb += '</tr>';
+                //     }
+
+
+                // });
 
                 ntb += '</table><hr>';
                 modalBody += ntb;

@@ -33,12 +33,25 @@ function J2HTMLBasicModal() {
 
     GetEmployees(function(modalData) {
 
+
+
+        var customColumns = [
+
+
+            { 'orginalColumnName': 'EmployeeID', 'newColumnName': 'ID', 'Visible': false },
+            { 'orginalColumnName': 'FirstName', 'newColumnName': 'First Name', 'Visible': true },
+            { 'orginalColumnName': 'LastName', 'newColumnName': 'Last Name', 'Visible': true },
+            { 'orginalColumnName': 'Title', 'newColumnName': 'Title', 'Visible': true },
+
+
+        ];
+
         j2HTML.Modal({
 
             Data: modalData,
             Heading: 'Employee Information',
-            //Display: 'RadioButton',
-            //ModalID: '#testModal'
+            CustomColumns: customColumns
+
 
         }).ShowModal();
 

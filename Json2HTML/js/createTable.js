@@ -353,8 +353,6 @@ function createRowCustomHeader(rowData, id) {
 
                         if (addToColumn !== false) {
 
-
-
                             var colValuePrependValue = '';
                             var colValueApendValue = '';
 
