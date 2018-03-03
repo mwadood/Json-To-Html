@@ -166,13 +166,14 @@ function modal() {
                 //************ CUSTOM COLUMN *************************/
                 if (customColumns !== false) {
 
-                    //var orginalColumnName = customColumns[i].orginalColumnName;
-                    //var newColumnName = customColumns[i].newColumnName;
-                    var isColumnVisible = customColumns[i].Visible;
 
-                    $.each(customColumns[i], function(colKey, colVal) {
+                    $.each(v, function(ii, vv) {
 
-                        $.each(v, function(ii, vv) {
+                        //var orginalColumnName = customColumns[i].orginalColumnName;
+                        //var newColumnName = customColumns[i].newColumnName;
+                        var isColumnVisible = customColumns[i].Visible;
+
+                        $.each(customColumns[i], function(colKey, colVal) {
 
                             if (colVal.toLowerCase() === ii.toLowerCase() && isColumnVisible === true) {
 
@@ -182,10 +183,10 @@ function modal() {
                                 ntb += '</tr>';
 
                             }
-
                         });
-
                     });
+
+
 
 
                 } else {
