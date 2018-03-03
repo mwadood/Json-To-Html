@@ -50,7 +50,7 @@ function J2HTMLBasicModal() {
 
             Data: modalData,
             Heading: 'Employee Information',
-            CustomColumns: customColumns
+            //CustomColumns: customColumns
 
 
         }).ShowModal();

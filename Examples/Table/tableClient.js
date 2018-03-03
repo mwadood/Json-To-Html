@@ -49,6 +49,17 @@ function setTableMenu(id) {
 function basic() {
 
 
+    var js = "j2HTML.Table({\
+                             Data: myObject, \
+                             AppendTo: '#divTabl'\
+                          });";
+
+
+
+
+    $('#loadingModal').modal('show');
+
+    loadTabsContent('divTableCodeContent', js);
 
     //GET DATA FROM DATABASE
     GetCustomers(function(myObject) {
@@ -60,7 +71,7 @@ function basic() {
         });
 
         setTableMenu('BasicExample');
-
+        $('#loadingModal').modal('hide');
 
     });
 
@@ -73,6 +84,8 @@ function basic() {
 //column name 
 function addCustomHeader() {
 
+
+    $('#loadingModal').modal('show');
 
     GetCustomers(function(myObject) {
 
@@ -97,6 +110,7 @@ function addCustomHeader() {
         });
 
         setTableMenu('AddCustomHeaderExample');
+        $('#loadingModal').modal('hide');
 
 
     });
@@ -110,6 +124,8 @@ function addCustomHeader() {
     UN-Comment the following code to see the result
 */
 function appendAndPrepandWithDefaultColumns() {
+
+    $('#loadingModal').modal('show');
 
     GetCustomers(function(myObject) {
 
@@ -127,7 +143,7 @@ function appendAndPrepandWithDefaultColumns() {
         });
 
         setTableMenu('AppendAndPrepandExample');
-
+        $('#loadingModal').modal('hide');
     });
 }
 
@@ -141,6 +157,8 @@ function appendAndPrepandWithDefaultColumns() {
     UN-Comment the following code to see the result
 */
 function appendAndPrepandWithCustomColumns() {
+
+    $('#loadingModal').modal('show');
 
     GetCustomers(function(myObject) {
 
@@ -172,6 +190,7 @@ function appendAndPrepandWithCustomColumns() {
         });
 
         setTableMenu('AppendAndPrepandExample');
+        $('#loadingModal').modal('hide');
 
     });
 }
@@ -189,6 +208,9 @@ function appendAndPrepandWithCustomColumns() {
 
 */
 function tableHeadingStyle() {
+
+    $('#loadingModal').modal('show');
+
     GetEmployees(function(myObject) {
 
         //BIND TABLE
@@ -205,6 +227,7 @@ function tableHeadingStyle() {
         });
 
         setTableMenu('Style');
+        $('#loadingModal').modal('hide');
 
     });
 }
@@ -217,6 +240,8 @@ function tableHeadingStyle() {
 */
 
 function tableBodyStyle() {
+
+    $('#loadingModal').modal('show');
 
     GetCategories(function(myObject) {
 
@@ -234,6 +259,7 @@ function tableBodyStyle() {
         });
 
         setTableMenu('Style');
+        $('#loadingModal').modal('hide');
 
     });
 }
@@ -247,6 +273,8 @@ function tableBodyStyle() {
 */
 
 function headerAndTableStyle() {
+
+    $('#loadingModal').modal('show');
 
     GetCategories(function(myObject) {
 
@@ -271,6 +299,7 @@ function headerAndTableStyle() {
         });
 
         setTableMenu('Style');
+        $('#loadingModal').modal('hide');
 
     });
 
@@ -291,6 +320,8 @@ function headerAndTableStyle() {
 */
 function searchWholeTable() {
 
+    $('#loadingModal').modal('show');
+
     GetProducts(function(myObject) {
 
         $('#txtSearch').show();
@@ -310,12 +341,15 @@ function searchWholeTable() {
         });
 
         setTableMenu('Search');
+        $('#loadingModal').modal('hide');
 
     });
 }
 
 
 function searchWithInSpecificColumn() {
+
+    $('#loadingModal').modal('show');
 
     GetProducts(function(myObject) {
 
@@ -331,11 +365,12 @@ function searchWithInSpecificColumn() {
 
             TableID: '#tbTest',
             SearchTextBoxID: '#txtSearch',
-            SearchInColumns: ['ProductID', 'ProductName']
+            SearchInColumns: ['ProductID']
 
         });
 
         setTableMenu('Search');
+        $('#loadingModal').modal('hide');
 
     });
 }
@@ -353,6 +388,9 @@ function searchWithInSpecificColumn() {
 */
 
 function tablePaging() {
+
+    $('#loadingModal').modal('show');
+
     GetCustomers(function(myObject) {
 
         j2HTML.Table({
@@ -370,6 +408,7 @@ function tablePaging() {
         });
 
         setTableMenu('Paging');
+        $('#loadingModal').modal('hide');
 
     });
 }
@@ -389,6 +428,8 @@ function tablePaging() {
      
 */
 function exportTable() {
+
+    $('#loadingModal').modal('show');
 
     //FIRST CREATE TABLE
     GetCustomers(function(myObject) {
@@ -411,6 +452,7 @@ function exportTable() {
 
 
         setTableMenu('Print');
+        $('#loadingModal').modal('hide');
 
     });
 
@@ -437,6 +479,8 @@ function printCSV() {
      
 */
 function AddColumnToTable() {
+
+    $('#loadingModal').modal('show');
 
     GetCustomers(function(myObject) {
 
@@ -467,6 +511,7 @@ function AddColumnToTable() {
         });
 
         setTableMenu('AddColumn');
+        $('#loadingModal').modal('hide');
 
     });
 }
@@ -491,6 +536,7 @@ function AddColumnToTable() {
 
 function insertNewRow() {
 
+    $('#loadingModal').modal('show');
 
     GetCustomers(function(myObject) {
 
@@ -510,6 +556,7 @@ function insertNewRow() {
         });
 
         setTableMenu('CurdOperations');
+        $('#loadingModal').modal('hide');
 
     });
 }
@@ -538,6 +585,8 @@ function testInsert(data) {
 
 function updateTableRow() {
 
+    $('#loadingModal').modal('show');
+
     GetCustomers(function(myObject) {
 
         j2HTML.Table({
@@ -556,6 +605,7 @@ function updateTableRow() {
         });
 
         setTableMenu('CurdOperations');
+        $('#loadingModal').modal('hide');
 
     });
 }
@@ -584,6 +634,8 @@ function testUpdate(data) {
 
 function deleteTableRow() {
 
+    $('#loadingModal').modal('show');
+
     GetCustomers(function(myObject) {
 
         j2HTML.Table({
@@ -602,6 +654,7 @@ function deleteTableRow() {
         });
 
         setTableMenu('CurdOperations');
+        $('#loadingModal').modal('hide');
 
     });
 }
