@@ -3,11 +3,28 @@
 
         <ul class="nav navbar-nav">
             <li id="ListHome" class="j2HTMLModalMenu active"><a href="#">Home</a></li>
-            <li id="list" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLBasicModal();">Basic</a></li>
-            <li id="list" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLTextBoxModal();">Textbox</a></li>
-            <li id="list" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLRadioButtonModal();">RadioButton</a></li>
-            <li id="list" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLCheckBoxModal();">CheckBox</a></li>
-            <li id="list" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLDropDownModal();">Dropdown</a></li>
+
+
+            <li id="BasicModal" class="dropdown j2HTMLModalMenu">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Text
+                                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li id="basicDefaultColumn" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLBasicDefaultColumnModal();">Default Column</a></li>
+                    <li id="basicCustomColumn" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLBasicCustomColumnModal();">Custom Column</a></li>
+                </ul>
+            </li>
+
+            <li id="TextBoxModal" class="dropdown j2HTMLModalMenu">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">TextBox
+                                        <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li id="textboxDefaultColumn" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLTextboxDefaultColumnModal();">Default Column</a></li>
+                    <li id="textboxCustomColumn" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLTextboxCustomColumnModal();">Custom Column</a></li>
+                </ul>
+            </li>
+            <li id="RadioButtonModal" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLRadioButtonModal();">RadioButton</a></li>
+            <li id="CheckBoxModal" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLCheckBoxModal();">CheckBox</a></li>
+            <li id="DropdownModal" class="j2HTMLModalMenu"><a href="#" onclick="J2HTMLDropDownModal();">Dropdown</a></li>
 
 
         </ul>

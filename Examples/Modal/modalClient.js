@@ -26,8 +26,81 @@ function setModalMenu(id) {
                     Footer: Default is 'True'
 */
 
-////1. EXAMPLE (DEFAULT)
-function J2HTMLBasicModal() {
+////EXAMPLE 1.1  TEXT (DEFAULT COLUMN)
+function J2HTMLBasicDefaultColumnModal() {
+
+    $('#loadingModal').modal('show');
+
+    GetEmployees(function(modalData) {
+
+        j2HTML.Modal({
+
+            Data: modalData,
+            Heading: 'Employee Information',
+
+        }).ShowModal();
+
+        $('#loadingModal').modal('hide');
+
+    });
+}
+
+
+////EXAMPLE 1.2  (CUSTOM COLUMN)
+function J2HTMLBasicCustomColumnModal() {
+
+    $('#loadingModal').modal('show');
+
+    GetEmployees(function(modalData) {
+
+        var customColumns = [
+
+
+            { 'orginalColumnName': 'EmployeeID', 'newColumnName': 'ID', 'Visible': false },
+            { 'orginalColumnName': 'FirstName', 'newColumnName': 'First Name', 'Visible': true },
+            { 'orginalColumnName': 'LastName', 'newColumnName': 'Last Name', 'Visible': true },
+            { 'orginalColumnName': 'Title', 'newColumnName': 'Title', 'Visible': true },
+
+
+        ];
+
+        j2HTML.Modal({
+
+            Data: modalData,
+            Heading: 'Employee Information',
+            CustomColumns: customColumns
+
+
+        }).ShowModal();
+
+        $('#loadingModal').modal('hide');
+
+    });
+}
+
+
+///EXAMPLE 2.1  TEXT BOX (DEFAULT COLUMN)
+function J2HTMLTextboxDefaultColumnModal() {
+
+    $('#loadingModal').modal('show');
+
+    GetEmployees(function(modalData) {
+
+        j2HTML.Modal({
+
+            Data: modalData,
+            Heading: 'Employee Information',
+            Display: 'TextBox',
+
+        }).ShowModal();
+
+        $('#loadingModal').modal('hide');
+
+    });
+}
+
+///EXAMPLE 2.2  (CUSTOM COLUMN)
+function J2HTMLTextboxCustomColumnModal() {
 
     $('#loadingModal').modal('show');
 
@@ -60,6 +133,61 @@ function J2HTMLBasicModal() {
 
     });
 }
+
+/// EXAMPLE 3 (RADIO BUTTON)
+/* 
+    CREATE HTML ELEMENT
+
+*/
+
+function J2HTMLRadioButtonModal() {
+
+
+    $('#loadingModal').modal('show');
+
+    GetEmployees(function(modalData) {
+
+
+        j2HTML.Modal({
+
+            Data: modalData,
+            Heading: 'Company',
+            Display: 'RadioButton',
+            //ModalID: '#' + modalID
+
+        }).Radio({
+
+            Data: modalData,
+            AppendTo: '#rdbj2HTMLModal',
+            Text: 'Title',
+            Value: 'EmployeeID',
+            Direction: 'Vertical',
+            GroupName: 'rdbCategories',
+
+        }).ShowModal();
+
+        $('#loadingModal').modal('hide');
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
 
 
 
