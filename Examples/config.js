@@ -51,3 +51,18 @@ function loadPage(pageName, id, callback) {
 
     });
 }
+
+
+
+function loadTabsContent(id, instrution, js, html, css) {
+
+    $('#' + id).load('codeTemplateTabs.html', function() {
+
+        $('#divInstructions').empty();
+        $('#divInstructions').html(instrution);
+
+        $('#codeJavascript').empty();
+        $('#codeJavascript').html(js);
+
+    });
+}

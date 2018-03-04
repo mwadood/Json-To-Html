@@ -48,18 +48,15 @@ function setTableMenu(id) {
 //**************************************************
 function basic() {
 
+    //SHOW WAITING MODAL
+    $('#loadingModal').modal('show');
 
     var js = "j2HTML.Table({\
                              Data: myObject, \
                              AppendTo: '#divTabl'\
                           });";
-
-
-
-
-    $('#loadingModal').modal('show');
-
-    loadTabsContent('divTableCodeContent', js);
+    //LOAD TABS
+    loadTabsContent('divTableCodeContent', js, null, null);
 
     //GET DATA FROM DATABASE
     GetCustomers(function(myObject) {

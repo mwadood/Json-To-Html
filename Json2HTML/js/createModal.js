@@ -159,227 +159,248 @@ function modal() {
 
             modalBody = '<div id="' + modalBodyId + 'ModalBody"class="modal-body">';
 
-            $.each(modalData, function(i, v) {
+            //CUSTOM COLUMNS  
+            if (customColumns !== false) {
 
-                ntb = '<table>';
+                $.each(modalData, function(i, v) {
 
-                //************ CUSTOM COLUMN *************************/
-                if (customColumns !== false) {
-
+                    ntb += '<table style="width:95%">';
 
                     $.each(v, function(ii, vv) {
 
-                        //var orginalColumnName = customColumns[i].orginalColumnName;
-                        //var newColumnName = customColumns[i].newColumnName;
-                        var isColumnVisible = customColumns[i].Visible;
 
-                        $.each(customColumns[i], function(colKey, colVal) {
+                        $.each(customColumns, function(colKey, cokValue) {
 
-                            if (colVal.toLowerCase() === ii.toLowerCase() && isColumnVisible === true) {
+                            var orginalColumnName = customColumns[colKey].orginalColumnName;
+                            var newColumnName = customColumns[colKey].newColumnName;
+                            var isColumnVisible = customColumns[colKey].Visible;
+
+                            if (orginalColumnName.toLowerCase() === ii.toLowerCase() && isColumnVisible === true) {
 
                                 ntb += '<tr>';
-                                ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                                ntb += '<td>' + vv + '</td>';
+                                ntb += '<td style="width:auto"><b>' + newColumnName + ': </b>' + '</td>';
+                                ntb += '<td style="width:auto">' + vv + '</td>';
                                 ntb += '</tr>';
 
                             }
+
                         });
+
                     });
 
+                    ntb += '</table><hr>';
+                });
+
+                modalBody += ntb;
+
+                modalBody = modalBody.slice(0, -2);
+                modalBody += '</div>';
 
 
+            }
+            //DEFAULT COLUMNS  
+            else {
 
-                } else {
+                $.each(modalData, function(i, v) {
+
+                    ntb += '<table style="width:95%">';
+
                     $.each(v, function(ii, vv) {
 
                         if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
 
                             ntb += '<tr>';
+                            ntb += '<td style="width:auto"><b>' + ii + ': </b>' + '</td>';
+                            ntb += '<td style="width:auto">' + vv + '</td>';
+                            ntb += '</tr>';
+                        }
+                        if (v.hasOwnProperty('Visible') === false) {
+
+                            ntb += '<tr>';
+                            ntb += '<td style="width:auto"><b>' + ii + ': </b>' + '</td>';
+                            ntb += '<td style="width:auto">' + vv + '</td>';
+                            ntb += '</tr>';
+                        }
+
+
+                    });
+
+                    ntb += '</table><hr>';
+
+                });
+
+
+
+                modalBody += ntb;
+
+                modalBody = modalBody.slice(0, -2);
+                modalBody += '</div>';
+            }
+
+        }
+
+        //*********************************************/
+        // ********** IF TEXTBOX ONLY ******************
+        //*********************************************/
+
+
+
+        //CUSTOM COLUMNS  
+        if (customColumns !== false && display.toLowerCase() === 'textbox') {
+
+
+
+
+        }
+
+        //DEFAULT COLUMNS  
+        else {
+
+
+            //NO UPDATE AND CREATE
+            if (display.toLowerCase() === 'textbox' && updateFun === false && createFun === false) {
+
+                modalBody = '<div id="' + modalBodyId + '"class="modal-body">';
+
+                $.each(modalData, function(i, v) {
+
+                    ntb = '<table>';
+
+                    $.each(v, function(ii, vv) {
+
+                        var id = 'txt' + ii + '"';
+
+                        if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+
+                            ntb += '<tr>';
                             ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                            ntb += '<td>' + vv + '</td>';
+                            ntb += '<td><input id="' + id + ' type="text" class="form-control ' + id + '" value="' + vv + '"></td>';
                             ntb += '</tr>';
                         }
                         if (v.hasOwnProperty('Visible') === false) {
 
                             ntb += '<tr>';
                             ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                            ntb += '<td>' + vv + '</td>';
+                            ntb += '<td><input class="' + id + ' type="text" class="form-control ' + id + '" value="' + vv + '"></td>';
                             ntb += '</tr>';
                         }
 
 
                     });
-                }
 
-                // $.each(v, function(ii, vv) {
+                    ntb += '</table><hr>';
+                    modalBody += ntb;
+                });
 
-                //     if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+                modalBody = modalBody.slice(0, -2);
+                modalBody += '</div>';
+            }
 
-                //         ntb += '<tr>';
-                //         ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                //         ntb += '<td>' + vv + '</td>';
-                //         ntb += '</tr>';
-                //     }
-                //     if (v.hasOwnProperty('Visible') === false) {
+            //UPDATE
+            if (display.toLowerCase() === 'textbox' && updateFun !== false && createFun === false) {
 
-                //         ntb += '<tr>';
-                //         ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                //         ntb += '<td>' + vv + '</td>';
-                //         ntb += '</tr>';
-                //     }
+                createFun = false;
 
+                modalBody = '<div id="' + modalBodyId + '" class="modal-body">';
 
-                // });
-
-                ntb += '</table><hr>';
-                modalBody += ntb;
-            });
-
-            modalBody = modalBody.slice(0, -2);
-            modalBody += '</div>';
-        }
-        //*********************************************/
-        // ********** IF TEXTBOX ONLY ******************
-        //*********************************************/
-        if (display.toLowerCase() === 'textbox' && updateFun === false && createFun === false) {
-
-            modalBody = '<div id="' + modalBodyId + '"class="modal-body">';
+                $.each(modalData, function(i, v) {
 
 
+                    $.each(v, function(ii, vv) {
 
-            $.each(modalData, function(i, v) {
+                        var id = 'txt' + ii + '"';
 
-                ntb = '<table>';
 
-                $.each(v, function(ii, vv) {
+                        if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
 
-                    var id = 'txt' + ii + '"';
+                            tb += '<tr>';
+                            tb += '<td><b>' + ii + ': </b>' + '</td>';
+                            tb += '<td><input id="' + id + ' type="text" class="form-control ' + id + ' value="' + vv + '"></td>';
+                            tb += '</tr>';
 
-                    if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+                        }
 
-                        ntb += '<tr>';
-                        ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                        ntb += '<td><input id="' + id + ' type="text" class="form-control" value="' + vv + '"></td>';
-                        ntb += '</tr>';
-                    }
-                    if (v.hasOwnProperty('Visible') === false) {
 
-                        ntb += '<tr>';
-                        ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                        ntb += '<td><input id="' + id + ' type="text" class="form-control" value="' + vv + '"></td>';
-                        ntb += '</tr>';
-                    }
+                        if (v.hasOwnProperty('Visible') === true && v.Visible === false && ii.toLowerCase() !== 'visible') {
+
+                            tb += '<tr>';
+                            tb += '<td><b>' + ii + ': </b>' + '</td>';
+                            tb += '<td><input id="' + id + ' type="text" style="border:0;" value="' + vv + '" readonly></td>';
+                            tb += '</tr>';
+                        }
+
+                        if (v.hasOwnProperty('Visible') === false) {
+                            tb += '<tr>';
+                            tb += '<td><b>' + ii + ': </b>' + '</td>';
+                            tb += '<td><input id="' + id + ' type="text" class="form-control ' + id + ' value="' + vv + '"></td>';
+                            tb += '</tr>';
+                        }
+
+
+                    });
 
 
                 });
 
-                ntb += '</table><hr>';
-                modalBody += ntb;
-            });
+                tb += '</table>';
+                modalBody += tb;
+                modalBody += '</div>';
+            }
 
-            modalBody = modalBody.slice(0, -2);
-            modalBody += '</div>';
-        }
+            //CREATE
+            if (display.toLowerCase() === 'textbox' && updateFun === false && createFun !== false) {
 
+                updateFun = false;
 
-        if (display.toLowerCase() === 'textbox' && updateFun !== false && createFun === false) {
+                modalBody = '<div id="' + modalBodyId + '" class="modal-body">';
 
-            createFun = false;
+                $.each(modalData, function(i, v) {
 
-            modalBody = '<div id="' + modalBodyId + '" class="modal-body">';
+                    var count = 0;
+                    $.each(v, function(ii, vv) {
 
-            $.each(modalData, function(i, v) {
+                        var id = 'txt' + ii + '"';
 
+                        if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
 
-                $.each(v, function(ii, vv) {
+                            tb += '<tr>';
+                            tb += '<td><b>' + ii + ': </b>' + '</td>';
+                            tb += '<td><input id="' + id + ' type="text" class="form-control ' + id + '" placeholder="' + ii + '"></td>';
+                            tb += '</tr>';
 
-                    var id = 'txt' + ii + '"';
-
-
-                    if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
-
-                        tb += '<tr>';
-                        tb += '<td><b>' + ii + ': </b>' + '</td>';
-                        tb += '<td><input id="' + id + ' type="text" class="form-control" value="' + vv + '"></td>';
-                        tb += '</tr>';
-
-                    }
+                        }
 
 
-                    if (v.hasOwnProperty('Visible') === true && v.Visible === false && ii.toLowerCase() !== 'visible') {
+                        if (v.hasOwnProperty('Visible') === true && v.Visible === false && ii.toLowerCase() !== 'visible') {
 
-                        tb += '<tr>';
-                        tb += '<td><b>' + ii + ': </b>' + '</td>';
-                        tb += '<td><input id="' + id + ' type="text" style="border:0;" value="' + vv + '" readonly></td>';
-                        tb += '</tr>';
-                    }
+                            tb += '<tr>';
+                            tb += '<td><b>' + ii + ': </b>' + '</td>';
+                            tb += '<td><input id="' + id + ' type="text"  class="form-control ' + id + '" placeholder="' + ii + '"></td>';
+                            tb += '</tr>';
+                        }
 
-                    if (v.hasOwnProperty('Visible') === false) {
-                        tb += '<tr>';
-                        tb += '<td><b>' + ii + ': </b>' + '</td>';
-                        tb += '<td><input id="' + id + ' type="text" class="form-control" value="' + vv + '"></td>';
-                        tb += '</tr>';
-                    }
-
-
-                });
+                        if (v.hasOwnProperty('Visible') === false) {
+                            tb += '<tr>';
+                            tb += '<td><b>' + ii + ': </b>' + '</td>';
+                            tb += '<td><input id="' + id + ' type="text" class="form-control ' + id + '" placeholder="' + ii + '"></td>';
+                            tb += '</tr>';
+                        }
 
 
-            });
-
-            tb += '</table>';
-            modalBody += tb;
-            modalBody += '</div>';
-        }
-
-        if (display.toLowerCase() === 'textbox' && updateFun === false && createFun !== false) {
-
-            updateFun = false;
-
-            modalBody = '<div id="' + modalBodyId + '" class="modal-body">';
-
-            $.each(modalData, function(i, v) {
-
-                var count = 0;
-                $.each(v, function(ii, vv) {
-
-                    var id = 'txt' + ii + '"';
-
-                    if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
-
-                        tb += '<tr>';
-                        tb += '<td><b>' + ii + ': </b>' + '</td>';
-                        tb += '<td><input id="' + id + ' type="text" class="form-control" placeholder="' + ii + '"></td>';
-                        tb += '</tr>';
-
-                    }
-
-
-                    if (v.hasOwnProperty('Visible') === true && v.Visible === false && ii.toLowerCase() !== 'visible') {
-
-                        tb += '<tr>';
-                        tb += '<td><b>' + ii + ': </b>' + '</td>';
-                        tb += '<td><input id="' + id + ' type="text"  class="form-control" placeholder="' + ii + '"></td>';
-                        tb += '</tr>';
-                    }
-
-                    if (v.hasOwnProperty('Visible') === false) {
-                        tb += '<tr>';
-                        tb += '<td><b>' + ii + ': </b>' + '</td>';
-                        tb += '<td><input id="' + id + ' type="text" class="form-control" placeholder="' + ii + '"></td>';
-                        tb += '</tr>';
-                    }
+                    });
 
 
                 });
 
+                tb += '</table>';
+                modalBody += tb;
+                modalBody += '</div>';
+            }
 
-            });
-
-            tb += '</table>';
-            modalBody += tb;
-            modalBody += '</div>';
         }
+
+
+
 
 
         var strModal = '<div id="' + modalID.replace('#', '') + '" class="modal fade" role="dialog">\
