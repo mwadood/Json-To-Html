@@ -986,8 +986,8 @@ function j2HTMLCreateNewTableRow(data) {
         Display: 'TextBox',
         TableID: tableID,
         CreateFunction: funCreate,
-        UpdateButton: updateButton,
-        DeleteButton: deleteButton
+        //UpdateButton: updateButton,
+        //DeleteButton: deleteButton
 
     }).ShowModal();
 }

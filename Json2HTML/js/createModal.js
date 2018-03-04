@@ -153,7 +153,7 @@ function modal() {
 
         var ntb = '';
         //*********************************************/
-        // ************ TEXT ONLY ********************
+        // ************ TEXT ********************
         //*********************************************/
         if (display.toLowerCase() === 'text' && updateFun === false && createFun === false) {
 
@@ -240,17 +240,58 @@ function modal() {
         }
 
         //*********************************************/
-        // ********** IF TEXTBOX ONLY ******************
+        // ********** TEXTBOX ******************
         //*********************************************/
-
-
 
         //CUSTOM COLUMNS  
         if (customColumns !== false && display.toLowerCase() === 'textbox') {
 
 
+            $.each(modalData, function(i, v) {
+
+                ntb += '<table style="width:95%">';
+
+                $.each(v, function(ii, vv) {
 
 
+                    $.each(customColumns, function(colKey, cokValue) {
+
+                        var orginalColumnName = customColumns[colKey].orginalColumnName;
+                        var newColumnName = customColumns[colKey].newColumnName;
+                        var isColumnVisible = customColumns[colKey].Visible;
+
+                        if (orginalColumnName.toLowerCase() === ii.toLowerCase() && isColumnVisible === true) {
+
+                            var id = 'txt' + ii + '"';
+
+                            if (v.hasOwnProperty('Visible') === true && v.Visible === true && ii.toLowerCase() !== 'visible') {
+
+                                ntb += '<tr>';
+                                ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                                ntb += '<td><input id="' + id + ' type="text" class="form-control ' + id + ' value="' + vv + '"></td>';
+                                ntb += '</tr>';
+                            }
+                            if (v.hasOwnProperty('Visible') === false) {
+
+                                ntb += '<tr>';
+                                ntb += '<td><b>' + ii + ': </b>' + '</td>';
+                                ntb += '<td><input id="' + id + ' type="text" class="form-control ' + id + ' value="' + vv + '"></td>';
+                                ntb += '</tr>';
+                            }
+
+                        }
+
+                    });
+
+                });
+
+                ntb += '</table><hr>';
+            });
+
+            modalBody += ntb;
+
+            modalBody = modalBody.slice(0, -2);
+            modalBody += '</div>';
         }
 
         //DEFAULT COLUMNS  
@@ -274,14 +315,14 @@ function modal() {
 
                             ntb += '<tr>';
                             ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                            ntb += '<td><input id="' + id + ' type="text" class="form-control ' + id + '" value="' + vv + '"></td>';
+                            ntb += '<td><input id="' + id + ' type="text" class="form-control ' + id + ' value="' + vv + '"></td>';
                             ntb += '</tr>';
                         }
                         if (v.hasOwnProperty('Visible') === false) {
 
                             ntb += '<tr>';
                             ntb += '<td><b>' + ii + ': </b>' + '</td>';
-                            ntb += '<td><input class="' + id + ' type="text" class="form-control ' + id + '" value="' + vv + '"></td>';
+                            ntb += '<td><input id="' + id + ' type="text" class="form-control ' + id + ' value="' + vv + '"></td>';
                             ntb += '</tr>';
                         }
 
@@ -365,7 +406,7 @@ function modal() {
 
                             tb += '<tr>';
                             tb += '<td><b>' + ii + ': </b>' + '</td>';
-                            tb += '<td><input id="' + id + ' type="text" class="form-control ' + id + '" placeholder="' + ii + '"></td>';
+                            tb += '<td><input id="' + id + ' type="text" class="form-control ' + id + ' placeholder="' + ii + '"></td>';
                             tb += '</tr>';
 
                         }
@@ -375,14 +416,14 @@ function modal() {
 
                             tb += '<tr>';
                             tb += '<td><b>' + ii + ': </b>' + '</td>';
-                            tb += '<td><input id="' + id + ' type="text"  class="form-control ' + id + '" placeholder="' + ii + '"></td>';
+                            tb += '<td><input id="' + id + ' type="text"  class="form-control ' + id + ' placeholder="' + ii + '"></td>';
                             tb += '</tr>';
                         }
 
                         if (v.hasOwnProperty('Visible') === false) {
                             tb += '<tr>';
                             tb += '<td><b>' + ii + ': </b>' + '</td>';
-                            tb += '<td><input id="' + id + ' type="text" class="form-control ' + id + '" placeholder="' + ii + '"></td>';
+                            tb += '<td><input id="' + id + ' type="text" class="form-control ' + id + ' placeholder="' + ii + '"></td>';
                             tb += '</tr>';
                         }
 
@@ -511,7 +552,7 @@ function update(modalData) {
                 if ($('#txt' + ii).val() !== vv) {
 
                     var colID = 'td' + id + ii;
-                    $(tableID + ' tbody tr#tr' + id + ' td#' + colID).empty()
+                    $(tableID + ' tbody tr#tr' + id + ' td#' + colID).empty();
                     $(tableID + ' tbody tr#tr' + id + ' td#' + colID).append($('#txt' + ii).val());
 
                     isContentUpdated = true;

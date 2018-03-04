@@ -9,7 +9,9 @@ var scripts = [
     '/Json2HTML/js/createPagination.js',
     // '/Json2HTML/js/createModal.js',
     '/Json2HTML/js/createPopupModal.js',
-    '/Json2HTML/js/createTextBox.js'
+    '/Json2HTML/js/createTextBox.js',
+    '/Json2HTML/js/createForInsert.js'
+
 ];
 
 var queue = scripts.map(function(script) {
@@ -147,6 +149,12 @@ var jsonToHtml = function() {
         return this;
     };
 
+    var Create = function() {
+        args = arguments;
+        createTableForInsert(args);
+        return this;
+    };
+
     return {
         Table: Table,
         HeadingStyle: HeadingStyle,
@@ -166,7 +174,8 @@ var jsonToHtml = function() {
         PopupMessage: PopupMessage,
         ShowPopup: ShowPopup,
         HidePopup: HidePopup,
-        TextBox: TextBox
+        TextBox: TextBox,
+        Create: Create
 
     };
 };
