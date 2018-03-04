@@ -193,7 +193,7 @@ function modal() {
 
                 modalBody += ntb;
 
-                modalBody = modalBody.slice(0, -2);
+                //modalBody = modalBody.slice(0, -2);
                 modalBody += '</div>';
 
 
@@ -233,7 +233,7 @@ function modal() {
 
                 modalBody += ntb;
 
-                modalBody = modalBody.slice(0, -2);
+                //modalBody = modalBody.slice(0, -2);
                 modalBody += '</div>';
             }
 
@@ -246,13 +246,13 @@ function modal() {
         //CUSTOM COLUMNS  
         if (customColumns !== false && display.toLowerCase() === 'textbox') {
 
+            modalBody = '<div id="' + modalBodyId + 'ModalBody"class="modal-body">';
 
             $.each(modalData, function(i, v) {
 
                 ntb += '<table style="width:95%">';
 
                 $.each(v, function(ii, vv) {
-
 
                     $.each(customColumns, function(colKey, cokValue) {
 
@@ -290,7 +290,7 @@ function modal() {
 
             modalBody += ntb;
 
-            modalBody = modalBody.slice(0, -2);
+            //modalBody = modalBody.slice(0, -2);
             modalBody += '</div>';
         }
 
@@ -333,7 +333,7 @@ function modal() {
                     modalBody += ntb;
                 });
 
-                modalBody = modalBody.slice(0, -2);
+                //modalBody = modalBody.slice(0, -2);
                 modalBody += '</div>';
             }
 
@@ -439,10 +439,6 @@ function modal() {
             }
 
         }
-
-
-
-
 
         var strModal = '<div id="' + modalID.replace('#', '') + '" class="modal fade" role="dialog">\
                         <div class="modal-dialog">\
