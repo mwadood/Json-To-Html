@@ -56,6 +56,7 @@ function loadPage(pageName, id, callback) {
 //LOAD TAB CONTENT
 function loadTabsContent(id, instrution, js, html, css) {
 
+
     $('#' + id).load('codeTemplateTabs.html', function() {
 
         $('#divInstructions').empty();
@@ -63,6 +64,8 @@ function loadTabsContent(id, instrution, js, html, css) {
 
         $('#codeJavascript').empty();
         $('#codeJavascript').html(js);
+
+
 
     });
 }

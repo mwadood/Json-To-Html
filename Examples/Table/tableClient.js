@@ -55,8 +55,7 @@ function basic() {
                              Data: myObject, \
                              AppendTo: '#divTabl'\
                           });";
-    //LOAD TABS
-    loadTabsContent('divTableCodeContent', js, null, null);
+
 
     //GET DATA FROM DATABASE
     GetCustomers(function(myObject) {
@@ -68,7 +67,12 @@ function basic() {
         });
 
         setTableMenu('BasicExample');
+
+        //LOAD TABS
+        loadTabsContent('divTableCodeContent', null, js, null, null);
+
         $('#loadingModal').modal('hide');
+
 
     });
 
