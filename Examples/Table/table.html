@@ -64,7 +64,85 @@
 
 
 <div id="divJ2HTMLTable">
-    <h1>Table Detail</h1>
+    <h1>Table</h1>
+
+    <b>REQUIRED PARAMETER(s)</b>
+    <ol>
+        <li>
+            <b>Data: </b> Jason object
+            <br><b>NOTE:</b> BY DEFAULT TABLE APPEND TO HTML BODY ELEMENT
+            <a href="#" onclick="basic();">See Example</a>
+        </li>
+    </ol>
+
+    <b>OPTIONAL PARAMETER(s)</b>
+    <ol>
+        <li>
+            <b>TableID: </b>Table id if you want to assign specific id to table <br><b>Data Type: </b> string
+        </li>
+        <li>
+            <b>AppendTo: </b>HTML Element such as 'div' ID to append table to, by default table will be append to 'body'.
+            <br><b>Data Type: </b> string
+            <a href="#" onclick="basic();">See Example</a>
+        </li>
+        <li>
+            <b>DefaultHeader: </b>By default 'True' show the default header.
+            <br><b>Data Type: </b> Boolen
+        </li>
+
+        <li>
+            <b>CustomerHeader: </b>Set column(s) to display specific columns.
+            <br><b>Data Type: </b> JOSN Object
+            <a href="#" onclick="addCustomHeader();">See Example</a>
+        </li>
+
+        <li>
+            <b>AddToColumn: </b>Append or Prepend value to column.
+            <br><b>Data Type: </b> JOSN Object
+            <a href="#" onclick="appendAndPrepandWithDefaultColumns();">See Example Default Columns</a>
+            <a href="#" onclick="appendAndPrepandWithCustomColumns();">See Example Custom Columns</a>
+        </li>
+
+        <li>
+            <b>Sort: </b>Boolen value by default 'True' show the default header.
+            <br><b>Data Type: </b> Boolen
+        </li>
+
+        <li>
+            <b> UpdateFunction: </b>To update the table row.
+            <br><b>Data Type: </b> Function
+            <a href="#" onclick="updateTableRow();">See Example</a>
+        </li>
+
+        <li>
+            <b> CreateFunction: </b>To create new table's row.
+            <br><b>Data Type: </b> Function
+            <a href="#" onclick="insertNewRow();">See Example</a>
+        </li>
+
+        <li>
+            <b> DeleteFunction: </b>To create new table's row.
+            <br><b>Data Type: </b> Function
+            <a href="#" onclick="deleteTableRow();">See Example</a>
+        </li>
+
+    </ol>
+
+    <!-- REQUIRED PARAMETER(s)
+             1. Data: Jason data	required
+                BY DEFAULT ATABLE APPEND TO BODY TAG
+
+             OPTIONAL PARAMETER(s)
+             1. TableID: Table  id  if you want to assign specific id to table	optional
+             2. AppendTo:	HTML Element ID to append table to, by default table will be append to <body>	optional
+             3. DefaultHeader:	By default show the default header 	
+             4. CustomerHeader:	Set column(s) to display and custom header 	optional
+             5. AddToColumn:	Append or Prepend value to column	optional
+             6. Sort: 	By default it is On	(True or False)
+             7. UpdateFunction: To update the table row
+             8. CreateFunction: To insert row to table
+             9. DeleteFunction: To Delete table row -->
+
 </div>
 
 
