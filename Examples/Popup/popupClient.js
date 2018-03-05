@@ -7,7 +7,11 @@ function showPopupMessage() {
         Message: 'Would you like to close the application',
         ConfirmFunction: confirmationTest
 
-
-
     }).ShowPopup();
+}
+
+function confirmationTest() {
+
+    var test = 'hello';
+
 }
