@@ -59,8 +59,8 @@ function loadTabsContent(id, instrution, js, html, css) {
 
     $('#' + id).load('codeTemplateTabs.html', function() {
 
-        $('#divInstructions').empty();
-        $('#divInstructions').html(instrution);
+        $('#codeInstructions').empty();
+        $('#codeInstructions').html(instrution);
 
         $('#codeJavascript').empty();
         $('#codeJavascript').html(js);

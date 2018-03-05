@@ -51,9 +51,10 @@ function basic() {
     //SHOW WAITING MODAL
     $('#loadingModal').modal('show');
 
-    var js = "j2HTML.Table({\
-                             Data: myObject, \
-                             AppendTo: '#divTabl'\
+    var inst = '<ul><li>Create <br> <div id="divTable" style="overflow-x:auto;"></div> </li><ul> '
+    var js = "j2HTML.Table({\n\
+                             Data: myObject,\n\
+                             AppendTo: '#divTabl'\n\
                           });";
 
 
@@ -69,7 +70,7 @@ function basic() {
         setTableMenu('BasicExample');
 
         //LOAD TABS
-        loadTabsContent('divTableCodeContent', null, js, null, null);
+        loadTabsContent('divTableCodeContent', inst, js, null, null);
 
         $('#loadingModal').modal('hide');
 
