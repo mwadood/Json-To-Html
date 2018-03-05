@@ -6,6 +6,8 @@ function setModalMenu(id) {
 }
 
 
+
+
 /* 
  ***************************************************************************** 
  ************************************* MODAL ******************************
@@ -38,6 +40,7 @@ function J2HTMLBasicDefaultColumnModal() {
         }).ShowModal();
 
         $('#loadingModal').modal('hide');
+        setModalMenu('BasicModal');
 
     });
 }
@@ -71,6 +74,7 @@ function J2HTMLBasicCustomColumnModal() {
         }).ShowModal();
 
         $('#loadingModal').modal('hide');
+        setModalMenu('BasicModal');
 
     });
 }
@@ -92,6 +96,7 @@ function J2HTMLTextboxDefaultColumnModal() {
         }).ShowModal();
 
         $('#loadingModal').modal('hide');
+        setModalMenu('TextBoxModal');
 
     });
 }
@@ -127,6 +132,7 @@ function J2HTMLTextboxCustomColumnModal() {
         }).ShowModal();
 
         $('#loadingModal').modal('hide');
+        setModalMenu('TextBoxModal');
 
     });
 }
@@ -163,6 +169,7 @@ function J2HTMLDefaultRadioButtonModal() {
         }).ShowModal();
 
         $('#loadingModal').modal('hide');
+        setModalMenu('RadiobuttonModal');
 
     });
 }
@@ -197,6 +204,7 @@ function J2HTMLSpecificModalIDRadioButtonModal() {
         });
 
         $('#loadingModal').modal('hide');
+        setModalMenu('RadiobuttonModal');
 
     });
 }
@@ -232,6 +240,7 @@ function J2HTMLDefaultCheckBoxModal() {
         }).ShowModal();
 
         $('#loadingModal').modal('hide');
+        setModalMenu('CheckBoxModal');
 
     });
 }
@@ -268,6 +277,7 @@ function J2HTMLSpecificModalIDCheckBoxModal() {
         });
 
         $('#loadingModal').modal('hide');
+        setModalMenu('CheckBoxModal');
 
     });
 }
@@ -303,6 +313,7 @@ function J2HTMLDefaultDropdownModal() {
         }).ShowModal();
 
         $('#loadingModal').modal('hide');
+        setModalMenu('DropdownModal');
 
     });
 }
@@ -337,6 +348,7 @@ function J2HTMLSpecificModalIDDropdownModal() {
         });
 
         $('#loadingModal').modal('hide');
+        setModalMenu('DropdownModal');
 
     });
 }
