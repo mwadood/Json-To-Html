@@ -167,8 +167,6 @@ function J2HTMLDefaultRadioButtonModal() {
     });
 }
 
-
-
 function J2HTMLSpecificModalIDRadioButtonModal() {
 
 
@@ -262,7 +260,7 @@ function J2HTMLSpecificModalIDCheckBoxModal() {
             Text: 'Title',
             Value: 'EmployeeID',
             Direction: 'Vertical',
-            GroupName: 'rdbCategories',
+            GroupName: 'chkCategories',
             isModal: true
 
         }).ShowModal({
