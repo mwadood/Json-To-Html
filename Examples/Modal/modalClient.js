@@ -137,10 +137,42 @@ function J2HTMLTextboxCustomColumnModal() {
 /// EXAMPLE 3 (RADIO BUTTON)
 /* 
     CREATE HTML ELEMENT
+    MUST USE isModal: true
 
 */
 
-function J2HTMLRadioButtonModal() {
+function J2HTMLDefaultRadioButtonModal() {
+
+
+    $('#loadingModal').modal('show');
+
+    GetEmployees(function(modalData) {
+
+        j2HTML.Modal({
+
+            Data: modalData,
+            Heading: 'Company',
+            Display: 'RadioButton',
+
+        }).Radio({
+
+            Data: modalData,
+            Text: 'Title',
+            Value: 'EmployeeID',
+            Direction: 'Vertical',
+            GroupName: 'rdbCategories',
+            isModal: true
+
+        }).ShowModal();
+
+        $('#loadingModal').modal('hide');
+
+    });
+}
+
+
+
+function J2HTMLSpecificModalIDRadioButtonModal() {
 
 
     $('#loadingModal').modal('show');
@@ -153,38 +185,166 @@ function J2HTMLRadioButtonModal() {
             Data: modalData,
             Heading: 'Company',
             Display: 'RadioButton',
-            //ModalID: '#' + modalID
+            ModalID: '#testModal'
 
         }).Radio({
 
             Data: modalData,
-            AppendTo: '#rdbj2HTMLModal',
+            AppendTo: '#testModal',
             Text: 'Title',
             Value: 'EmployeeID',
             Direction: 'Vertical',
             GroupName: 'rdbCategories',
+            isModal: true
+
+        }).ShowModal({
+            ModalID: '#testModal'
+        });
+
+        $('#loadingModal').modal('hide');
+
+    });
+}
+
+
+/// EXAMPLE 4 (CHECK BOX)
+/* 
+    MUST USE isModal: true
+*/
+
+function J2HTMLDefaultCheckBoxModal() {
+
+
+    $('#loadingModal').modal('show');
+
+    GetEmployees(function(modalData) {
+
+        j2HTML.Modal({
+
+            Data: modalData,
+            Heading: 'Company',
+            Display: 'Checkbox',
+
+        }).Checkbox({
+
+            Data: modalData,
+            Text: 'Title',
+            Value: 'EmployeeID',
+            Direction: 'Vertical',
+            GroupName: 'chkCategories',
+            isModal: true
 
         }).ShowModal();
 
         $('#loadingModal').modal('hide');
 
     });
+}
 
 
 
+function J2HTMLSpecificModalIDCheckBoxModal() {
 
 
+    $('#loadingModal').modal('show');
+
+    GetEmployees(function(modalData) {
 
 
+        j2HTML.Modal({
 
+            Data: modalData,
+            Heading: 'Company',
+            Display: 'Checkbox',
+            ModalID: '#testModal'
 
+        }).Checkbox({
 
+            Data: modalData,
+            AppendTo: '#testModal',
+            Text: 'Title',
+            Value: 'EmployeeID',
+            Direction: 'Vertical',
+            GroupName: 'rdbCategories',
+            isModal: true
 
+        }).ShowModal({
+            ModalID: '#testModal'
+        });
+
+        $('#loadingModal').modal('hide');
+
+    });
 }
 
 
 
 
+/// EXAMPLE 5 (DROPDOWN)
+/* 
+    MUST USE isModal: true
+*/
+
+function J2HTMLDefaultDropdownModal() {
+
+
+    $('#loadingModal').modal('show');
+
+    GetEmployees(function(modalData) {
+
+        j2HTML.Modal({
+
+            Data: modalData,
+            Heading: 'Company',
+            Display: 'Dropdown',
+
+        }).Dropdown({
+
+            Data: modalData,
+            Text: 'Title',
+            Value: 'EmployeeID',
+            isModal: true
+
+        }).ShowModal();
+
+        $('#loadingModal').modal('hide');
+
+    });
+}
+
+
+
+function J2HTMLSpecificModalIDDropdownModal() {
+
+
+    $('#loadingModal').modal('show');
+
+    GetEmployees(function(modalData) {
+
+
+        j2HTML.Modal({
+
+            Data: modalData,
+            Heading: 'Company',
+            Display: 'Dropdown',
+            ModalID: '#testModal'
+
+        }).Dropdown({
+
+            Data: modalData,
+            AppendTo: '#testModal',
+            Text: 'Title',
+            Value: 'EmployeeID',
+            isModal: true
+
+        }).ShowModal({
+            ModalID: '#testModal'
+        });
+
+        $('#loadingModal').modal('hide');
+
+    });
+}
 
 
 

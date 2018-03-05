@@ -10,6 +10,9 @@ function radio() {
     var appendTo = false;
     var error = '';
 
+    //ONLY FOR MODAL
+    var isModal = false;
+
 
     if (args.Data !== undefined) {
         data = args.Data;
@@ -40,8 +43,24 @@ function radio() {
     if (args.Direction !== undefined) {
         direction = args.Direction;
     }
+
+    if (args.isModal !== undefined) {
+        isModal = args.isModal;
+    }
+
     if (args.AppendTo !== undefined) {
         appendTo = args.AppendTo;
+
+        if (isModal === true) {
+
+            var rdbModalId = appendTo.replace('#', '');
+            appendTo = '#rdb' + rdbModalId;
+        }
+    } else {
+        if (isModal === true) {
+
+            appendTo = '#rdbj2HTMLModal';
+        }
     }
 
 

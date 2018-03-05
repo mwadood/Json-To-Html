@@ -7,6 +7,9 @@ function dropdown() {
     var value = false;
     var text = false;
 
+    //ONLY FOR MODAL
+    var isModal = false;
+
     var error = '';
 
     if (args.Data !== undefined) {
@@ -14,9 +17,31 @@ function dropdown() {
     } else {
         error += 'Data is required';
     }
+
+    // if (args.AppendTo !== undefined) {
+    //     appendTo = args.AppendTo;
+    // }
+
+    if (args.isModal !== undefined) {
+        isModal = args.isModal;
+    }
+
     if (args.AppendTo !== undefined) {
         appendTo = args.AppendTo;
+
+        if (isModal === true) {
+
+            var chkModalId = appendTo.replace('#', '');
+            appendTo = '#ddl' + chkModalId;
+        }
+    } else {
+        if (isModal === true) {
+
+            appendTo = '#ddlj2HTMLModal';
+        }
     }
+
+
     if (args.Value !== undefined) {
         value = args.Value;
 
@@ -87,43 +112,6 @@ function dropdown() {
         });
 
         $(appendTo).append(ddl);
-
-        // if (error === '') {
-        //     $(appendTo).append(ddl);
-        // } else {
-        //     return false;
-        // }
-
-        //}
-        // IF ARRAY
-        // else {
-        //     var count = 0;
-        //     var ddlID = '';
-        //     var ddlValue = '';
-        //     $.each(data, function(ii, vv) {
-
-        //         if (value !== undefined && ii === value) {
-        //             ddlValue = vv;
-        //         }
-
-        //         if (ii === text) {
-        //             ddlText = vv;
-        //         }
-
-        //         count = count + 1;
-
-        //         if (Object.keys(data).length == count) {
-
-        //             if (value !== false) {
-        //                 ddl += '<option value="' + ddlValue + '">' + ddlText + '</option>';
-        //             } else {
-        //                 ddl += '<option>' + ddlText + '</option>';
-        //             }
-        //         }
-        //     });
-
-        //     $(appendTo).append(ddl);
-        // }
 
     } else {
         alert(error);

@@ -9,6 +9,9 @@ function checkbox() {
     var direction = 'Horizontal';
     var appendTo = false;
 
+    //ONLY FOR MODAL
+    var isModal = false;
+
     var error = '';
 
     if (args.Data !== undefined) {
@@ -42,9 +45,37 @@ function checkbox() {
     if (args.Direction !== undefined) {
         direction = args.Direction;
     }
+    // if (args.AppendTo !== undefined) {
+    //     appendTo = args.AppendTo;
+    // }
+
+
+    if (args.isModal !== undefined) {
+        isModal = args.isModal;
+    }
+
     if (args.AppendTo !== undefined) {
         appendTo = args.AppendTo;
+
+        if (isModal === true) {
+
+            var chkModalId = appendTo.replace('#', '');
+            appendTo = '#chk' + chkModalId;
+        }
+    } else {
+        if (isModal === true) {
+
+            appendTo = '#chkj2HTMLModal';
+        }
     }
+
+
+
+
+
+
+
+
 
     //var error = '';
     if (data === false) {
