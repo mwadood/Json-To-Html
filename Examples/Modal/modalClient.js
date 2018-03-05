@@ -1,12 +1,9 @@
 function setModalMenu(id) {
 
-    $('.j2HTMLListMenu').removeClass('active');
+    $('.j2HTMLModalMenu').removeClass('active');
     $('#' + id).addClass('active');
 
 }
-
-
-
 
 
 /* 
