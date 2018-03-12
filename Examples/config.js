@@ -54,16 +54,28 @@ function loadPage(pageName, id, callback) {
 
 
 //LOAD TAB CONTENT
-function loadTabsContent(id, instrution, js, html, css) {
+function loadTabsContent(id, instrution, js, html, css, callback) {
 
 
     $('#' + id).load('codeTemplateTabs.html', function() {
 
-        $('#codeInstructions').empty();
-        $('#codeInstructions').html(instrution);
+        // $('#codeInstructions').empty();
+        // $('#codeInstructions').html(instrution);
 
-        $('#codeJavascript').empty();
-        $('#codeJavascript').html(js);
+        // $('#codeJavascript').empty();
+        // $('#codeJavascript').html(js);
+
+
+        if (callback !== undefined) {
+
+            $('#codeInstructions').empty();
+            $('#codeInstructions').html(instrution);
+
+            $('#codeJavascript').empty();
+            $('#codeJavascript').html(js);
+
+            callback();
+        }
 
 
 

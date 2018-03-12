@@ -11,16 +11,11 @@
     <link rel="stylesheet" href="/Json2HTML/css/json-to-html.css">
 
 
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-    <!-- <link rel="stylesheet" type="text/css" href="/Example/prettify/prettify.css">
-    <script type="text/javascript" src="/Example/prettify/prettify.js"></script> -->
-
-
-
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="prettify/prettify.css">
+    <script type="text/javascript" src="prettify/prettify.js"></script>
 
     <script src="../../Json2HTML/json-to-html.js"></script>
 
@@ -39,12 +34,7 @@
     <script src=".././Json2HTML/northwindAPIs.js"></script>
     <script src="config.js"></script>
 
-    <!-- RAINBOW -->
-    <script src="rainbow/dist/rainbow.js"></script>
-    <script src="rainbow/src/language/generic.js"></script>
-    <!-- <script src="rainbow/src/language/html.js"></script>
-    <script src="rainbow/src/language/css.js"></script>
-    <script src="rainbow/src/language/javascript.js"></script> -->
+
 
     <!-- TABLE EXAMPLES -->
     <script src="Table/tableClient.js"></script>
@@ -55,7 +45,7 @@
 
 </head>
 
-<body>
+<body onload="PR.prettyPrint()">
     <div class="container">
         <header></header>
         <main></main>
