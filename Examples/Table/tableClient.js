@@ -53,9 +53,9 @@ function basic() {
 
     var inst = '<ul><li>Create <br> <div id="divTable" style="overflow-x:auto;"></div> </li><ul> '
     var js = "j2HTML.Table({\n\
-                             Data: myObject,\n\
-                             AppendTo: '#divTabl'\n\
-                          });";
+                Data: myObject,\n\
+                AppendTo: '#divTabl'\n\
+              });";
 
 
     //GET DATA FROM DATABASE
