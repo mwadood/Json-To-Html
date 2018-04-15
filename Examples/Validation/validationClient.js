@@ -51,7 +51,7 @@ function requiredValidation() {
         ElementID: ['#txtUserName', '#txtPassword'],
         ErrorMessage: ['User name is required', 'Password is required'],
         Position: 'Top',
-        DisplayType: 'Modal'
+        //DisplayType: 'Modal'
 
     });
 }

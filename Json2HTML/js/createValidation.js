@@ -38,8 +38,13 @@ function required() {
 
             $.each(elementID, function(key, value) {
 
-                textErrorMessage(value, position, errorMessage[key]);
+                var patren = /\S+/;
+                var elementValue = $(value).val();
+                var result = patren.test(elementValue);
 
+                if (result === false) {
+                    textErrorMessage(value, position, errorMessage[key]);
+                }
             });
         }
         //MODAL ERROR MESSAGE
@@ -76,27 +81,22 @@ function required() {
 //TEXT ERROR MESSAGE
 function textErrorMessage(elementID, position, errorMessage) {
 
-    var patren = /\S+/;
-    var value = $(elementID).val();
-    var result = patren.test(value);
 
-    if (result === false) {
-        if (position == 'TOP') {
-            $(elementID).before('<span id="' + elementID.slice(1, elementID.length) + 'TextErrorMessage">' + errorMessage + '</span>');
-        } else if (position == 'BOTTOM') {
-            $(elementID).after('<span id="' + elementID.slice(1, elementID.length) + 'TextErrorMessage">' + errorMessage + '</span>');
-        }
+    $(elementID + 'TextErrorMessage').remove();
+
+
+    if (position == 'TOP') {
+        $(elementID).before('<span id="' + elementID.slice(1, elementID.length) + 'TextErrorMessage">' + errorMessage + '</span>');
+    } else if (position == 'BOTTOM') {
+        $(elementID).after('<span id="' + elementID.slice(1, elementID.length) + 'TextErrorMessage">' + errorMessage + '</span>');
     }
+
 }
 
 function modalErrorMessage(errorMessage) {
-    // var patren = /\S+/;
-    // var value = $(elementID).val();
-    // var result = patren.test(value);
+
 
     var modalId = 'ValidationErrorMessageModal';
-
-    //if (result === false) {
 
     var pnl = `<div id="${modalId}" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -126,6 +126,4 @@ function modalErrorMessage(errorMessage) {
     $('#' + modalId).on('hidden.bs.modal', function() {
         $('#' + modalId).remove();
     });
-
-    //}
 }
