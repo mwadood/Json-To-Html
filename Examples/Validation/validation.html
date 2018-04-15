@@ -3,7 +3,7 @@
 
         <ul class="nav navbar-nav">
             <li id="ValidationHome" class="j2HTMLValidationMenu active"><a href="#" onclick="validationHome()">Home</a></li>
-            <li id="validatRequired" class="j2HTMLValidationMenu"><a href="#" onclick="showValidation();">Required</a></li>
+            <li id="validatRequired" class="j2HTMLValidationMenu"><a href="#" onclick="showValidation(); return false;">Required</a></li>
         </ul>
     </div>
 </nav>
@@ -19,6 +19,7 @@
 <div id="divJ2HTMLValidationExamples" style="display:none">
 
     <input id="txtTestElement" type="text" class="form-control"><br>
-    <button id="btnValidateRequired" type="button" class="btn btn-primary btnValidation" style="display:none">Submit</button>
+    <button id="btnValidateRequired" type="button" class="btn btn-primary btnValidation" style="display:none" onclick="requiredValidation();">Submit</button>
 
+    <br>
 </div>

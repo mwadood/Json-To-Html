@@ -11,7 +11,7 @@ var scripts = [
     '/Json2HTML/js/createPopupModal.js',
     '/Json2HTML/js/createTextBox.js',
     '/Json2HTML/js/createForInsert.js',
-    '/Json2HTML/js/createValidation.js'
+    //'/Json2HTML/js/createValidation.js'
 
 ];
 
@@ -182,7 +182,8 @@ var jsonToHtml = function() {
         ShowPopup: ShowPopup,
         HidePopup: HidePopup,
         TextBox: TextBox,
-        Create: Create
+        Create: Create,
+        Required: Required
 
     };
 };

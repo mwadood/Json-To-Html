@@ -19,6 +19,8 @@ function setValidationMenu(id) {
         //SHOW REQUIRED SUBMIT BUTTON
         if (id === "validatRequired") {
             $('#btnValidateRequired').show();
+
+            var test = '';
         }
 
 
@@ -29,16 +31,25 @@ function setValidationMenu(id) {
     }
 }
 
-
-
 function showValidation() {
 
-    //SHOW WAITING MODAL
-    //$('#loadingModal').modal('show');
-
     setValidationMenu('validatRequired');
+}
 
+/* 
+   REQUIRED PARAMETERS:
+        1. ElementID: ID of element need to validate
+   OPTIONAL PARAMETERS:
+        1. DisplayType: a)Text b)Modal c)
+        2. Position: a)Top b)Bottom
+        3. ErrorMessage: Message to show
 
-    //$('#loadingModal').modal('hide');
+*/
+//REQUIRED VALIDATION
+function requiredValidation() {
+    j2HTML.Required({
 
+        ElementID: '#txtTestElement'
+
+    });
 }
