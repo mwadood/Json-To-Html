@@ -50,7 +50,7 @@ function requiredValidation() {
 
         ElementID: ['#txtUserName', '#txtPassword'],
         ErrorMessage: ['User name is required', 'Password is required'],
-        Position: 'Top',
+        Position: ['Top', 'Bottom'],
         //DisplayType: 'Modal'
 
     });

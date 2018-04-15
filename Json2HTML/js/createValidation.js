@@ -29,42 +29,19 @@ function required() {
         if (args.Position === undefined) {
             position = 'Bottom'.toUpperCase();
         } else {
-            position = args.Position.toUpperCase();
+            position = args.Position;
         }
 
 
         //TEXT ERROR MESSAGE
         if (displayType.toUpperCase() === 'TEXT') {
 
-            $.each(elementID, function(key, value) {
-
-                //var patren = /\S+/;
-                var patren = requiredRegex();
-                var elementValue = $(value).val();
-                var result = patren.test(elementValue);
-
-                if (result === false) {
-                    textErrorMessage(value, position, errorMessage[key]);
-                }
-            });
+            textErrorMessage(elementID, position, errorMessage);
         }
         //MODAL ERROR MESSAGE
         else if (displayType.toUpperCase() === 'MODAL') {
 
-            var modalErrorMessages = '';
-
-            $.each(elementID, function(key, value) {
-
-                //var patren = /\S+/;
-                var patren = requiredRegex();
-                var elementVal = $(value).val();
-                var result = patren.test(elementVal);
-                if (result === false) {
-                    modalErrorMessages += errorMessage[key] + '<br>';
-                }
-            });
-
-            modalErrorMessage(modalErrorMessages);
+            modalErrorMessage(elementID, errorMessage);
         }
 
         //REMOVE ERROR MESSAGE
@@ -83,19 +60,44 @@ function required() {
 //TEXT ERROR MESSAGE
 function textErrorMessage(elementID, position, errorMessage) {
 
-    $(elementID + 'TextErrorMessage').remove();
-    if (position == 'TOP') {
-        $(elementID).before('<span id="' + elementID.slice(1, elementID.length) + 'TextErrorMessage">' + errorMessage + '</span>');
-    } else if (position == 'BOTTOM') {
-        $(elementID).after('<span id="' + elementID.slice(1, elementID.length) + 'TextErrorMessage">' + errorMessage + '</span>');
-    }
+    $.each(elementID, function(key, value) {
 
+        var patren = requiredRegex();
+        var elementValue = $(value).val();
+        var result = patren.test(elementValue);
+        if (result === false) {
+
+            var error = errorMessage[key];
+            var errorPosition = position[key].toUpperCase();
+
+            $(value + 'TextErrorMessage').remove();
+            if (errorPosition == 'TOP') {
+                $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + error + '</span>');
+            } else if (errorPosition == 'BOTTOM') {
+                $(value).after('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + error + '</span>');
+            }
+        }
+    });
 }
 
 //MODAL ERROR MESSAGE
-function modalErrorMessage(errorMessage) {
+function modalErrorMessage(elementID, errorMessage) {
 
     var modalId = 'ValidationErrorMessageModal';
+
+
+    var modalErrorMessages = '';
+
+    $.each(elementID, function(key, value) {
+
+        //var patren = /\S+/;
+        var patren = requiredRegex();
+        var elementVal = $(value).val();
+        var result = patren.test(elementVal);
+        if (result === false) {
+            modalErrorMessages += errorMessage[key] + '<br>';
+        }
+    });
 
     var pnl = `<div id="${modalId}" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -107,7 +109,7 @@ function modalErrorMessage(errorMessage) {
                             <h4 class="modal-title">Error</h4>
                         </div>
                         <div class="modal-body">
-                            ${errorMessage}
+                            ${modalErrorMessages}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -127,7 +129,7 @@ function modalErrorMessage(errorMessage) {
     });
 }
 
-/* ************* REGEX EXPRESSION ************* */
+/* ************* REGULAR EXPRESSION (REGEX) ************* */
 
 //REQUIRED REGEX
 function requiredRegex() {
