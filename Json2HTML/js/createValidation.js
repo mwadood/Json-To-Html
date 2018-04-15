@@ -38,7 +38,8 @@ function required() {
 
             $.each(elementID, function(key, value) {
 
-                var patren = /\S+/;
+                //var patren = /\S+/;
+                var patren = requiredRegex();
                 var elementValue = $(value).val();
                 var result = patren.test(elementValue);
 
@@ -54,7 +55,8 @@ function required() {
 
             $.each(elementID, function(key, value) {
 
-                var patren = /\S+/;
+                //var patren = /\S+/;
+                var patren = requiredRegex();
                 var elementVal = $(value).val();
                 var result = patren.test(elementVal);
                 if (result === false) {
@@ -81,10 +83,7 @@ function required() {
 //TEXT ERROR MESSAGE
 function textErrorMessage(elementID, position, errorMessage) {
 
-
     $(elementID + 'TextErrorMessage').remove();
-
-
     if (position == 'TOP') {
         $(elementID).before('<span id="' + elementID.slice(1, elementID.length) + 'TextErrorMessage">' + errorMessage + '</span>');
     } else if (position == 'BOTTOM') {
@@ -93,8 +92,8 @@ function textErrorMessage(elementID, position, errorMessage) {
 
 }
 
+//MODAL ERROR MESSAGE
 function modalErrorMessage(errorMessage) {
-
 
     var modalId = 'ValidationErrorMessageModal';
 
@@ -126,4 +125,11 @@ function modalErrorMessage(errorMessage) {
     $('#' + modalId).on('hidden.bs.modal', function() {
         $('#' + modalId).remove();
     });
+}
+
+/* ************* REGEX EXPRESSION ************* */
+
+//REQUIRED REGEX
+function requiredRegex() {
+    return /\S+/;
 }
