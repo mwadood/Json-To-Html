@@ -49,7 +49,10 @@ function showValidation() {
 function requiredValidation() {
     j2HTML.Required({
 
-        ElementID: '#txtTestElement'
+        ElementID: '#txtTestElement',
+        ErrorMessage: 'User name is required',
+        Position: 'Top',
+        DisplayType: 'Modal'
 
     });
 }

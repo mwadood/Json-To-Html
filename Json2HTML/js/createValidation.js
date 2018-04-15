@@ -1,23 +1,16 @@
-var elementID = false;
-var displayType = false; //TEXT, MODAL, 
-var position = false; //TOP OR BOTTOM
-var errorMessage = false;
-
 function required() {
+
+    var elementID = false;
+    var displayType = false; //TEXT, MODAL, TOOL-TIP
+    var position = false; //TOP OR BOTTOM
+    var errorMessage = false;
 
     var args = arguments[0][0];
 
     if (args.ElementID === undefined) {
 
         alert('Element ID is required');
-    }
-    // else if (args.DisplayType === undefined) {
-    //     alert('Display type is required');
-    // }
-    // else if (args.ErrorMessage === undefined) {
-    //     alert('Error message is required');
-    // }
-    else {
+    } else {
 
         elementID = args.ElementID;
 
@@ -33,18 +26,24 @@ function required() {
         }
 
         if (args.Position === undefined) {
-            position = 'Bottom';
+            position = 'Bottom'.toUpperCase();
         } else {
-            position = args.Position;
+            position = args.Position.toUpperCase();
         }
 
 
-        // TEXT ERROR MESSAGE;
-        textErrorMessage();
+        //TEXT ERROR MESSAGE
+        if (displayType.toUpperCase() === 'TEXT') {
+            textErrorMessage(elementID, position, errorMessage);
+        }
+        //MODAL ERROR MESSAGE
+        else if (displayType.toUpperCase() === 'MODAL') {
+            modalErrorMessage(elementID, errorMessage);
+        }
 
         $(elementID).on('keyup', function() {
 
-            $(elementID + 'ErrorMEssage').empty();
+            $(elementID + 'ErrorMessage').remove();
 
         });
 
@@ -52,19 +51,53 @@ function required() {
 }
 
 //TEXT ERROR MESSAGE
-function textErrorMessage() {
+function textErrorMessage(elementID, position, errorMessage) {
 
     var patren = /\S+/;
     var value = $(elementID).val();
     var result = patren.test(value);
 
     if (result === false) {
-        if (displayType == 'Text' && position == 'TOP') {
-            $(elementID).prepend('<span id="' + elementID.slice(1, elementID.length) + 'ErrorMessage">' + errorMessage + '</span>');
-        } else if (displayType == 'Text' && position == 'Bottom') {
-            $(elementID).after('<span id="' + elementID.slice(1, elementID.length) + 'ErrorMessage">' + errorMessage + '</span>');
-        } else if (args.displayType == 'Text' && args.Position === undefined) {
-            $(elementID).after('<span id="' + elementID.slice(1, elementID.length) + 'ErrorMessage">' + errorMessage + '</span>');
+        if (position == 'TOP') {
+            $(elementID).before('<span id="' + elementID.slice(1, elementID.length) + 'TextErrorMessage">' + errorMessage + '</span>');
+        } else if (position == 'BOTTOM') {
+            $(elementID).after('<span id="' + elementID.slice(1, elementID.length) + 'TextErrorMessage">' + errorMessage + '</span>');
         }
+    }
+}
+
+function modalErrorMessage(elementID, errorMessage) {
+    var patren = /\S+/;
+    var value = $(elementID).val();
+    var result = patren.test(value);
+
+    var modalId = elementID.slice(1, elementID.length) + 'ModalErrorMessage';
+
+    if (result === false) {
+
+        var pnl = `<div id="${modalId}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                    
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                        <div class="modal-header" style="background-color: red; color:white">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Error</h4>
+                        </div>
+                        <div class="modal-body">
+                            ${errorMessage}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                    
+                    </div>
+                </div>`;
+
+        $('body').append(pnl);
+
+        $('#' + modalId).modal('show');
+
     }
 }
