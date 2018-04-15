@@ -6,6 +6,7 @@ function chkHome() {
 
 
 function setCheckboxMenu(id) {
+
     if ($('#divJ2HTMLCheckboxExamples').is(':visible') === false) {
         $('#divJ2HTMLCheckbox').hide();
         $('#divJ2HTMLCheckboxExamples').show();
@@ -76,33 +77,3 @@ function horizontalCheckbox() {
         setCheckboxMenu('HorizontalCHK');
     });
 }
-
-
-
-// $(function() {
-
-//     GetCustomers(function(myObject) {
-
-//         j2HTML.Checkbox({
-
-//             Data: myObject,
-//             AppendTo: 'divCheckbox',
-//             Text: 'City',
-//             Direction: 'Vertical'
-
-//         });
-
-
-//     });
-
-// });
-
-
-// x.Checkbox({
-
-//     Data: myObject,
-//     AppendTo: 'divCheckbox',
-//     Text: 'City',
-//     Direction: 'Vertical'
-
-// });
