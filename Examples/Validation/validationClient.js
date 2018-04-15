@@ -36,7 +36,7 @@ function showValidation() {
     setValidationMenu('validatRequired');
 }
 
-/* 
+/* ************ REQUIRED VALIDATION ****************
    REQUIRED PARAMETERS:
         1. ElementID: ID of element need to validate
    OPTIONAL PARAMETERS:
@@ -45,12 +45,11 @@ function showValidation() {
         3. ErrorMessage: Message to show
 
 */
-//REQUIRED VALIDATION
 function requiredValidation() {
     j2HTML.Required({
 
-        ElementID: '#txtTestElement',
-        ErrorMessage: 'User name is required',
+        ElementID: ['#txtUserName', '#txtPassword'],
+        ErrorMessage: ['User name is required', 'Password is required'],
         Position: 'Top',
         DisplayType: 'Modal'
 

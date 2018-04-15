@@ -1,3 +1,4 @@
+//REQUIRED FILED VALIDATION
 function required() {
 
     var elementID = false;
@@ -34,17 +35,39 @@ function required() {
 
         //TEXT ERROR MESSAGE
         if (displayType.toUpperCase() === 'TEXT') {
-            textErrorMessage(elementID, position, errorMessage);
+
+            $.each(elementID, function(key, value) {
+
+                textErrorMessage(value, position, errorMessage[key]);
+
+            });
         }
         //MODAL ERROR MESSAGE
         else if (displayType.toUpperCase() === 'MODAL') {
-            modalErrorMessage(elementID, errorMessage);
+
+            var modalErrorMessages = '';
+
+            $.each(elementID, function(key, value) {
+
+                var patren = /\S+/;
+                var elementVal = $(value).val();
+                var result = patren.test(elementVal);
+                if (result === false) {
+                    modalErrorMessages += errorMessage[key] + '<br>';
+                }
+            });
+
+            modalErrorMessage(modalErrorMessages);
         }
 
-        $(elementID).on('keyup', function() {
+        //REMOVE ERROR MESSAGE
+        $.each(elementID, function(key, value) {
 
-            $(elementID + 'ErrorMessage').remove();
+            $(value).on('keyup', function() {
 
+                $(value + 'TextErrorMessage').remove();
+
+            });
         });
 
     }
@@ -66,16 +89,16 @@ function textErrorMessage(elementID, position, errorMessage) {
     }
 }
 
-function modalErrorMessage(elementID, errorMessage) {
-    var patren = /\S+/;
-    var value = $(elementID).val();
-    var result = patren.test(value);
+function modalErrorMessage(errorMessage) {
+    // var patren = /\S+/;
+    // var value = $(elementID).val();
+    // var result = patren.test(value);
 
-    var modalId = elementID.slice(1, elementID.length) + 'ModalErrorMessage';
+    var modalId = 'ValidationErrorMessageModal';
 
-    if (result === false) {
+    //if (result === false) {
 
-        var pnl = `<div id="${modalId}" class="modal fade" role="dialog">
+    var pnl = `<div id="${modalId}" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                     
                         <!-- Modal content-->
@@ -95,9 +118,14 @@ function modalErrorMessage(elementID, errorMessage) {
                     </div>
                 </div>`;
 
-        $('body').append(pnl);
+    $('body').append(pnl);
 
-        $('#' + modalId).modal('show');
+    $('#' + modalId).modal('show');
 
-    }
+
+    $('#' + modalId).on('hidden.bs.modal', function() {
+        $('#' + modalId).remove();
+    });
+
+    //}
 }
