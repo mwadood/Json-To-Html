@@ -2,9 +2,10 @@
 function required() {
 
     var elementID = false;
-    var displayType = false; //TEXT, MODAL, TOOL-TIP
+    var displayType = false; //TEXT, MODAL, POPOVER
     var position = false; //TOP OR BOTTOM
     var errorMessage = false;
+    //var popoverPosition = false; // BY DEFAULT RIGHT
 
     var args = arguments[0][0];
 
@@ -15,9 +16,7 @@ function required() {
 
         elementID = args.ElementID;
 
-        if (args.ErrorMessage === undefined) {
-            errorMessage = elementID + ' is required';
-        } else {
+        if (args.ErrorMessage !== undefined) {
             errorMessage = args.ErrorMessage;
         }
         if (args.DisplayType === undefined) {
@@ -27,7 +26,7 @@ function required() {
         }
 
         if (args.Position === undefined) {
-            position = 'Bottom'.toUpperCase();
+            position = false;
         } else {
             position = args.Position;
         }
@@ -36,66 +35,117 @@ function required() {
         //TEXT ERROR MESSAGE
         if (displayType.toUpperCase() === 'TEXT') {
 
-            textErrorMessage(elementID, position, errorMessage);
+            textErrorMessage(elementID, position, errorMessage, 'required');
         }
         //MODAL ERROR MESSAGE
         else if (displayType.toUpperCase() === 'MODAL') {
 
-            modalErrorMessage(elementID, errorMessage);
+            modalErrorMessage(elementID, errorMessage, 'required');
         }
+        //POPOVER ERROR MESSAGE 
+        else if (displayType.toUpperCase() === 'POPOVER') {
 
-        //REMOVE ERROR MESSAGE
-        $.each(elementID, function(key, value) {
+            if (args.position !== undefined) {
+                position = args.Position;
+            }
 
-            $(value).on('keyup', function() {
-
-                $(value + 'TextErrorMessage').remove();
-
-            });
-        });
-
+            popoverErrorMessage(elementID, errorMessage, 'required', position);
+        }
     }
 }
 
 //TEXT ERROR MESSAGE
-function textErrorMessage(elementID, position, errorMessage) {
+function textErrorMessage(elementID, position, errorMessage, type) {
 
     $.each(elementID, function(key, value) {
 
-        var patren = requiredRegex();
+        var patren = '';
+        if (type === 'required') {
+            patren = requiredRegex();
+        }
+
         var elementValue = $(value).val();
         var result = patren.test(elementValue);
         if (result === false) {
 
-            var error = errorMessage[key];
-            var errorPosition = position[key].toUpperCase();
+            //DEFAULT MESSAGE ('REQUIRED')
+            var message = '';
+            if (errorMessage === false) {
+                message = $(value).attr('id') + ' is required';
+            } else {
+                message = errorMessage[key];
+            }
+
+            var errorPosition = '';
+            if (position === false) {
+                errorPosition = 'BOTTOM'.toUpperCase();
+            } else {
+                errorPosition = position[key].toUpperCase();
+
+            }
 
             $(value + 'TextErrorMessage').remove();
+
             if (errorPosition == 'TOP') {
-                $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + error + '</span>');
+                $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
+
             } else if (errorPosition == 'BOTTOM') {
-                $(value).after('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + error + '</span>');
+                $(value).after('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
             }
+
+            $(value).css({
+
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
+
+            //REMOVE ERROR MESSAGE
+            $(value).on('keyup', function() {
+
+                if ($(this).val() !== '') {
+                    $(value + 'TextErrorMessage').remove();
+
+                    $(value).css({
+
+                        "border": "",
+                        "background": ""
+                    });
+                }
+            });
         }
     });
 }
 
 //MODAL ERROR MESSAGE
-function modalErrorMessage(elementID, errorMessage) {
+function modalErrorMessage(elementID, errorMessage, type) {
 
     var modalId = 'ValidationErrorMessageModal';
 
 
-    var modalErrorMessages = '';
+    var message = '';
 
     $.each(elementID, function(key, value) {
 
-        //var patren = /\S+/;
-        var patren = requiredRegex();
+        var patren = '';
+        if (type === 'required') {
+            patren = requiredRegex();
+        }
         var elementVal = $(value).val();
         var result = patren.test(elementVal);
         if (result === false) {
-            modalErrorMessages += errorMessage[key] + '<br>';
+
+
+            //DEFAULT MESSAGE ('REQUIRED')
+
+            if (errorMessage === false) {
+                message += $(value).attr('id') + ' is required <br>';
+            } else {
+                message += errorMessage[key] + '<br>';
+            }
+
+
+
+            //modalErrorMessages += errorMessage[key] + '<br>';
         }
     });
 
@@ -109,7 +159,7 @@ function modalErrorMessage(elementID, errorMessage) {
                             <h4 class="modal-title">Error</h4>
                         </div>
                         <div class="modal-body">
-                            ${modalErrorMessages}
+                            ${message}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -128,6 +178,84 @@ function modalErrorMessage(elementID, errorMessage) {
         $('#' + modalId).remove();
     });
 }
+
+//POPOVER ERROR MESSAGE
+function popoverErrorMessage(elementID, errorMessage, type, position) {
+
+    $.each(elementID, function(key, value) {
+
+        var patren = '';
+        if (type === 'required') {
+            patren = requiredRegex();
+        }
+
+        //BY DEFAULT PLACEMENT IS RIGHT
+        var placement = '';
+        if (position === false) {
+            placement = 'right';
+        } else {
+            placement = position[key].toLowerCase();
+        }
+
+        //DEFAULT MESSAGE ('REQUIRED')
+        var message = '';
+        if (errorMessage === false) {
+            message = $(value).attr('id') + ' is required';
+        } else {
+            message = errorMessage[key];
+        }
+
+        var elementValue = $(value).val();
+        var result = patren.test(elementValue);
+        if (result === false) {
+
+            $(value).attr('data-content', message);
+            $(value).attr('data-placement', placement);
+
+            $(value).popover('show');
+
+            $(value).css({
+
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
+
+            //REMOVE ERROR MESSAGE
+            $(value).on('keyup', function() {
+
+                if ($(this).val() !== '') {
+                    $(value).popover('hide');
+
+                    $(value).removeAttr('data-content');
+                    $(value).removeAttr('data-placement');
+
+                    $(value).css({
+
+                        "border": "",
+                        "background": ""
+                    });
+                }
+            });
+
+        }
+
+
+
+
+
+
+
+    });
+
+
+
+}
+
+
+
+
+
+
 
 /* ************* REGULAR EXPRESSION (REGEX) ************* */
 

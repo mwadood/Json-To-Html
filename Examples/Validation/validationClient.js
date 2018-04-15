@@ -19,8 +19,6 @@ function setValidationMenu(id) {
         //SHOW REQUIRED SUBMIT BUTTON
         if (id === "validatRequired") {
             $('#btnValidateRequired').show();
-
-            var test = '';
         }
 
 
@@ -52,6 +50,7 @@ function requiredValidation() {
         ErrorMessage: ['User name is required', 'Password is required'],
         Position: ['Top', 'Bottom'],
         //DisplayType: 'Modal'
+        DisplayType: 'Popover'
 
     });
 }
