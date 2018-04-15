@@ -6,6 +6,7 @@ function tableHome() {
 
 
 function setTableMenu(id) {
+
     if ($('#divJ2HTMLTableExamples').is(':visible') === false) {
         $('#divJ2HTMLTable').hide();
         $('#divJ2HTMLTableExamples').show();
