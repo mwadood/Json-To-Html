@@ -8,6 +8,7 @@ function chkHome() {
 function setCheckboxMenu(id) {
 
     if ($('#divJ2HTMLCheckboxExamples').is(':visible') === false) {
+
         $('#divJ2HTMLCheckbox').hide();
         $('#divJ2HTMLCheckboxExamples').show();
         $('.j2HTMLCheckBoxMenu').removeClass('active');
@@ -30,7 +31,7 @@ function setCheckboxMenu(id) {
                     Text: NAME OF THE COLUM
                 OPTIONAL
                     Value: NAME OF THE COLUMN
-                    GroupName: Name of the radio b utton list
+                    GroupName: Name of the radio button list
                     Direction: 'Vertical'
                                 By Default is horizontal   
     

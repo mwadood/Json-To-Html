@@ -17,18 +17,13 @@ function setTableMenu(id) {
     }
 }
 
-
-
-
-
-
 /*
  ***************************************************************************** 
  ********************************** TABLE ************************************
  ***************************************************************************** 
        
              REQUIRED PARAMETER(s)
-             1. Data: Jason data	required
+             1. Data: Jason data required
                 BY DEFAULT ATABLE APPEND TO BODY TAG
 
              OPTIONAL PARAMETER(s)

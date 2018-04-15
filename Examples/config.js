@@ -59,13 +59,6 @@ function loadTabsContent(id, instrution, js, html, css, callback) {
 
     $('#' + id).load('codeTemplateTabs.html', function() {
 
-        // $('#codeInstructions').empty();
-        // $('#codeInstructions').html(instrution);
-
-        // $('#codeJavascript').empty();
-        // $('#codeJavascript').html(js);
-
-
         if (callback !== undefined) {
 
             $('#codeInstructions').empty();
