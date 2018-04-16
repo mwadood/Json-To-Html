@@ -67,8 +67,6 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
 
     $.each(elementID, function(key, value) {
 
-        var requiredResult = requiredRegex(value);
-
         //DEFAULT MESSAGE 
         var message = '';
         if (errorMessage === false) {
@@ -87,6 +85,8 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
         }
 
         //CHECK REQUIRED FOR ALL ELELEMTS
+        var requiredResult = requiredRegex(value);
+
         if (requiredResult === false) {
 
             validationTypeText(value, errorPosition, message);
@@ -94,18 +94,27 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
         } else {
 
             var type = validationType[key];
-            if (type.toUpperCase() === 'INTEGER') {
 
-                // var numberPatren = '';
-                // numberPatren = integerRegex();
-                // var numberValue = $(value).val();
-                // var numberResult = numberPatren.test(numberValue);
+            //CHECK FOR INTEGER
+            if (type.toUpperCase() === 'INTEGER') {
 
                 var integerResult = integerRegex(value);
 
                 if (integerResult === false) {
 
-                    message = 'Only number required';
+                    message = 'Only integer allowed.';
+                    validationTypeText(value, errorPosition, message);
+                }
+
+            }
+            //CHECK FOR DECIMAL
+            if (type.toUpperCase() === 'DECIMAL') {
+
+                var decimalResult = integerRegex(value);
+
+                if (decimalResult === false) {
+
+                    message = 'Only decimal required';
                     validationTypeText(value, errorPosition, message);
                 }
 
@@ -161,11 +170,6 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
 
     $.each(elementID, function(key, value) {
 
-        // var requiredPatren = '';
-        // requiredPatren = requiredRegex();
-        // var requiredValue = $(value).val();
-        // var requiredResult = requiredPatren.test(requiredValue);
-
         var requiredResult = requiredRegex(value);
 
         //CHECK REQUIRED FOR ALL ELELEMTS
@@ -188,19 +192,33 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
 
             var type = validationType[key];
 
-            //CHECK FOR NUMBER
+            //CHECK FOR INTEGER
             if (type.toUpperCase() === 'INTEGER') {
-
-                // var numberPatren = '';
-                // numberPatren = integerRegex();
-                // var numberValue = $(value).val();
-                // var numberResult = numberPatren.test(numberValue);
 
                 var integerResult = integerRegex(value);
 
                 if (integerResult === false) {
 
-                    message += 'Only number required <br>';
+                    message += 'Only integer allowed. <br>';
+
+                    $(value).css({
+
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
+                }
+
+            }
+
+
+            //CHECK FOR DECIMAL
+            if (type.toUpperCase() === 'DECIMAL') {
+
+                var decimalResult = integerRegex(value);
+
+                if (decimalResult === false) {
+
+                    message += 'Only decimal allowed.<br>';
 
                     $(value).css({
 
@@ -288,7 +306,7 @@ function popoverErrorMessage(elementID, errorMessage, type, position, validation
             placement = position[key].toLowerCase();
         }
 
-        //DEFAULT MESSAGE ('REQUIRED')
+        //DEFAULT MESSAGE
         var message = '';
         if (errorMessage === false) {
             message = $(value).attr('id') + ' is required';
@@ -303,22 +321,35 @@ function popoverErrorMessage(elementID, errorMessage, type, position, validation
         } else {
 
             var type = validationType[key];
+
+            //CHECK FOR INTEGER
             if (type.toUpperCase() === 'INTEGER') {
-
-
-                // var numberPatren = '';
-                // numberPatren = integerRegex();
-                // var numberValue = $(value).val();
-                // var numberResult = numberPatren.test(numberValue);
 
                 var integerResult = integerRegex(value);
 
                 if (integerResult === false) {
-                    message = 'Only number required.';
+                    message = ' Only integer allowed.';
                     validationTypePopover(value, message, placement);
                 }
 
             }
+            //CHECK FOR DECIMAL
+            if (type.toUpperCase() === 'DECIMAL') {
+
+                var decimalResult = integerRegex(value);
+
+                if (decimalResult === false) {
+                    message = ' Only decimal allowed.';
+                    validationTypePopover(value, message, placement);
+                }
+
+            }
+
+
+
+
+
+
         }
         //REMOVE ERROR MESSAGE
         $(value).on('keyup', function() {
@@ -363,13 +394,6 @@ function validationTypePopover(value, message, placement) {
 //REQUIRED REGEX
 function requiredRegex(value) {
 
-    // var requiredPatren = /\S+/;
-    // //requiredPatren = requiredRegex();
-    // var requiredValue = $(value).val();
-    // var requiredResult = requiredPatren.test(requiredValue);
-
-    // return requiredResult;
-
     var patren = /\S+/;
     var patrenValue = $(value).val();
     var patrenResult = patren.test(patrenValue);
@@ -379,12 +403,6 @@ function requiredRegex(value) {
 
 //NUMBER REGEX
 function integerRegex(value) {
-
-
-    // var integerPatren = /^[0-9]+$/;
-    // var integerValue = $(value).val();
-    // var integerResult = integerPatren.test(integerValue);
-    // return integerResult;
 
     var patren = /^[0-9]+$/;
     var patrenValue = $(value).val();
@@ -396,14 +414,11 @@ function integerRegex(value) {
 
 function decimalRegex(value) {
 
+    //var patren = /^\d+\.\d+$/;
 
-    var patren = /^\d+\.\d+$/;
+    var patren = /^(\+|-)?(\d*\.?\d*)$/;
     var patrenValue = $(value).val();
     var patrenResult = patren.test(patrenValue);
     return patrenResult;
 
-
-
-
-    //return /^\d+\.\d+$/;
 }
