@@ -50,14 +50,20 @@ function showValidation() {
 
 */
 function requiredValidation() {
+
     j2HTML.Validate({
 
         ElementID: ['#txtUserName', '#txtPassword'],
-        ValidationType: ['required', 'number'],
+        ValidationType: ['required', 'integer'],
         ErrorMessage: ['User name is required', 'zip code is required'],
-        Position: ['Top', 'Bottom'],
-        //DisplayType: 'Modal'
-        DisplayType: 'Popover'
+        //Position: ['Top', 'Bottom'],
+        DisplayType: 'Modal'
+            //DisplayType: 'Popover'
 
     });
+
+    if ($('.validationErrorMessage').length === 0) {
+        alert('No error');
+    }
+
 }

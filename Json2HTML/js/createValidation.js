@@ -38,8 +38,6 @@ function validate() {
             position = args.Position;
         }
 
-
-
         //TEXT ERROR MESSAGE
         if (displayType.toUpperCase() === 'TEXT') {
 
@@ -69,10 +67,7 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
 
     $.each(elementID, function(key, value) {
 
-        var requiredPatren = '';
-        requiredPatren = requiredRegex();
-        var requiredValue = $(value).val();
-        var requiredResult = requiredPatren.test(requiredValue);
+        var requiredResult = requiredRegex(value);
 
         //DEFAULT MESSAGE 
         var message = '';
@@ -99,14 +94,16 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
         } else {
 
             var type = validationType[key];
-            if (type.toUpperCase() === 'NUMBER') {
+            if (type.toUpperCase() === 'INTEGER') {
 
-                var numberPatren = '';
-                numberPatren = numberRegex();
-                var numberValue = $(value).val();
-                var numberResult = numberPatren.test(numberValue);
+                // var numberPatren = '';
+                // numberPatren = integerRegex();
+                // var numberValue = $(value).val();
+                // var numberResult = numberPatren.test(numberValue);
 
-                if (numberResult === false) {
+                var integerResult = integerRegex(value);
+
+                if (integerResult === false) {
 
                     message = 'Only number required';
                     validationTypeText(value, errorPosition, message);
@@ -140,10 +137,10 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
 function validationTypeText(value, errorPosition, message) {
     $(value + 'TextErrorMessage').remove();
     if (errorPosition == 'TOP') {
-        $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
+        $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage" class="validationErrorMessage">' + message + '</span>');
 
     } else if (errorPosition == 'BOTTOM') {
-        $(value).after('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
+        $(value).after('<span id="' + value.slice(1, value.length) + 'TextErrorMessage" class="validationErrorMessage">' + message + '</span>');
     }
 
     $(value).css({
@@ -164,10 +161,12 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
 
     $.each(elementID, function(key, value) {
 
-        var requiredPatren = '';
-        requiredPatren = requiredRegex();
-        var requiredValue = $(value).val();
-        var requiredResult = requiredPatren.test(requiredValue);
+        // var requiredPatren = '';
+        // requiredPatren = requiredRegex();
+        // var requiredValue = $(value).val();
+        // var requiredResult = requiredPatren.test(requiredValue);
+
+        var requiredResult = requiredRegex(value);
 
         //CHECK REQUIRED FOR ALL ELELEMTS
         if (requiredResult === false) {
@@ -190,14 +189,16 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
             var type = validationType[key];
 
             //CHECK FOR NUMBER
-            if (type.toUpperCase() === 'NUMBER') {
+            if (type.toUpperCase() === 'INTEGER') {
 
-                var numberPatren = '';
-                numberPatren = numberRegex();
-                var numberValue = $(value).val();
-                var numberResult = numberPatren.test(numberValue);
+                // var numberPatren = '';
+                // numberPatren = integerRegex();
+                // var numberValue = $(value).val();
+                // var numberResult = numberPatren.test(numberValue);
 
-                if (numberResult === false) {
+                var integerResult = integerRegex(value);
+
+                if (integerResult === false) {
 
                     message += 'Only number required <br>';
 
@@ -238,7 +239,7 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
 //VALIDATE TYPE MODAL
 function validateTypeModal(modalId, message) {
 
-    var pnl = `<div id="${modalId}" class="modal fade" role="dialog">
+    var pnl = `<div id="${modalId}" class="modal fade validationErrorMessage" role="dialog">
     <div class="modal-dialog">
     
         <!-- Modal content-->
@@ -275,10 +276,8 @@ function popoverErrorMessage(elementID, errorMessage, type, position, validation
 
     $.each(elementID, function(key, value) {
 
-        var requiredPatren = '';
-        requiredPatren = requiredRegex();
-        var requiredValue = $(value).val();
-        var requiredResult = requiredPatren.test(requiredValue);
+
+        var requiredResult = requiredRegex(value);
 
 
         //BY DEFAULT PLACEMENT IS RIGHT
@@ -304,23 +303,23 @@ function popoverErrorMessage(elementID, errorMessage, type, position, validation
         } else {
 
             var type = validationType[key];
-            if (type.toUpperCase() === 'NUMBER') {
+            if (type.toUpperCase() === 'INTEGER') {
 
 
-                var numberPatren = '';
-                numberPatren = numberRegex();
-                var numberValue = $(value).val();
-                var numberResult = numberPatren.test(numberValue);
+                // var numberPatren = '';
+                // numberPatren = integerRegex();
+                // var numberValue = $(value).val();
+                // var numberResult = numberPatren.test(numberValue);
 
-                if (numberResult === false) {
+                var integerResult = integerRegex(value);
+
+                if (integerResult === false) {
                     message = 'Only number required.';
                     validationTypePopover(value, message, placement);
                 }
 
             }
         }
-
-
         //REMOVE ERROR MESSAGE
         $(value).on('keyup', function() {
 
@@ -329,6 +328,7 @@ function popoverErrorMessage(elementID, errorMessage, type, position, validation
 
                 $(value).removeAttr('data-content');
                 $(value).removeAttr('data-placement');
+                $(value).removeClass('validationErrorMessage');
 
                 $(value).css({
 
@@ -343,6 +343,7 @@ function popoverErrorMessage(elementID, errorMessage, type, position, validation
 function validationTypePopover(value, message, placement) {
     $(value).attr('data-content', message);
     $(value).attr('data-placement', placement);
+    $(value).addClass('validationErrorMessage');
 
     $(value).popover('show');
 
@@ -360,12 +361,49 @@ function validationTypePopover(value, message, placement) {
 /* ************* REGULAR EXPRESSION (REGEX) ************* */
 
 //REQUIRED REGEX
-function requiredRegex() {
-    return /\S+/;
+function requiredRegex(value) {
+
+    // var requiredPatren = /\S+/;
+    // //requiredPatren = requiredRegex();
+    // var requiredValue = $(value).val();
+    // var requiredResult = requiredPatren.test(requiredValue);
+
+    // return requiredResult;
+
+    var patren = /\S+/;
+    var patrenValue = $(value).val();
+    var patrenResult = patren.test(patrenValue);
+    return patrenResult;
+
 }
 
 //NUMBER REGEX
-function numberRegex() {
-    //return /[^0-9]/g;
-    return /\[0-9]/g;
+function integerRegex(value) {
+
+
+    // var integerPatren = /^[0-9]+$/;
+    // var integerValue = $(value).val();
+    // var integerResult = integerPatren.test(integerValue);
+    // return integerResult;
+
+    var patren = /^[0-9]+$/;
+    var patrenValue = $(value).val();
+    var patrenResult = patren.test(patrenValue);
+    return patrenResult;
+
+
+}
+
+function decimalRegex(value) {
+
+
+    var patren = /^\d+\.\d+$/;
+    var patrenValue = $(value).val();
+    var patrenResult = patren.test(patrenValue);
+    return patrenResult;
+
+
+
+
+    //return /^\d+\.\d+$/;
 }
