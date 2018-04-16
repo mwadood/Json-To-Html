@@ -96,20 +96,6 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
 
             validationTypeText(value, errorPosition, message);
 
-            // $(value + 'TextErrorMessage').remove();
-            // if (errorPosition == 'TOP') {
-            //     $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
-
-            // } else if (errorPosition == 'BOTTOM') {
-            //     $(value).after('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
-            // }
-
-            // $(value).css({
-
-            //     "border": "1px solid red",
-            //     "background": "#FFCECE"
-            // });
-
         } else {
 
             var type = validationType[key];
@@ -121,6 +107,8 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
                 var numberResult = numberPatren.test(numberValue);
 
                 if (numberResult === false) {
+
+                    message = 'Only number required';
                     validationTypeText(value, errorPosition, message);
                 }
 
@@ -163,12 +151,6 @@ function validationTypeText(value, errorPosition, message) {
         "border": "1px solid red",
         "background": "#FFCECE"
     });
-
-    $(value).css({
-
-        "border": "1px solid red",
-        "background": "#FFCECE"
-    });
 }
 
 
@@ -197,7 +179,11 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
                 message += errorMessage[key] + '<br>';
             }
 
-            //validateTypeModal(modalId, message);
+            $(value).css({
+
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
 
         } else {
 
@@ -213,19 +199,32 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
 
                 if (numberResult === false) {
 
-                    if (errorMessage === false) {
-                        message += $(value).attr('id') + ' is required <br>';
-                    } else {
-                        message += errorMessage[key] + '<br>';
-                    }
+                    message += 'Only number required <br>';
 
+                    $(value).css({
 
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
                 }
 
             }
 
         }
 
+        //REMOVE ERROR MESSAGE
+        $(value).on('keyup', function() {
+
+            if ($(this).val() !== '') {
+                $(value + 'TextErrorMessage').remove();
+
+                $(value).css({
+
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
 
     });
 
@@ -314,7 +313,7 @@ function popoverErrorMessage(elementID, errorMessage, type, position, validation
                 var numberResult = numberPatren.test(numberValue);
 
                 if (numberResult === false) {
-
+                    message = 'Only number required.';
                     validationTypePopover(value, message, placement);
                 }
 
@@ -367,5 +366,6 @@ function requiredRegex() {
 
 //NUMBER REGEX
 function numberRegex() {
-    return /[^0-9]/g;
+    //return /[^0-9]/g;
+    return /\[0-9]/g;
 }

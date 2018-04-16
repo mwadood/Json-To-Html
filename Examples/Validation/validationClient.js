@@ -54,10 +54,10 @@ function requiredValidation() {
 
         ElementID: ['#txtUserName', '#txtPassword'],
         ValidationType: ['required', 'number'],
-        ErrorMessage: ['User name is required', 'number is required'],
-        //Position: ['Top', 'Bottom'],
-        DisplayType: 'Modal'
-            //DisplayType: 'Popover'
+        ErrorMessage: ['User name is required', 'zip code is required'],
+        Position: ['Top', 'Bottom'],
+        //DisplayType: 'Modal'
+        DisplayType: 'Popover'
 
     });
 }
