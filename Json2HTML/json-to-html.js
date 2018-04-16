@@ -156,9 +156,9 @@ var jsonToHtml = function() {
         return this;
     };
 
-    var Required = function() {
+    var Validate = function() {
         args = arguments;
-        required(args);
+        validate(args);
         return this;
     };
 
@@ -183,7 +183,7 @@ var jsonToHtml = function() {
         HidePopup: HidePopup,
         TextBox: TextBox,
         Create: Create,
-        Required: Required
+        Validate: Validate
 
     };
 };

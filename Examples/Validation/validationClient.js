@@ -37,6 +37,12 @@ function showValidation() {
 /* ************ REQUIRED VALIDATION ****************
    REQUIRED PARAMETERS:
         1. ElementID: ID of element need to validate
+        2. ValidationType: validation type 
+                            a)required 
+                            b)number 
+                            c)date
+                            d)email
+                            e)zip
    OPTIONAL PARAMETERS:
         1. DisplayType: a)Text b)Modal c)
         2. Position: a)Top b)Bottom
@@ -44,9 +50,10 @@ function showValidation() {
 
 */
 function requiredValidation() {
-    j2HTML.Required({
+    j2HTML.Validate({
 
         ElementID: ['#txtUserName', '#txtPassword'],
+        ValidationType: ['required', 'required'],
         ErrorMessage: ['User name is required', 'Password is required'],
         Position: ['Top', 'Bottom'],
         //DisplayType: 'Modal'
