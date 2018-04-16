@@ -288,7 +288,6 @@ function validateTypeModal(modalId, message) {
 
 
 
-
 //POPOVER ERROR MESSAGE
 function popoverErrorMessage(elementID, errorMessage, type, position, validationType) {
 
@@ -421,4 +420,13 @@ function decimalRegex(value) {
     var patrenResult = patren.test(patrenValue);
     return patrenResult;
 
+}
+
+
+function phoneRegex(value)
+{
+    patren = /^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/;
+    var patrenValue = $(value).val();
+    var patrenResult = patren.test(patrenValue);
+    return patrenResult;
 }
