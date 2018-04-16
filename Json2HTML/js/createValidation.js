@@ -57,7 +57,7 @@ function validate() {
                 position = args.Position;
             }
 
-            popoverErrorMessage(elementID, errorMessage, validationType, position);
+            popoverErrorMessage(elementID, errorMessage, validationType, position, validationType);
         }
     } else {
         alert(error);
@@ -69,10 +69,10 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
 
     $.each(elementID, function(key, value) {
 
-        var patren = '';
-        patren = requiredRegex();
-        var elementValue = $(value).val();
-        var result = patren.test(elementValue);
+        var requiredPatren = '';
+        requiredPatren = requiredRegex();
+        var requiredValue = $(value).val();
+        var requiredResult = requiredPatren.test(requiredValue);
 
         //DEFAULT MESSAGE 
         var message = '';
@@ -92,26 +92,37 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
         }
 
         //CHECK REQUIRED FOR ALL ELELEMTS
-        if (result === false) {
+        if (requiredResult === false) {
 
-            $(value + 'TextErrorMessage').remove();
-            if (errorPosition == 'TOP') {
-                $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
+            validationTypeText(value, errorPosition, message);
 
-            } else if (errorPosition == 'BOTTOM') {
-                $(value).after('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
-            }
+            // $(value + 'TextErrorMessage').remove();
+            // if (errorPosition == 'TOP') {
+            //     $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
 
-            $(value).css({
+            // } else if (errorPosition == 'BOTTOM') {
+            //     $(value).after('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
+            // }
 
-                "border": "1px solid red",
-                "background": "#FFCECE"
-            });
+            // $(value).css({
+
+            //     "border": "1px solid red",
+            //     "background": "#FFCECE"
+            // });
 
         } else {
 
             var type = validationType[key];
             if (type.toUpperCase() === 'NUMBER') {
+
+                var numberPatren = '';
+                numberPatren = numberRegex();
+                var numberValue = $(value).val();
+                var numberResult = numberPatren.test(numberValue);
+
+                if (numberResult === false) {
+                    validationTypeText(value, errorPosition, message);
+                }
 
             }
 
@@ -136,6 +147,31 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
     });
 }
 
+
+//VALIDATE TYPE TEXT
+function validationTypeText(value, errorPosition, message) {
+    $(value + 'TextErrorMessage').remove();
+    if (errorPosition == 'TOP') {
+        $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
+
+    } else if (errorPosition == 'BOTTOM') {
+        $(value).after('<span id="' + value.slice(1, value.length) + 'TextErrorMessage">' + message + '</span>');
+    }
+
+    $(value).css({
+
+        "border": "1px solid red",
+        "background": "#FFCECE"
+    });
+
+    $(value).css({
+
+        "border": "1px solid red",
+        "background": "#FFCECE"
+    });
+}
+
+
 //MODAL ERROR MESSAGE
 function modalErrorMessage(elementID, errorMessage, validationType) {
 
@@ -146,18 +182,13 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
 
     $.each(elementID, function(key, value) {
 
-        // var patren = '';
-        // if (type === 'required') {
-        //     patren = requiredRegex();
-        // }
-
-        var patren = '';
-        patren = requiredRegex();
-        var elementVal = $(value).val();
-        var result = patren.test(elementVal);
+        var requiredPatren = '';
+        requiredPatren = requiredRegex();
+        var requiredValue = $(value).val();
+        var requiredResult = requiredPatren.test(requiredValue);
 
         //CHECK REQUIRED FOR ALL ELELEMTS
-        if (result === false) {
+        if (requiredResult === false) {
 
             //DEFAULT MESSAGE 
             if (errorMessage === false) {
@@ -165,10 +196,31 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
             } else {
                 message += errorMessage[key] + '<br>';
             }
+
+            //validateTypeModal(modalId, message);
+
         } else {
 
             var type = validationType[key];
+
+            //CHECK FOR NUMBER
             if (type.toUpperCase() === 'NUMBER') {
+
+                var numberPatren = '';
+                numberPatren = numberRegex();
+                var numberValue = $(value).val();
+                var numberResult = numberPatren.test(numberValue);
+
+                if (numberResult === false) {
+
+                    if (errorMessage === false) {
+                        message += $(value).attr('id') + ' is required <br>';
+                    } else {
+                        message += errorMessage[key] + '<br>';
+                    }
+
+
+                }
 
             }
 
@@ -177,48 +229,58 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
 
     });
 
+
+    if (message !== '') {
+        validateTypeModal(modalId, message);
+    }
+
+}
+
+//VALIDATE TYPE MODAL
+function validateTypeModal(modalId, message) {
+
     var pnl = `<div id="${modalId}" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                    
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                        <div class="modal-header" style="background-color: red; color:white">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Error</h4>
-                        </div>
-                        <div class="modal-body">
-                            ${message}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                        </div>
-                    
-                    </div>
-                </div>`;
+    <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header" style="background-color: red; color:white">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Error</h4>
+        </div>
+        <div class="modal-body">
+            ${message}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    
+    </div>
+</div>`;
 
     $('body').append(pnl);
 
     $('#' + modalId).modal('show');
-
 
     $('#' + modalId).on('hidden.bs.modal', function() {
         $('#' + modalId).remove();
     });
 }
 
+
+
+
 //POPOVER ERROR MESSAGE
-function popoverErrorMessage(elementID, errorMessage, type, position) {
+function popoverErrorMessage(elementID, errorMessage, type, position, validationType) {
 
     $.each(elementID, function(key, value) {
 
-        // var patren = '';
-        // if (type === 'required') {
-        //     patren = requiredRegex();
-        // }
+        var requiredPatren = '';
+        requiredPatren = requiredRegex();
+        var requiredValue = $(value).val();
+        var requiredResult = requiredPatren.test(requiredValue);
 
-        var patren = '';
-        patren = requiredRegex();
 
         //BY DEFAULT PLACEMENT IS RIGHT
         var placement = '';
@@ -236,24 +298,25 @@ function popoverErrorMessage(elementID, errorMessage, type, position) {
             message = errorMessage[key];
         }
 
-        var elementValue = $(value).val();
-        var result = patren.test(elementValue);
-        if (result === false) {
+        if (requiredResult === false) {
 
-            $(value).attr('data-content', message);
-            $(value).attr('data-placement', placement);
-
-            $(value).popover('show');
-
-            $(value).css({
-
-                "border": "1px solid red",
-                "background": "#FFCECE"
-            });
+            validationTypePopover(value, message, placement);
 
         } else {
+
             var type = validationType[key];
             if (type.toUpperCase() === 'NUMBER') {
+
+
+                var numberPatren = '';
+                numberPatren = numberRegex();
+                var numberValue = $(value).val();
+                var numberResult = numberPatren.test(numberValue);
+
+                if (numberResult === false) {
+
+                    validationTypePopover(value, message, placement);
+                }
 
             }
         }
@@ -275,17 +338,21 @@ function popoverErrorMessage(elementID, errorMessage, type, position) {
                 });
             }
         });
-
-
-
-
     });
-
-
-
 }
 
+function validationTypePopover(value, message, placement) {
+    $(value).attr('data-content', message);
+    $(value).attr('data-placement', placement);
 
+    $(value).popover('show');
+
+    $(value).css({
+
+        "border": "1px solid red",
+        "background": "#FFCECE"
+    });
+}
 
 
 
@@ -296,4 +363,9 @@ function popoverErrorMessage(elementID, errorMessage, type, position) {
 //REQUIRED REGEX
 function requiredRegex() {
     return /\S+/;
+}
+
+//NUMBER REGEX
+function numberRegex() {
+    return /[^0-9]/g;
 }
