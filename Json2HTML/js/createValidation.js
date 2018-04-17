@@ -84,40 +84,52 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
 
         }
 
-        //CHECK REQUIRED FOR ALL ELELEMTS
-        var requiredResult = requiredRegex(value);
+        // //CHECK REQUIRED FOR ALL ELELEMTS
+        // var requiredResult = requiredRegex(value);
 
+        // if (requiredResult === false) {
+
+        //     validationTypeText(value, errorPosition, message);
+
+        // }
+
+        var requiredResult = '';
+        var type = validationType[key];
+        if (type.toUpperCase() === "REQUIRED") {
+
+            requiredResult = requiredRegex(value);
+        }
         if (requiredResult === false) {
 
             validationTypeText(value, errorPosition, message);
-
         } else {
 
-            var type = validationType[key];
+            if ($(value).val() !== '') {
 
-            //CHECK FOR INTEGER
-            if (type.toUpperCase() === 'INTEGER') {
+                //CHECK FOR INTEGER
+                if (type.toUpperCase() === 'INTEGER') {
 
-                var integerResult = integerRegex(value);
+                    var integerResult = integerRegex(value);
 
-                if (integerResult === false) {
+                    if (integerResult === false) {
 
-                    message = 'Only integer allowed.';
-                    validationTypeText(value, errorPosition, message);
+                        message = 'Only integer allowed.';
+                        validationTypeText(value, errorPosition, message);
+                    }
+
                 }
+                //CHECK FOR DECIMAL
+                if (type.toUpperCase() === 'DECIMAL') {
 
-            }
-            //CHECK FOR DECIMAL
-            if (type.toUpperCase() === 'DECIMAL') {
+                    var decimalResult = integerRegex(value);
 
-                var decimalResult = integerRegex(value);
+                    if (decimalResult === false) {
 
-                if (decimalResult === false) {
+                        message = 'Only decimal required';
+                        validationTypeText(value, errorPosition, message);
+                    }
 
-                    message = 'Only decimal required';
-                    validationTypeText(value, errorPosition, message);
                 }
-
             }
 
         }
@@ -170,9 +182,31 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
 
     $.each(elementID, function(key, value) {
 
-        var requiredResult = requiredRegex(value);
+        // var requiredResult = requiredRegex(value);
 
-        //CHECK REQUIRED FOR ALL ELELEMTS
+        // //CHECK REQUIRED FOR ALL ELELEMTS
+        // if (requiredResult === false) {
+
+        //     //DEFAULT MESSAGE 
+        //     if (errorMessage === false) {
+        //         message += $(value).attr('id') + ' is required <br>';
+        //     } else {
+        //         message += errorMessage[key] + '<br>';
+        //     }
+
+        //     $(value).css({
+
+        //         "border": "1px solid red",
+        //         "background": "#FFCECE"
+        //     });
+
+        // } 
+        var requiredResult = '';
+        var type = validationType[key];
+        if (type.toUpperCase() === "REQUIRED") {
+
+            requiredResult = requiredRegex(value);
+        }
         if (requiredResult === false) {
 
             //DEFAULT MESSAGE 
@@ -187,45 +221,57 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
                 "border": "1px solid red",
                 "background": "#FFCECE"
             });
-
         } else {
 
-            var type = validationType[key];
+            if ($(value).val() !== '') {
 
-            //CHECK FOR INTEGER
-            if (type.toUpperCase() === 'INTEGER') {
+                //CHECK FOR INTEGER
+                if (type.toUpperCase() === 'INTEGER') {
 
-                var integerResult = integerRegex(value);
+                    var integerResult = integerRegex(value);
 
-                if (integerResult === false) {
+                    if (integerResult === false) {
 
-                    message += 'Only integer allowed. <br>';
+                        //DEFAULT MESSAGE 
+                        if (errorMessage === false) {
+                            message += $(value).attr('id') + ' is required <br>';
+                        } else {
+                            message += errorMessage[key] + '<br>';
+                        }
 
-                    $(value).css({
+                        $(value).css({
 
-                        "border": "1px solid red",
-                        "background": "#FFCECE"
-                    });
+                            "border": "1px solid red",
+                            "background": "#FFCECE"
+                        });
+                    }
+
                 }
 
-            }
 
+                //CHECK FOR DECIMAL
+                if (type.toUpperCase() === 'DECIMAL') {
 
-            //CHECK FOR DECIMAL
-            if (type.toUpperCase() === 'DECIMAL') {
+                    var decimalResult = integerRegex(value);
 
-                var decimalResult = integerRegex(value);
+                    if (decimalResult === false) {
 
-                if (decimalResult === false) {
+                        //DEFAULT MESSAGE 
+                        if (errorMessage === false) {
+                            message += $(value).attr('id') + ' is required <br>';
+                        } else {
+                            message += errorMessage[key] + '<br>';
+                        }
 
-                    message += 'Only decimal allowed.<br>';
+                        $(value).css({
 
-                    $(value).css({
+                            "border": "1px solid red",
+                            "background": "#FFCECE"
+                        });
+                    }
 
-                        "border": "1px solid red",
-                        "background": "#FFCECE"
-                    });
                 }
+
 
             }
 
@@ -293,10 +339,6 @@ function popoverErrorMessage(elementID, errorMessage, type, position, validation
 
     $.each(elementID, function(key, value) {
 
-
-        var requiredResult = requiredRegex(value);
-
-
         //BY DEFAULT PLACEMENT IS RIGHT
         var placement = '';
         if (position === false) {
@@ -313,42 +355,46 @@ function popoverErrorMessage(elementID, errorMessage, type, position, validation
             message = errorMessage[key];
         }
 
+        var requiredResult = '';
+        var type = validationType[key];
+
+        if (type.toUpperCase() === "REQUIRED") {
+
+            requiredResult = requiredRegex(value);
+        }
         if (requiredResult === false) {
 
             validationTypePopover(value, message, placement);
 
         } else {
 
-            var type = validationType[key];
+            if ($(value).val() !== '') {
 
-            //CHECK FOR INTEGER
-            if (type.toUpperCase() === 'INTEGER') {
+                //CHECK FOR INTEGER
+                if (type.toUpperCase() === 'INTEGER') {
 
-                var integerResult = integerRegex(value);
+                    var integerResult = integerRegex(value);
 
-                if (integerResult === false) {
-                    message = ' Only integer allowed.';
-                    validationTypePopover(value, message, placement);
+                    if (integerResult === false) {
+                        //message = ' Only integer allowed.';
+                        validationTypePopover(value, message, placement);
+                    }
+
+                }
+                //CHECK FOR DECIMAL
+                if (type.toUpperCase() === 'DECIMAL') {
+
+                    var decimalResult = integerRegex(value);
+
+                    if (decimalResult === false) {
+                        //message = ' Only decimal allowed.';
+                        validationTypePopover(value, message, placement);
+                    }
+
                 }
 
-            }
-            //CHECK FOR DECIMAL
-            if (type.toUpperCase() === 'DECIMAL') {
-
-                var decimalResult = integerRegex(value);
-
-                if (decimalResult === false) {
-                    message = ' Only decimal allowed.';
-                    validationTypePopover(value, message, placement);
-                }
 
             }
-
-
-
-
-
-
         }
         //REMOVE ERROR MESSAGE
         $(value).on('keyup', function() {
@@ -423,8 +469,7 @@ function decimalRegex(value) {
 }
 
 
-function phoneRegex(value)
-{
+function phoneRegex(value) {
     patren = /^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/;
     var patrenValue = $(value).val();
     var patrenResult = patren.test(patrenValue);
