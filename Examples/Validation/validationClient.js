@@ -43,6 +43,9 @@ function showValidation() {
                             c)date
                             d)email
                             e)zip
+                            f)url
+                            g)maxLength
+                            h)minLength
    OPTIONAL PARAMETERS:
         1. DisplayType: a)Text b)Modal c)
         2. Position: a)Top b)Bottom
@@ -54,8 +57,8 @@ function requiredValidation() {
     j2HTML.Validate({
 
         ElementID: ['#txtUserName', '#txtPassword', '#txtPassword'],
-        ValidationType: ['required', 'required', 'integer'],
-        ErrorMessage: ['User name is required', 'zip code is required', 'Only number is allowed'],
+        ValidationType: ['required', 'required', 'decimal'],
+        ErrorMessage: ['User name is required', 'zip code is required', 'Only decimal is allowed'],
         Position: ['Top', 'Bottom', 'Bottom'],
         DisplayType: 'Modal'
             //DisplayType: 'Popover'

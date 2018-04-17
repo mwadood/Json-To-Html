@@ -121,7 +121,7 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
                 //CHECK FOR DECIMAL
                 if (type.toUpperCase() === 'DECIMAL') {
 
-                    var decimalResult = integerRegex(value);
+                    var decimalResult = decimalRegex(value);
 
                     if (decimalResult === false) {
 
@@ -252,7 +252,7 @@ function modalErrorMessage(elementID, errorMessage, validationType) {
                 //CHECK FOR DECIMAL
                 if (type.toUpperCase() === 'DECIMAL') {
 
-                    var decimalResult = integerRegex(value);
+                    var decimalResult = decimalRegex(value);
 
                     if (decimalResult === false) {
 
@@ -384,7 +384,7 @@ function popoverErrorMessage(elementID, errorMessage, type, position, validation
                 //CHECK FOR DECIMAL
                 if (type.toUpperCase() === 'DECIMAL') {
 
-                    var decimalResult = integerRegex(value);
+                    var decimalResult = decimalRegex(value);
 
                     if (decimalResult === false) {
                         //message = ' Only decimal allowed.';
@@ -459,9 +459,7 @@ function integerRegex(value) {
 
 function decimalRegex(value) {
 
-    //var patren = /^\d+\.\d+$/;
-
-    var patren = /^(\+|-)?(\d*\.?\d*)$/;
+    var patren = /^\d+\.\d+$/;
     var patrenValue = $(value).val();
     var patrenResult = patren.test(patrenValue);
     return patrenResult;
