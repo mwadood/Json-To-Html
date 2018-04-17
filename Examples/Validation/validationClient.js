@@ -39,15 +39,16 @@ function showValidation() {
         1. ElementID: ID of element need to validate
         2. ValidationType: validation type 
                             a)required 
-                            b)number 
-                            c)date
-                            d)email
-                            e)zip
-                            f)url
-                            g)maxLength
-                            h)minLength
+                            b)integer
+                            c)decimal
+                            d)date
+                            e)email
+                            f)zip
+                            g)url
+                            h)maxLength
+                            e)minLength
    OPTIONAL PARAMETERS:
-        1. DisplayType: a)Text b)Modal c)
+        1. DisplayType: a)Text b)Modal c)popover
         2. Position: a)Top b)Bottom
         3. ErrorMessage: Message to show
 
