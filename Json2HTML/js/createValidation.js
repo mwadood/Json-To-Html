@@ -602,3 +602,20 @@ function emailRegex(value) {
     var patrenResult = patren.test(patrenValue);
     return patrenResult;
 }
+
+//ZIP CODE REGEX
+function zipcodeRegex(value) {
+
+    var patren = /^\d{5}(?:[-\s]\d{4})?$/;
+    var patrenValue = $(value).val();
+    var patrenResult = patren.test(patrenValue);
+    return patrenResult;
+}
+
+//URL ADDRESS REGEX
+function url(value) {
+    var patren = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var patrenValue = $(value).val();
+    var patrenResult = patren.test(patrenValue);
+    return patrenResult;
+}
