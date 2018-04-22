@@ -170,6 +170,26 @@ function textValidationCommonFunction(type, value, errorPosition, message) {
 
     }
 
+    //CHECK FOR DECIMAL
+    if (type.toUpperCase() === 'PHONE') {
+
+        var phoneResult = phoneRegex(value);
+
+        if (phoneResult === false) {
+
+            textValidation(value, errorPosition, message);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
 }
 
 //#endregion
@@ -363,33 +383,7 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
         } else {
 
             if ($(value).val() !== '') {
-
-                // //CHECK FOR INTEGER
-                // if (type.toUpperCase() === 'INTEGER') {
-
-                //     var integerResult = integerRegex(value);
-
-                //     if (integerResult === false) {
-                //         //message = ' Only integer allowed.';
-                //         validationTypePopover(value, message, placement);
-                //     }
-
-                // }
-                // //CHECK FOR DECIMAL
-                // if (type.toUpperCase() === 'DECIMAL') {
-
-                //     var decimalResult = decimalRegex(value);
-
-                //     if (decimalResult === false) {
-                //         //message = ' Only decimal allowed.';
-                //         validationTypePopover(value, message, placement);
-                //     }
-
-                // }
-
                 popoverValidationCommonFunction(type, value, message, placement);
-
-
             } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
                 popoverValidationCommonFunction(type, value, message, placement);
             }
@@ -430,6 +424,7 @@ function validationTypePopover(value, message, placement) {
 
 
 function popoverValidationCommonFunction(type, value, message, placement) {
+
     //CHECK FOR INTEGER
     if (type.toUpperCase() === 'INTEGER') {
 
