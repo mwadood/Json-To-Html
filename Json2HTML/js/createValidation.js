@@ -64,14 +64,12 @@ function validate() {
 }
 
 
-//#region  TEXT VALIDATION
+//#region ****************** TEXT VALIDATION ****************
 
 //TEXT ERROR MESSAGE
 function showTextValidation(elementID, position, errorMessage, validationType) {
 
     $.each(elementID, function(key, value) {
-
-        controlName = value;
 
         //DEFAULT MESSAGE 
         var message = '';
@@ -89,18 +87,8 @@ function showTextValidation(elementID, position, errorMessage, validationType) {
             errorPosition = position[key].toUpperCase();
 
         }
-
-        // //CHECK REQUIRED FOR ALL ELELEMTS
-        // var requiredResult = requiredRegex(value);
-
-        // if (requiredResult === false) {
-
-        //     validationTypeText(value, errorPosition, message);
-
-        // }
-
         var requiredResult = '';
-
+        //REQUIRED VALIDATION
         var type = validationType[key];
         if (type.toUpperCase() === "REQUIRED") {
 
@@ -108,35 +96,15 @@ function showTextValidation(elementID, position, errorMessage, validationType) {
         }
         if (requiredResult === false) {
 
-            validationTypeText(value, errorPosition, message);
-        } else {
+            textValidation(value, errorPosition, message);
+        }
+        //NON-REQUIRED VALIDATION
+        else {
 
             if ($(value).val() !== '') {
-
-                //CHECK FOR INTEGER
-                if (type.toUpperCase() === 'INTEGER') {
-
-                    var integerResult = integerRegex(value);
-
-                    if (integerResult === false) {
-
-                        validationTypeText(value, errorPosition, message);
-                    }
-
-                }
-                //CHECK FOR DECIMAL
-                if (type.toUpperCase() === 'DECIMAL') {
-
-                    var decimalResult = decimalRegex(value);
-
-                    if (decimalResult === false) {
-
-                        validationTypeText(value, errorPosition, message);
-                    }
-
-                }
-            } else if (value != controlName) {
-
+                textValidationCommonFunction(type, value, errorPosition, message);
+            } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                textValidationCommonFunction(type, value, errorPosition, message);
             }
 
         }
@@ -160,8 +128,8 @@ function showTextValidation(elementID, position, errorMessage, validationType) {
     });
 }
 
-//VALIDATE TYPE TEXT
-function validationTypeText(value, errorPosition, message) {
+//TEXT VALIDATION
+function textValidation(value, errorPosition, message) {
     $(value + 'TextErrorMessage').remove();
     if (errorPosition == 'TOP') {
         $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage" class="validationErrorMessage">' + message + '</span>');
@@ -177,13 +145,37 @@ function validationTypeText(value, errorPosition, message) {
     });
 }
 
+function textValidationCommonFunction(type, value, errorPosition, message) {
 
-function textValidationCommonFunction() {
+    //CHECK FOR INTEGER
+    if (type.toUpperCase() === 'INTEGER') {
+
+        var integerResult = integerRegex(value);
+
+        if (integerResult === false) {
+
+            textValidation(value, errorPosition, message);
+        }
+
+    }
+    //CHECK FOR DECIMAL
+    if (type.toUpperCase() === 'DECIMAL') {
+
+        var decimalResult = decimalRegex(value);
+
+        if (decimalResult === false) {
+
+            textValidation(value, errorPosition, message);
+        }
+
+    }
 
 }
 
 //#endregion
 
+
+//#region ****************** MODAL VALIDATION ***************
 
 //MODAL VALIDATION
 function showModalValidation(elementID, errorMessage, validationType) {
@@ -195,25 +187,6 @@ function showModalValidation(elementID, errorMessage, validationType) {
 
     $.each(elementID, function(key, value) {
 
-        // var requiredResult = requiredRegex(value);
-
-        // //CHECK REQUIRED FOR ALL ELELEMTS
-        // if (requiredResult === false) {
-
-        //     //DEFAULT MESSAGE 
-        //     if (errorMessage === false) {
-        //         message += $(value).attr('id') + ' is required <br>';
-        //     } else {
-        //         message += errorMessage[key] + '<br>';
-        //     }
-
-        //     $(value).css({
-
-        //         "border": "1px solid red",
-        //         "background": "#FFCECE"
-        //     });
-
-        // } 
         var requiredResult = '';
         var type = validationType[key];
         if (type.toUpperCase() === "REQUIRED") {
@@ -238,54 +211,10 @@ function showModalValidation(elementID, errorMessage, validationType) {
 
             if ($(value).val() !== '') {
 
-                //CHECK FOR INTEGER
-                if (type.toUpperCase() === 'INTEGER') {
+                message += modalValidationCommonFunctions(type, value, errorMessage[key]);
 
-                    var integerResult = integerRegex(value);
-
-                    if (integerResult === false) {
-
-                        //DEFAULT MESSAGE 
-                        if (errorMessage === false) {
-                            message += $(value).attr('id') + ' is required <br>';
-                        } else {
-                            message += errorMessage[key] + '<br>';
-                        }
-
-                        $(value).css({
-
-                            "border": "1px solid red",
-                            "background": "#FFCECE"
-                        });
-                    }
-
-                }
-
-
-                //CHECK FOR DECIMAL
-                if (type.toUpperCase() === 'DECIMAL') {
-
-                    var decimalResult = decimalRegex(value);
-
-                    if (decimalResult === false) {
-
-                        //DEFAULT MESSAGE 
-                        if (errorMessage === false) {
-                            message += $(value).attr('id') + ' is required <br>';
-                        } else {
-                            message += errorMessage[key] + '<br>';
-                        }
-
-                        $(value).css({
-
-                            "border": "1px solid red",
-                            "background": "#FFCECE"
-                        });
-                    }
-
-                }
-
-
+            } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                message += modalValidationCommonFunctions(type, value, errorMessage[key]);
             }
 
         }
@@ -308,13 +237,13 @@ function showModalValidation(elementID, errorMessage, validationType) {
 
 
     if (message !== '') {
-        validateTypeModal(modalId, message);
+        modalValidation(modalId, message);
     }
 
 }
 
 //VALIDATE TYPE MODAL
-function validateTypeModal(modalId, message) {
+function modalValidation(modalId, message) {
 
     var pnl = `<div id="${modalId}" class="modal fade validationErrorMessage" role="dialog">
     <div class="modal-dialog">
@@ -345,7 +274,59 @@ function validateTypeModal(modalId, message) {
     });
 }
 
+function modalValidationCommonFunctions(type, value, error) {
 
+    var message = '';
+    //CHECK FOR INTEGER
+    if (type.toUpperCase() === 'INTEGER') {
+
+        var integerResult = integerRegex(value);
+
+        if (integerResult === false) {
+
+            $(value).css({
+
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
+
+
+            message = error + '<br>';
+
+        }
+
+
+    }
+
+
+    //CHECK FOR DECIMAL
+    if (type.toUpperCase() === 'DECIMAL') {
+
+        var decimalResult = decimalRegex(value);
+
+        if (decimalResult === false) {
+
+            $(value).css({
+
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
+
+
+            message = error + '<br>';
+
+        }
+
+    }
+
+    return message;
+
+}
+
+//#endregion
+
+
+//#region  **************** POPOVER VALIDTION ***************
 
 //POPOVER ERROR MESSAGE
 function showPopoverValidation(elementID, errorMessage, type, position, validationType) {
@@ -383,30 +364,34 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
 
             if ($(value).val() !== '') {
 
-                //CHECK FOR INTEGER
-                if (type.toUpperCase() === 'INTEGER') {
+                // //CHECK FOR INTEGER
+                // if (type.toUpperCase() === 'INTEGER') {
 
-                    var integerResult = integerRegex(value);
+                //     var integerResult = integerRegex(value);
 
-                    if (integerResult === false) {
-                        //message = ' Only integer allowed.';
-                        validationTypePopover(value, message, placement);
-                    }
+                //     if (integerResult === false) {
+                //         //message = ' Only integer allowed.';
+                //         validationTypePopover(value, message, placement);
+                //     }
 
-                }
-                //CHECK FOR DECIMAL
-                if (type.toUpperCase() === 'DECIMAL') {
+                // }
+                // //CHECK FOR DECIMAL
+                // if (type.toUpperCase() === 'DECIMAL') {
 
-                    var decimalResult = decimalRegex(value);
+                //     var decimalResult = decimalRegex(value);
 
-                    if (decimalResult === false) {
-                        //message = ' Only decimal allowed.';
-                        validationTypePopover(value, message, placement);
-                    }
+                //     if (decimalResult === false) {
+                //         //message = ' Only decimal allowed.';
+                //         validationTypePopover(value, message, placement);
+                //     }
 
-                }
+                // }
+
+                popoverValidationCommonFunction(type, value, message, placement);
 
 
+            } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                popoverValidationCommonFunction(type, value, message, placement);
             }
         }
         //REMOVE ERROR MESSAGE
@@ -444,6 +429,33 @@ function validationTypePopover(value, message, placement) {
 }
 
 
+function popoverValidationCommonFunction(type, value, message, placement) {
+    //CHECK FOR INTEGER
+    if (type.toUpperCase() === 'INTEGER') {
+
+        var integerResult = integerRegex(value);
+
+        if (integerResult === false) {
+            //message = ' Only integer allowed.';
+            validationTypePopover(value, message, placement);
+        }
+
+    }
+    //CHECK FOR DECIMAL
+    if (type.toUpperCase() === 'DECIMAL') {
+
+        var decimalResult = decimalRegex(value);
+
+        if (decimalResult === false) {
+            //message = ' Only decimal allowed.';
+            validationTypePopover(value, message, placement);
+        }
+
+    }
+}
+
+
+//#endregion
 
 
 

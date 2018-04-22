@@ -57,12 +57,19 @@ function requiredValidation() {
 
     j2HTML.Validate({
 
-        ElementID: ['#txtUserName', '#txtPassword', '#txtPassword'],
-        ValidationType: ['required', 'required', 'decimal'],
-        ErrorMessage: ['User name is required', 'zip code is required', 'Only decimal is allowed'],
-        Position: ['Top', 'Bottom', 'Bottom'],
-        DisplayType: 'Modal'
-            //DisplayType: 'Popover'
+        // ElementID: ['#txtUserName', '#txtPassword', '#txtPassword'],
+        // ValidationType: ['required', 'required', 'decimal'],
+        // ErrorMessage: ['User name is required', 'zip code is required', 'Only decimal is allowed'],
+
+
+        ElementID: ['#txtUserName', '#txtPassword'],
+        ValidationType: ['required', 'decimal'],
+        ErrorMessage: ['User name is required', 'Only decimal is allowed'],
+
+
+        //Position: ['Top', 'Bottom', 'Bottom'],
+        //DisplayType: 'Modal'
+        DisplayType: 'Popover'
 
     });
 
