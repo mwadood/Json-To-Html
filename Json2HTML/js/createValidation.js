@@ -1,3 +1,4 @@
+var controlName = '';
 //REQUIRED FILED VALIDATION
 function validate() {
 
@@ -41,12 +42,12 @@ function validate() {
         //TEXT ERROR MESSAGE
         if (displayType.toUpperCase() === 'TEXT') {
 
-            textErrorMessage(elementID, position, errorMessage, validationType);
+            showTextValidation(elementID, position, errorMessage, validationType);
         }
         //MODAL ERROR MESSAGE
         else if (displayType.toUpperCase() === 'MODAL') {
 
-            modalErrorMessage(elementID, errorMessage, validationType);
+            showModalValidation(elementID, errorMessage, validationType);
         }
         //POPOVER ERROR MESSAGE 
         else if (displayType.toUpperCase() === 'POPOVER') {
@@ -55,17 +56,22 @@ function validate() {
                 position = args.Position;
             }
 
-            popoverErrorMessage(elementID, errorMessage, validationType, position, validationType);
+            showPopoverValidation(elementID, errorMessage, validationType, position, validationType);
         }
     } else {
         alert(error);
     }
 }
 
+
+//#region  TEXT VALIDATION
+
 //TEXT ERROR MESSAGE
-function textErrorMessage(elementID, position, errorMessage, validationType) {
+function showTextValidation(elementID, position, errorMessage, validationType) {
 
     $.each(elementID, function(key, value) {
+
+        controlName = value;
 
         //DEFAULT MESSAGE 
         var message = '';
@@ -94,6 +100,7 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
         // }
 
         var requiredResult = '';
+
         var type = validationType[key];
         if (type.toUpperCase() === "REQUIRED") {
 
@@ -113,7 +120,6 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
 
                     if (integerResult === false) {
 
-                        message = 'Only integer allowed.';
                         validationTypeText(value, errorPosition, message);
                     }
 
@@ -125,11 +131,12 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
 
                     if (decimalResult === false) {
 
-                        message = 'Only decimal required';
                         validationTypeText(value, errorPosition, message);
                     }
 
                 }
+            } else if (value != controlName) {
+
             }
 
         }
@@ -153,7 +160,6 @@ function textErrorMessage(elementID, position, errorMessage, validationType) {
     });
 }
 
-
 //VALIDATE TYPE TEXT
 function validationTypeText(value, errorPosition, message) {
     $(value + 'TextErrorMessage').remove();
@@ -172,8 +178,15 @@ function validationTypeText(value, errorPosition, message) {
 }
 
 
-//MODAL ERROR MESSAGE
-function modalErrorMessage(elementID, errorMessage, validationType) {
+function textValidationCommonFunction() {
+
+}
+
+//#endregion
+
+
+//MODAL VALIDATION
+function showModalValidation(elementID, errorMessage, validationType) {
 
     var modalId = 'ValidationErrorMessageModal';
 
@@ -335,7 +348,7 @@ function validateTypeModal(modalId, message) {
 
 
 //POPOVER ERROR MESSAGE
-function popoverErrorMessage(elementID, errorMessage, type, position, validationType) {
+function showPopoverValidation(elementID, errorMessage, type, position, validationType) {
 
     $.each(elementID, function(key, value) {
 
