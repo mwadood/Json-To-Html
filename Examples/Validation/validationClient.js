@@ -41,12 +41,13 @@ function showValidation() {
                             a)required 
                             b)integer
                             c)decimal
-                            d)date
-                            e)email
-                            f)zip
-                            g)url
-                            h)maxLength
-                            e)minLength
+                            d)phone
+                            e)date
+                            f)email
+                            g)zip
+                            h)url
+                            i)maxLength
+                            j)minLength
    OPTIONAL PARAMETERS:
         1. DisplayType: a)Text b)Modal c)popover
         2. Position: a)Top b)Bottom
@@ -63,13 +64,12 @@ function requiredValidation() {
 
 
         ElementID: ['#txtUserName', '#txtPassword'],
-        ValidationType: ['required', 'decimal'],
-        ErrorMessage: ['User name is required', 'Only decimal is allowed'],
-
-
-        //Position: ['Top', 'Bottom', 'Bottom'],
+        ValidationType: ['required', 'custom'],
+        ErrorMessage: ['User name is required', 'Date is not valid'],
+        Regex: '\d{1,2}\/\d{1,2}\/\d{4}',
+        Position: ['Top', 'Bottom', 'Bottom'],
         //DisplayType: 'Modal'
-        DisplayType: 'Popover'
+        //DisplayType: 'Popover'
 
     });
 

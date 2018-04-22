@@ -1,4 +1,3 @@
-var controlName = '';
 //REQUIRED FILED VALIDATION
 function validate() {
 
@@ -7,6 +6,7 @@ function validate() {
     var position = false; //TOP OR BOTTOM
     var errorMessage = false;
     var validationType = false;
+    var regex = false;
     var error = '';
 
     var args = arguments[0][0];
@@ -39,15 +39,21 @@ function validate() {
             position = args.Position;
         }
 
+        if (args.Regex === undefined) {
+            regex = false;
+        } else {
+            regex = args.Regex;
+        }
+
         //TEXT ERROR MESSAGE
         if (displayType.toUpperCase() === 'TEXT') {
 
-            showTextValidation(elementID, position, errorMessage, validationType);
+            showTextValidation(elementID, position, errorMessage, validationType, regex);
         }
         //MODAL ERROR MESSAGE
         else if (displayType.toUpperCase() === 'MODAL') {
 
-            showModalValidation(elementID, errorMessage, validationType);
+            showModalValidation(elementID, errorMessage, validationType, regex);
         }
         //POPOVER ERROR MESSAGE 
         else if (displayType.toUpperCase() === 'POPOVER') {
@@ -56,7 +62,7 @@ function validate() {
                 position = args.Position;
             }
 
-            showPopoverValidation(elementID, errorMessage, validationType, position, validationType);
+            showPopoverValidation(elementID, errorMessage, validationType, position, validationType, regex);
         }
     } else {
         alert(error);
@@ -67,7 +73,7 @@ function validate() {
 //#region ****************** TEXT VALIDATION ****************
 
 //TEXT ERROR MESSAGE
-function showTextValidation(elementID, position, errorMessage, validationType) {
+function showTextValidation(elementID, position, errorMessage, validationType, regex) {
 
     $.each(elementID, function(key, value) {
 
@@ -102,9 +108,9 @@ function showTextValidation(elementID, position, errorMessage, validationType) {
         else {
 
             if ($(value).val() !== '') {
-                textValidationCommonFunction(type, value, errorPosition, message);
+                textValidationCommonFunction(type, value, errorPosition, message, regex);
             } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
-                textValidationCommonFunction(type, value, errorPosition, message);
+                textValidationCommonFunction(type, value, errorPosition, message, regex);
             }
 
         }
@@ -145,7 +151,19 @@ function textValidation(value, errorPosition, message) {
     });
 }
 
-function textValidationCommonFunction(type, value, errorPosition, message) {
+function textValidationCommonFunction(type, value, errorPosition, message, regex) {
+
+    //CUSTOM REGEX
+    if (type.toUpperCase() === 'CUSTOM' && regex !== false) {
+        var customResult = customRegex(value, regex);
+
+        if (customResult === false) {
+
+            textValidation(value, errorPosition, message);
+        }
+    }
+
+
 
     //CHECK FOR INTEGER
     if (type.toUpperCase() === 'INTEGER') {
@@ -170,7 +188,7 @@ function textValidationCommonFunction(type, value, errorPosition, message) {
 
     }
 
-    //CHECK FOR DECIMAL
+    //CHECK FOR PHONE
     if (type.toUpperCase() === 'PHONE') {
 
         var phoneResult = phoneRegex(value);
@@ -198,7 +216,7 @@ function textValidationCommonFunction(type, value, errorPosition, message) {
 //#region ****************** MODAL VALIDATION ***************
 
 //MODAL VALIDATION
-function showModalValidation(elementID, errorMessage, validationType) {
+function showModalValidation(elementID, errorMessage, validationType, regex) {
 
     var modalId = 'ValidationErrorMessageModal';
 
@@ -231,10 +249,10 @@ function showModalValidation(elementID, errorMessage, validationType) {
 
             if ($(value).val() !== '') {
 
-                message += modalValidationCommonFunctions(type, value, errorMessage[key]);
+                message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
 
             } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
-                message += modalValidationCommonFunctions(type, value, errorMessage[key]);
+                message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
             }
 
         }
@@ -294,9 +312,28 @@ function modalValidation(modalId, message) {
     });
 }
 
-function modalValidationCommonFunctions(type, value, error) {
+function modalValidationCommonFunctions(type, value, error, regex) {
 
     var message = '';
+
+    //CHECK FOR CUSTOM
+    if (type.toUpperCase() === 'CUSTOM') {
+
+        var customResult = customRegex(value, regex);
+
+        if (customResult === false) {
+
+            $(value).css({
+
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
+
+            message = error + '<br>';
+        }
+    }
+
+
     //CHECK FOR INTEGER
     if (type.toUpperCase() === 'INTEGER') {
 
@@ -310,12 +347,8 @@ function modalValidationCommonFunctions(type, value, error) {
                 "background": "#FFCECE"
             });
 
-
             message = error + '<br>';
-
         }
-
-
     }
 
 
@@ -339,6 +372,30 @@ function modalValidationCommonFunctions(type, value, error) {
 
     }
 
+
+    //CHECK FOR PHONE
+    if (type.toUpperCase() === 'PHONE') {
+
+        var phoneResult = phoneRegex(value);
+
+        if (phoneResult === false) {
+
+            $(value).css({
+
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
+
+
+            message = error + '<br>';
+
+        }
+
+    }
+
+
+
+
     return message;
 
 }
@@ -349,7 +406,7 @@ function modalValidationCommonFunctions(type, value, error) {
 //#region  **************** POPOVER VALIDTION ***************
 
 //POPOVER ERROR MESSAGE
-function showPopoverValidation(elementID, errorMessage, type, position, validationType) {
+function showPopoverValidation(elementID, errorMessage, type, position, validationType, regex) {
 
     $.each(elementID, function(key, value) {
 
@@ -383,9 +440,9 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
         } else {
 
             if ($(value).val() !== '') {
-                popoverValidationCommonFunction(type, value, message, placement);
+                popoverValidationCommonFunction(type, value, message, placement, regex);
             } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
-                popoverValidationCommonFunction(type, value, message, placement);
+                popoverValidationCommonFunction(type, value, message, placement, regex);
             }
         }
         //REMOVE ERROR MESSAGE
@@ -423,7 +480,22 @@ function validationTypePopover(value, message, placement) {
 }
 
 
-function popoverValidationCommonFunction(type, value, message, placement) {
+function popoverValidationCommonFunction(type, value, message, placement, regex) {
+
+
+    //CHECK FOR INTEGER
+    if (type.toUpperCase() === 'CUSTOM') {
+
+        var customResult = customRegex(value, regex);
+
+        if (customResult === false) {
+
+            validationTypePopover(value, message, placement);
+        }
+
+    }
+
+
 
     //CHECK FOR INTEGER
     if (type.toUpperCase() === 'INTEGER') {
@@ -431,7 +503,7 @@ function popoverValidationCommonFunction(type, value, message, placement) {
         var integerResult = integerRegex(value);
 
         if (integerResult === false) {
-            //message = ' Only integer allowed.';
+
             validationTypePopover(value, message, placement);
         }
 
@@ -442,7 +514,19 @@ function popoverValidationCommonFunction(type, value, message, placement) {
         var decimalResult = decimalRegex(value);
 
         if (decimalResult === false) {
-            //message = ' Only decimal allowed.';
+
+            validationTypePopover(value, message, placement);
+        }
+
+    }
+
+    //CHECK FOR DECIMAL
+    if (type.toUpperCase() === 'PHONE') {
+
+        var phoneResult = decimalRegex(value);
+
+        if (phoneResult === false) {
+
             validationTypePopover(value, message, placement);
         }
 
@@ -455,6 +539,14 @@ function popoverValidationCommonFunction(type, value, message, placement) {
 
 
 /* ************* REGULAR EXPRESSION (REGEX) ************* */
+
+//CUSTOM REGEX
+function customRegex(value, strRegex) {
+    var patren = new RegExp(strRegex);
+    var patrenValue = $(value).val();
+    var patrenResult = patren.test(patrenValue);
+    return patrenResult;
+}
 
 //REQUIRED REGEX
 function requiredRegex(value) {
@@ -477,6 +569,7 @@ function integerRegex(value) {
 
 }
 
+// DECIMAL REGEX
 function decimalRegex(value) {
 
     var patren = /^\d+\.\d+$/;
@@ -486,9 +579,25 @@ function decimalRegex(value) {
 
 }
 
-
+//PHONE REGEX
 function phoneRegex(value) {
-    patren = /^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/;
+    var patren = /^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/;
+    var patrenValue = $(value).val();
+    var patrenResult = patren.test(patrenValue);
+    return patrenResult;
+}
+
+//DATE REGEX
+function dateRegex(value) {
+    var patren = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+    var patrenValue = $(value).val();
+    var patrenResult = patren.test(patrenValue);
+    return patrenResult;
+}
+
+//EMAIL REGEX
+function emailRegex(value) {
+    var patren = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var patrenValue = $(value).val();
     var patrenResult = patren.test(patrenValue);
     return patrenResult;
