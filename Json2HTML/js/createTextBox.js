@@ -33,7 +33,6 @@ function textBox() {
                     var val = vv;
 
                     if (direction.toLowerCase() === 'horizontal') {
-                        //txt += '<in';
                     } else {
                         txt += '<div class="row">' +
                             '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">' +
