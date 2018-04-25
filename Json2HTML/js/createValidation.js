@@ -200,13 +200,55 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
     }
 
+//CHECK FOR DATE
+if (type.toUpperCase() === 'DATE') {
 
+    var dateResult = dateRegex(value);
 
+    if (dateResult === false) {
 
+        textValidation(value, errorPosition, message);
+    }
 
+}
 
+//CHECK FOR EMAIL
+if (type.toUpperCase() === 'EMAIL') {
 
+    var emailResult = emailRegex(value);
 
+    if (emailResult === false) {
+
+        textValidation(value, errorPosition, message);
+    }
+
+}
+    
+
+//CHECK FOR ZIP CODE
+if (type.toUpperCase() === 'ZIP') {
+
+    var zipResult = zipcodeRegex(value);
+
+    if (zipResult === false) {
+
+        textValidation(value, errorPosition, message);
+    }
+
+}
+   
+//CHECK FOR URL
+if (type.toUpperCase() === 'URL') {
+
+    var urlResult = urlRegex(value);
+
+    if (urlResult === false) {
+
+        textValidation(value, errorPosition, message);
+    }
+
+}
+   
 
 }
 
@@ -393,7 +435,86 @@ function modalValidationCommonFunctions(type, value, error, regex) {
 
     }
 
+    //CHECK FOR DATE
+    if (type.toUpperCase() === 'DATE') {
 
+        var dateResult = dateRegex(value);
+
+        if (dateResult === false) {
+
+            $(value).css({
+
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
+
+
+            message = error + '<br>';
+
+        }
+
+    }
+
+//CHECK FOR EMAIL
+if (type.toUpperCase() === 'EMAIL') {
+
+    var emailResult = emailRegex(value);
+
+    if (emailResult === false) {
+
+        $(value).css({
+
+            "border": "1px solid red",
+            "background": "#FFCECE"
+        });
+
+
+        message = error + '<br>';
+
+    }
+
+}
+
+
+//CHECK FOR ZIP
+if (type.toUpperCase() === 'ZIP') {
+
+    var zipResult = zipcodeRegex(value);
+
+    if (zipResult === false) {
+
+        $(value).css({
+
+            "border": "1px solid red",
+            "background": "#FFCECE"
+        });
+
+
+        message = error + '<br>';
+
+    }
+
+}
+
+//CHECK FOR URL
+if (type.toUpperCase() === 'URL') {
+
+    var urlResult = urlRegex(value);
+
+    if (urlResult === false) {
+
+        $(value).css({
+
+            "border": "1px solid red",
+            "background": "#FFCECE"
+        });
+
+
+        message = error + '<br>';
+
+    }
+
+}
 
 
     return message;
@@ -520,10 +641,60 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
 
     }
 
-    //CHECK FOR DECIMAL
+    //CHECK FOR PHONE
     if (type.toUpperCase() === 'PHONE') {
 
-        var phoneResult = decimalRegex(value);
+        var phoneResult = phoneRegex(value);
+
+        if (phoneResult === false) {
+
+            validationTypePopover(value, message, placement);
+        }
+
+    }
+
+     //CHECK FOR DATE
+     if (type.toUpperCase() === 'DATE') {
+
+        var phoneResult = dateRegex(value);
+
+        if (phoneResult === false) {
+
+            validationTypePopover(value, message, placement);
+        }
+
+    }
+
+
+    //CHECK FOR EMAIL
+    if (type.toUpperCase() === 'EMAIL') {
+
+        var phoneResult = emailRegex(value);
+
+        if (phoneResult === false) {
+
+            validationTypePopover(value, message, placement);
+        }
+
+    }
+
+
+    //CHECK FOR ZIP CODE
+    if (type.toUpperCase() === 'ZIP') {
+
+        var phoneResult = zipcodeRegex(value);
+
+        if (phoneResult === false) {
+
+            validationTypePopover(value, message, placement);
+        }
+
+    }
+
+    //CHECK FOR URL
+    if (type.toUpperCase() === 'URL') {
+
+        var phoneResult = urlRegex(value);
 
         if (phoneResult === false) {
 
@@ -613,7 +784,7 @@ function zipcodeRegex(value) {
 }
 
 //URL ADDRESS REGEX
-function url(value) {
+function urlRegex(value) {
     var patren = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var patrenValue = $(value).val();
     var patrenResult = patren.test(patrenValue);
