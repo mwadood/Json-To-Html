@@ -681,17 +681,15 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
         var requiredResult = '';
         var type = validationType[key];
 
-
-
-
-
+        //VALIDATE FOCUS OUT
         if (validateOn === false) {
 
             $(document).on('focusout', value, () => {
 
                 //REQUIRED VALIDATION
                 if ($(value).val() === '' && type.toUpperCase() === "REQUIRED") {
-                    validationTypePopover(value, message, placement);
+                    //validationTypePopover(value, message, placement);
+                    popoverValidationCommonFunction(type, value, message, placement, regex);
                 }
                 //NON-REQUIRED VALIDATION
                 else {
@@ -708,15 +706,6 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
         }
         //********  VALIDATE ON CLICK **************
         else {
-
-            // if (type.toUpperCase() === "REQUIRED") {
-
-            //     requiredResult = requiredRegex(value);
-            // }
-            // if (requiredResult === false) {
-
-            //     textValidation(value, errorPosition, message);
-            // }
 
             if ($(value).val() === '' && type.toUpperCase() === "REQUIRED") {
                 validationTypePopover(value, message, placement);
@@ -745,26 +734,26 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
 
 
 
-        $(document).on('focusout', value, () => {
+        // $(document).on('focusout', value, () => {
 
-            if (type.toUpperCase() === "REQUIRED") {
+        //     if (type.toUpperCase() === "REQUIRED") {
 
-                requiredResult = requiredRegex(value);
-            }
-            if (requiredResult === false) {
+        //         requiredResult = requiredRegex(value);
+        //     }
+        //     if (requiredResult === false) {
 
-                validationTypePopover(value, message, placement);
+        //         validationTypePopover(value, message, placement);
 
-            } else {
+        //     } else {
 
-                if ($(value).val() !== '') {
-                    popoverValidationCommonFunction(type, value, message, placement, regex);
-                } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
-                    popoverValidationCommonFunction(type, value, message, placement, regex);
-                }
-            }
+        //         if ($(value).val() !== '') {
+        //             popoverValidationCommonFunction(type, value, message, placement, regex);
+        //         } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+        //             popoverValidationCommonFunction(type, value, message, placement, regex);
+        //         }
+        //     }
 
-        });
+        // });
 
 
 
@@ -792,7 +781,7 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
         //REMOVE ERROR MESSAGE
         $(document).on('keyup', value, () => {
 
-            if ($(this).val() !== '') {
+            if ($(value).val() !== '') {
                 $(value).popover('hide');
 
                 $(value).removeAttr('data-content');
@@ -826,14 +815,28 @@ function validationTypePopover(value, message, placement) {
 
 function popoverValidationCommonFunction(type, value, message, placement, regex) {
 
+    //REQUIRED REGEX
+    if (type.toUpperCase() === "REQUIRED") {
 
-    //CHECK FOR INTEGER
+        requiredResult = requiredRegex(value);
+
+        if (requiredResult === false) {
+
+            $(value).focus();
+            validationTypePopover(value, message, placement);
+        }
+    }
+
+
+
+    //CHECK FOR CUSTOM
     if (type.toUpperCase() === 'CUSTOM') {
 
         var customResult = customRegex(value, regex);
 
         if (customResult === false) {
 
+            $(value).focus();
             validationTypePopover(value, message, placement);
         }
 
@@ -848,6 +851,7 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
 
         if (integerResult === false) {
 
+            $(value).focus();
             validationTypePopover(value, message, placement);
         }
 
@@ -859,6 +863,7 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
 
         if (decimalResult === false) {
 
+            $(value).focus();
             validationTypePopover(value, message, placement);
         }
 
@@ -871,6 +876,7 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
 
         if (phoneResult === false) {
 
+            $(value).focus();
             validationTypePopover(value, message, placement);
         }
 
@@ -883,6 +889,7 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
 
         if (dateResult === false) {
 
+            $(value).focus();
             validationTypePopover(value, message, placement);
         }
 
@@ -896,6 +903,7 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
 
         if (emailResult === false) {
 
+            $(value).focus();
             validationTypePopover(value, message, placement);
         }
 
@@ -909,6 +917,7 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
 
         if (zipResult === false) {
 
+            $(value).focus();
             validationTypePopover(value, message, placement);
         }
 
@@ -921,6 +930,7 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
 
         if (urlResult === false) {
 
+            $(value).focus();
             validationTypePopover(value, message, placement);
         }
 
