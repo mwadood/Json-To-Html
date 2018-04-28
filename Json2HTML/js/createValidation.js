@@ -356,42 +356,99 @@ function showModalValidation(elementID, errorMessage, validationType, regex) {
 
         var requiredResult = '';
         var type = validationType[key];
+        // message += errorMessage[key] + '<br>';
 
         $(document).on('focusout', value, () => {
 
-            if (type.toUpperCase() === "REQUIRED") {
 
-                requiredResult = requiredRegex(value);
-            }
-            if (requiredResult === false) {
+            //VALIDATE ON FOCUS OUT
+            if (validateOn === false) {
 
-                //DEFAULT MESSAGE 
-                if (errorMessage === false) {
-                    message += $(value).attr('id') + ' is required <br>';
-                } else {
-                    message += errorMessage[key] + '<br>';
-                }
+                $(document).on('focusout', value, () => {
 
-                $(value).css({
+                    //REQUIRED VALIDATION
+                    if ($(value).val() === '' && type.toUpperCase() === "REQUIRED") {
 
-                    "border": "1px solid red",
-                    "background": "#FFCECE"
+                        message = modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+                    } else {
+
+                        if ($(value).val() !== '') {
+
+                            message = modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+
+                        } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                            message = modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+                        }
+
+                    }
+
+                    if (message !== '') {
+                        modalValidation(modalId, message);
+                    }
                 });
-            } else {
 
-                if ($(value).val() !== '') {
+
+            }
+            //VALIDATE ON CLICK
+            else {
+                //REQUIRED VALIDATION
+                if ($(value).val() === '' && type.toUpperCase() === "REQUIRED") {
 
                     message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+                } else {
 
-                } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
-                    message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+                    if ($(value).val() !== '') {
+
+                        message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+
+                    } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                        message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+                    }
+
                 }
 
+                if (message !== '') {
+                    modalValidation(modalId, message);
+                }
             }
 
-            if (message !== '') {
-                modalValidation(modalId, message);
-            }
+
+
+
+
+            // if (type.toUpperCase() === "REQUIRED") {
+
+            //     requiredResult = requiredRegex(value);
+            // }
+            // if (requiredResult === false) {
+
+            //     //DEFAULT MESSAGE 
+            //     if (errorMessage === false) {
+            //         message += $(value).attr('id') + ' is required <br>';
+            //     } else {
+            //         message += errorMessage[key] + '<br>';
+            //     }
+
+            //     $(value).css({
+
+            //         "border": "1px solid red",
+            //         "background": "#FFCECE"
+            //     });
+            // } else {
+
+            //     if ($(value).val() !== '') {
+
+            //         message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+
+            //     } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+            //         message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+            //     }
+
+            // }
+
+            // if (message !== '') {
+            //     modalValidation(modalId, message);
+            // }
 
         });
 
@@ -485,6 +542,23 @@ function modalValidationCommonFunctions(type, value, error, regex) {
     var message = '';
 
 
+    //REQUIRED REGEX
+    if (type.toUpperCase() === "REQUIRED") {
+
+        requiredResult = requiredRegex(value);
+
+        if (requiredResult === false) {
+
+            $(value).focus();
+            $(value).css({
+
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
+
+            message = error + '<br>';
+        }
+    }
 
 
 
@@ -495,6 +569,8 @@ function modalValidationCommonFunctions(type, value, error, regex) {
         var customResult = customRegex(value, regex);
 
         if (customResult === false) {
+
+            $(value).focus();
 
             $(value).css({
 
@@ -514,6 +590,7 @@ function modalValidationCommonFunctions(type, value, error, regex) {
 
         if (integerResult === false) {
 
+            $(value).focus();
             $(value).css({
 
                 "border": "1px solid red",
@@ -532,6 +609,7 @@ function modalValidationCommonFunctions(type, value, error, regex) {
 
         if (decimalResult === false) {
 
+            $(value).focus();
             $(value).css({
 
                 "border": "1px solid red",
@@ -553,6 +631,7 @@ function modalValidationCommonFunctions(type, value, error, regex) {
 
         if (phoneResult === false) {
 
+            $(value).focus();
             $(value).css({
 
                 "border": "1px solid red",
@@ -573,6 +652,7 @@ function modalValidationCommonFunctions(type, value, error, regex) {
 
         if (dateResult === false) {
 
+            $(value).focus();
             $(value).css({
 
                 "border": "1px solid red",
@@ -593,6 +673,7 @@ function modalValidationCommonFunctions(type, value, error, regex) {
 
         if (emailResult === false) {
 
+            $(value).focus();
             $(value).css({
 
                 "border": "1px solid red",
@@ -614,6 +695,7 @@ function modalValidationCommonFunctions(type, value, error, regex) {
 
         if (zipResult === false) {
 
+            $(value).focus();
             $(value).css({
 
                 "border": "1px solid red",
@@ -634,6 +716,7 @@ function modalValidationCommonFunctions(type, value, error, regex) {
 
         if (urlResult === false) {
 
+            $(value).focus();
             $(value).css({
 
                 "border": "1px solid red",
@@ -681,7 +764,7 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
         var requiredResult = '';
         var type = validationType[key];
 
-        //VALIDATE FOCUS OUT
+        //VALIDATE ON FOCUS OUT
         if (validateOn === false) {
 
             $(document).on('focusout', value, () => {
@@ -722,61 +805,6 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
 
             $(elementID[0]).focus();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-        // $(document).on('focusout', value, () => {
-
-        //     if (type.toUpperCase() === "REQUIRED") {
-
-        //         requiredResult = requiredRegex(value);
-        //     }
-        //     if (requiredResult === false) {
-
-        //         validationTypePopover(value, message, placement);
-
-        //     } else {
-
-        //         if ($(value).val() !== '') {
-        //             popoverValidationCommonFunction(type, value, message, placement, regex);
-        //         } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
-        //             popoverValidationCommonFunction(type, value, message, placement, regex);
-        //         }
-        //     }
-
-        // });
-
-
-
-
-
-        // if (type.toUpperCase() === "REQUIRED") {
-
-        //     requiredResult = requiredRegex(value);
-        // }
-        // if (requiredResult === false) {
-
-        //     validationTypePopover(value, message, placement);
-
-        // } else {
-
-        //     if ($(value).val() !== '') {
-        //         popoverValidationCommonFunction(type, value, message, placement, regex);
-        //     } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
-        //         popoverValidationCommonFunction(type, value, message, placement, regex);
-        //     }
-        // }
-
-
 
         //REMOVE ERROR MESSAGE
         $(document).on('keyup', value, () => {
@@ -826,8 +854,6 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
             validationTypePopover(value, message, placement);
         }
     }
-
-
 
     //CHECK FOR CUSTOM
     if (type.toUpperCase() === 'CUSTOM') {

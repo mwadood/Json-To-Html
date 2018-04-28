@@ -71,11 +71,11 @@ $(function() {
         // ValidationType: ['required', 'custom'],
         // ErrorMessage: ['User name is required', 'Date is not valid'],
         // Regex: '\d{1,2}\/\d{1,2}\/\d{4}',
-        Position: ['Top', 'Bottom', 'Bottom'],
+        //Position: ['Top', 'Bottom', 'Bottom'],
 
 
-        //DisplayType: 'Modal'
-        DisplayType: 'Popover'
+        DisplayType: 'Modal'
+            //DisplayType: 'Popover'
 
     });
 
