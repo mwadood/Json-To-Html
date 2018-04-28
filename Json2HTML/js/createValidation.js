@@ -1,4 +1,6 @@
 //REQUIRED FILED VALIDATION
+var length = false;
+
 function validate() {
 
     var elementID = false;
@@ -8,6 +10,7 @@ function validate() {
     var validationType = false;
     var regex = false;
     var error = '';
+
 
     var args = arguments[0][0];
 
@@ -45,6 +48,13 @@ function validate() {
             regex = args.Regex;
         }
 
+        if (args.Length === undefined) {
+            length = false;
+        } else {
+            length = args.Length;
+        }
+
+
         //TEXT ERROR MESSAGE
         if (displayType.toUpperCase() === 'TEXT') {
 
@@ -72,10 +82,16 @@ function validate() {
 
 //#region ****************** TEXT VALIDATION ****************
 
-//TEXT ERROR MESSAGE
 function showTextValidation(elementID, position, errorMessage, validationType, regex) {
 
-    $.each(elementID, function(key, value) {
+    //VALUE == ELEMENT ID
+
+    $.each(elementID, (key, value) => {
+
+        var type = validationType[key];
+        // if (type.toLowerCase() === 'MAXLENGTH' && args.Length === undefined) {
+        //     alert('Length is required');
+        // } else {
 
         //DEFAULT MESSAGE 
         var message = '';
@@ -95,30 +111,33 @@ function showTextValidation(elementID, position, errorMessage, validationType, r
         }
         var requiredResult = '';
         //REQUIRED VALIDATION
-        var type = validationType[key];
-        if (type.toUpperCase() === "REQUIRED") {
 
-            requiredResult = requiredRegex(value);
-        }
-        if (requiredResult === false) {
+        $(document).on('focusout', value, () => {
 
-            textValidation(value, errorPosition, message);
-        }
-        //NON-REQUIRED VALIDATION
-        else {
+            if (type.toUpperCase() === "REQUIRED") {
 
-            if ($(value).val() !== '') {
-                textValidationCommonFunction(type, value, errorPosition, message, regex);
-            } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
-                textValidationCommonFunction(type, value, errorPosition, message, regex);
+                requiredResult = requiredRegex(value);
+            }
+            if (requiredResult === false) {
+
+                textValidation(value, errorPosition, message);
+            }
+            //NON-REQUIRED VALIDATION
+            else {
+
+                if ($(value).val() !== '') {
+                    textValidationCommonFunction(type, value, errorPosition, message, regex);
+                } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                    textValidationCommonFunction(type, value, errorPosition, message, regex);
+                }
             }
 
-        }
+        });
 
         //REMOVE ERROR MESSAGE
-        $(value).on('keyup', function() {
+        $(document).on('keyup', value, () => {
 
-            if ($(this).val() !== '') {
+            if ($(value).val() !== '') {
                 $(value + 'TextErrorMessage').remove();
 
                 $(value).css({
@@ -128,8 +147,6 @@ function showTextValidation(elementID, position, errorMessage, validationType, r
                 });
             }
         });
-
-
 
     });
 }
@@ -153,6 +170,7 @@ function textValidation(value, errorPosition, message) {
 
 function textValidationCommonFunction(type, value, errorPosition, message, regex) {
 
+
     //CUSTOM REGEX
     if (type.toUpperCase() === 'CUSTOM' && regex !== false) {
         var customResult = customRegex(value, regex);
@@ -162,8 +180,6 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
             textValidation(value, errorPosition, message);
         }
     }
-
-
 
     //CHECK FOR INTEGER
     if (type.toUpperCase() === 'INTEGER') {
@@ -200,55 +216,69 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
     }
 
-//CHECK FOR DATE
-if (type.toUpperCase() === 'DATE') {
+    //CHECK FOR DATE
+    if (type.toUpperCase() === 'DATE') {
 
-    var dateResult = dateRegex(value);
+        var dateResult = dateRegex(value);
 
-    if (dateResult === false) {
+        if (dateResult === false) {
 
-        textValidation(value, errorPosition, message);
+            textValidation(value, errorPosition, message);
+        }
+
     }
 
-}
+    //CHECK FOR EMAIL
+    if (type.toUpperCase() === 'EMAIL') {
 
-//CHECK FOR EMAIL
-if (type.toUpperCase() === 'EMAIL') {
+        var emailResult = emailRegex(value);
 
-    var emailResult = emailRegex(value);
+        if (emailResult === false) {
 
-    if (emailResult === false) {
+            textValidation(value, errorPosition, message);
+        }
 
-        textValidation(value, errorPosition, message);
     }
 
-}
-    
 
-//CHECK FOR ZIP CODE
-if (type.toUpperCase() === 'ZIP') {
+    //CHECK FOR ZIP CODE
+    if (type.toUpperCase() === 'ZIP') {
 
-    var zipResult = zipcodeRegex(value);
+        var zipResult = zipcodeRegex(value);
 
-    if (zipResult === false) {
+        if (zipResult === false) {
 
-        textValidation(value, errorPosition, message);
+            textValidation(value, errorPosition, message);
+        }
+
     }
 
-}
-   
-//CHECK FOR URL
-if (type.toUpperCase() === 'URL') {
+    //CHECK FOR URL
+    if (type.toUpperCase() === 'URL') {
 
-    var urlResult = urlRegex(value);
+        var urlResult = urlRegex(value);
 
-    if (urlResult === false) {
+        if (urlResult === false) {
 
-        textValidation(value, errorPosition, message);
+            textValidation(value, errorPosition, message);
+        }
+
     }
 
-}
-   
+    //CHECK FOR MAX LENGTH
+    if (type.toUpperCase() === 'MAXLENGTH') {
+
+        var maxLengthResult = maxLengthRegex(value);
+
+        if (maxLengthResult === false) {
+
+            textValidation(value, errorPosition, message);
+        }
+
+    }
+
+
+
 
 }
 
@@ -257,7 +287,7 @@ if (type.toUpperCase() === 'URL') {
 
 //#region ****************** MODAL VALIDATION ***************
 
-//MODAL VALIDATION
+//SHOW MODAL VALIDATION
 function showModalValidation(elementID, errorMessage, validationType, regex) {
 
     var modalId = 'ValidationErrorMessageModal';
@@ -265,44 +295,83 @@ function showModalValidation(elementID, errorMessage, validationType, regex) {
 
     var message = '';
 
-    $.each(elementID, function(key, value) {
+    $.each(elementID, (key, value) => {
 
         var requiredResult = '';
         var type = validationType[key];
-        if (type.toUpperCase() === "REQUIRED") {
 
-            requiredResult = requiredRegex(value);
-        }
-        if (requiredResult === false) {
+        $(document).on('focusout', value, () => {
 
-            //DEFAULT MESSAGE 
-            if (errorMessage === false) {
-                message += $(value).attr('id') + ' is required <br>';
+            if (type.toUpperCase() === "REQUIRED") {
+
+                requiredResult = requiredRegex(value);
+            }
+            if (requiredResult === false) {
+
+                //DEFAULT MESSAGE 
+                if (errorMessage === false) {
+                    message += $(value).attr('id') + ' is required <br>';
+                } else {
+                    message += errorMessage[key] + '<br>';
+                }
+
+                $(value).css({
+
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
             } else {
-                message += errorMessage[key] + '<br>';
+
+                if ($(value).val() !== '') {
+
+                    message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+
+                } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                    message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+                }
+
             }
 
-            $(value).css({
-
-                "border": "1px solid red",
-                "background": "#FFCECE"
-            });
-        } else {
-
-            if ($(value).val() !== '') {
-
-                message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
-
-            } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
-                message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+            if (message !== '') {
+                modalValidation(modalId, message);
             }
 
-        }
+        });
+
+        // if (type.toUpperCase() === "REQUIRED") {
+
+        //     requiredResult = requiredRegex(value);
+        // }
+        // if (requiredResult === false) {
+
+        //     //DEFAULT MESSAGE 
+        //     if (errorMessage === false) {
+        //         message += $(value).attr('id') + ' is required <br>';
+        //     } else {
+        //         message += errorMessage[key] + '<br>';
+        //     }
+
+        //     $(value).css({
+
+        //         "border": "1px solid red",
+        //         "background": "#FFCECE"
+        //     });
+        // } else {
+
+        //     if ($(value).val() !== '') {
+
+        //         message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+
+        //     } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+        //         message += modalValidationCommonFunctions(type, value, errorMessage[key], regex);
+        //     }
+
+        // }
 
         //REMOVE ERROR MESSAGE
-        $(value).on('keyup', function() {
+        $(document).on('keyup', value, () => {
 
-            if ($(this).val() !== '') {
+            if ($(value).val() !== '') {
                 $(value + 'TextErrorMessage').remove();
 
                 $(value).css({
@@ -316,9 +385,9 @@ function showModalValidation(elementID, errorMessage, validationType, regex) {
     });
 
 
-    if (message !== '') {
-        modalValidation(modalId, message);
-    }
+    // if (message !== '') {
+    //     modalValidation(modalId, message);
+    // }
 
 }
 
@@ -455,66 +524,66 @@ function modalValidationCommonFunctions(type, value, error, regex) {
 
     }
 
-//CHECK FOR EMAIL
-if (type.toUpperCase() === 'EMAIL') {
+    //CHECK FOR EMAIL
+    if (type.toUpperCase() === 'EMAIL') {
 
-    var emailResult = emailRegex(value);
+        var emailResult = emailRegex(value);
 
-    if (emailResult === false) {
+        if (emailResult === false) {
 
-        $(value).css({
+            $(value).css({
 
-            "border": "1px solid red",
-            "background": "#FFCECE"
-        });
-
-
-        message = error + '<br>';
-
-    }
-
-}
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
 
 
-//CHECK FOR ZIP
-if (type.toUpperCase() === 'ZIP') {
+            message = error + '<br>';
 
-    var zipResult = zipcodeRegex(value);
-
-    if (zipResult === false) {
-
-        $(value).css({
-
-            "border": "1px solid red",
-            "background": "#FFCECE"
-        });
-
-
-        message = error + '<br>';
+        }
 
     }
 
-}
 
-//CHECK FOR URL
-if (type.toUpperCase() === 'URL') {
+    //CHECK FOR ZIP
+    if (type.toUpperCase() === 'ZIP') {
 
-    var urlResult = urlRegex(value);
+        var zipResult = zipcodeRegex(value);
 
-    if (urlResult === false) {
+        if (zipResult === false) {
 
-        $(value).css({
+            $(value).css({
 
-            "border": "1px solid red",
-            "background": "#FFCECE"
-        });
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
 
 
-        message = error + '<br>';
+            message = error + '<br>';
+
+        }
 
     }
 
-}
+    //CHECK FOR URL
+    if (type.toUpperCase() === 'URL') {
+
+        var urlResult = urlRegex(value);
+
+        if (urlResult === false) {
+
+            $(value).css({
+
+                "border": "1px solid red",
+                "background": "#FFCECE"
+            });
+
+
+            message = error + '<br>';
+
+        }
+
+    }
 
 
     return message;
@@ -550,24 +619,53 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
         var requiredResult = '';
         var type = validationType[key];
 
-        if (type.toUpperCase() === "REQUIRED") {
 
-            requiredResult = requiredRegex(value);
-        }
-        if (requiredResult === false) {
+        $(document).on('focusout', value, () => {
 
-            validationTypePopover(value, message, placement);
+            if (type.toUpperCase() === "REQUIRED") {
 
-        } else {
-
-            if ($(value).val() !== '') {
-                popoverValidationCommonFunction(type, value, message, placement, regex);
-            } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
-                popoverValidationCommonFunction(type, value, message, placement, regex);
+                requiredResult = requiredRegex(value);
             }
-        }
+            if (requiredResult === false) {
+
+                validationTypePopover(value, message, placement);
+
+            } else {
+
+                if ($(value).val() !== '') {
+                    popoverValidationCommonFunction(type, value, message, placement, regex);
+                } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                    popoverValidationCommonFunction(type, value, message, placement, regex);
+                }
+            }
+
+        });
+
+
+
+
+
+        // if (type.toUpperCase() === "REQUIRED") {
+
+        //     requiredResult = requiredRegex(value);
+        // }
+        // if (requiredResult === false) {
+
+        //     validationTypePopover(value, message, placement);
+
+        // } else {
+
+        //     if ($(value).val() !== '') {
+        //         popoverValidationCommonFunction(type, value, message, placement, regex);
+        //     } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+        //         popoverValidationCommonFunction(type, value, message, placement, regex);
+        //     }
+        // }
+
+
+
         //REMOVE ERROR MESSAGE
-        $(value).on('keyup', function() {
+        $(document).on('keyup', value, () => {
 
             if ($(this).val() !== '') {
                 $(value).popover('hide');
@@ -653,12 +751,12 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
 
     }
 
-     //CHECK FOR DATE
-     if (type.toUpperCase() === 'DATE') {
+    //CHECK FOR DATE
+    if (type.toUpperCase() === 'DATE') {
 
-        var phoneResult = dateRegex(value);
+        var dateResult = dateRegex(value);
 
-        if (phoneResult === false) {
+        if (dateResult === false) {
 
             validationTypePopover(value, message, placement);
         }
@@ -669,9 +767,9 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
     //CHECK FOR EMAIL
     if (type.toUpperCase() === 'EMAIL') {
 
-        var phoneResult = emailRegex(value);
+        var emailResult = emailRegex(value);
 
-        if (phoneResult === false) {
+        if (emailResult === false) {
 
             validationTypePopover(value, message, placement);
         }
@@ -682,9 +780,9 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
     //CHECK FOR ZIP CODE
     if (type.toUpperCase() === 'ZIP') {
 
-        var phoneResult = zipcodeRegex(value);
+        var zipResult = zipcodeRegex(value);
 
-        if (phoneResult === false) {
+        if (zipResult === false) {
 
             validationTypePopover(value, message, placement);
         }
@@ -694,9 +792,9 @@ function popoverValidationCommonFunction(type, value, message, placement, regex)
     //CHECK FOR URL
     if (type.toUpperCase() === 'URL') {
 
-        var phoneResult = urlRegex(value);
+        var urlResult = urlRegex(value);
 
-        if (phoneResult === false) {
+        if (urlResult === false) {
 
             validationTypePopover(value, message, placement);
         }
@@ -789,4 +887,22 @@ function urlRegex(value) {
     var patrenValue = $(value).val();
     var patrenResult = patren.test(patrenValue);
     return patrenResult;
+}
+
+//MAX LENGTH REGEX
+function maxLengthRegex(value) {
+
+    if (length !== false) {
+
+
+        //^.{6,7}$
+        var patren = new RegExp('/^.{' + length + '}$/');
+        var patrenValue = $(value).val();
+        var patrenResult = patren.test(patrenValue);
+        return patrenResult;
+    } else {
+        alert('length is required');
+    }
+
+
 }

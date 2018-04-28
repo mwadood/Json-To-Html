@@ -48,33 +48,74 @@ function showValidation() {
                             h)url
                             i)maxLength
                             j)minLength
+                            k)range
+                            l)charater
    OPTIONAL PARAMETERS:
         1. DisplayType: a)Text b)Modal c)popover
         2. Position: a)Top b)Bottom
         3. ErrorMessage: Message to show
 
 */
-function requiredValidation() {
+
+$(function() {
 
     j2HTML.Validate({
 
-        // ElementID: ['#txtUserName', '#txtPassword', '#txtPassword'],
-        // ValidationType: ['required', 'required', 'decimal'],
-        // ErrorMessage: ['User name is required', 'zip code is required', 'Only decimal is allowed'],
+        ElementID: ['#txtUserName', '#txtPassword', '#txtPassword'],
+        ValidationType: ['required', 'required', 'integer'],
+        ErrorMessage: ['User name is required', 'number is required', 'only interger allowed'],
+        //Length: '7',
 
 
-        ElementID: ['#txtUserName', '#txtPassword'],
-        ValidationType: ['required', 'custom'],
-        ErrorMessage: ['User name is required', 'Date is not valid'],
-        Regex: '\d{1,2}\/\d{1,2}\/\d{4}',
+        // ElementID: ['#txtUserName', '#txtPassword'],
+        // ValidationType: ['required', 'custom'],
+        // ErrorMessage: ['User name is required', 'Date is not valid'],
+        // Regex: '\d{1,2}\/\d{1,2}\/\d{4}',
         Position: ['Top', 'Bottom', 'Bottom'],
+
+
         //DisplayType: 'Modal'
-        //DisplayType: 'Popover'
+        DisplayType: 'Popover'
 
     });
+
+    // if ($('.validationErrorMessage').length === 0) {
+    //     alert('No error');
+    // }
+
+});
+
+
+
+
+function requiredValidation() {
 
     if ($('.validationErrorMessage').length === 0) {
         alert('No error');
     }
+
+    // j2HTML.Validate({
+
+    //     ElementID: ['#txtUserName', '#txtPassword', '#txtPassword'],
+    //     ValidationType: ['required', 'required', 'maxlength'],
+    //     ErrorMessage: ['User name is required', 'number is required', 'max 7 allowed'],
+    //     Length: '7',
+
+
+    //     // ElementID: ['#txtUserName', '#txtPassword'],
+    //     // ValidationType: ['required', 'custom'],
+    //     // ErrorMessage: ['User name is required', 'Date is not valid'],
+    //     // Regex: '\d{1,2}\/\d{1,2}\/\d{4}',
+    //     //Position: ['Top', 'Bottom', 'Bottom'],
+
+
+    //     //DisplayType: 'Modal'
+    //     //DisplayType: 'Popover'
+
+    // });
+
+    // if ($('.validationErrorMessage').length === 0) {
+    //     alert('No error');
+    // }
 
 }
