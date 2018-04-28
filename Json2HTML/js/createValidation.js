@@ -1,5 +1,6 @@
 //REQUIRED FILED VALIDATION
 var length = false;
+var validateOn = false;
 
 function validate() {
 
@@ -10,7 +11,6 @@ function validate() {
     var validationType = false;
     var regex = false;
     var error = '';
-
 
     var args = arguments[0][0];
 
@@ -54,6 +54,11 @@ function validate() {
             length = args.Length;
         }
 
+        if (args.ValidateOn === undefined) {
+            validateOn = false;
+        } else {
+            validateOn = args.validateOn;
+        }
 
         //TEXT ERROR MESSAGE
         if (displayType.toUpperCase() === 'TEXT') {
@@ -86,12 +91,10 @@ function showTextValidation(elementID, position, errorMessage, validationType, r
 
     //VALUE == ELEMENT ID
 
+
     $.each(elementID, (key, value) => {
 
         var type = validationType[key];
-        // if (type.toLowerCase() === 'MAXLENGTH' && args.Length === undefined) {
-        //     alert('Length is required');
-        // } else {
 
         //DEFAULT MESSAGE 
         var message = '';
@@ -112,15 +115,34 @@ function showTextValidation(elementID, position, errorMessage, validationType, r
         var requiredResult = '';
         //REQUIRED VALIDATION
 
-        $(document).on('focusout', value, () => {
+        //***********  VALIDATE ON FOCUS OUT **************
+        if (validateOn === false) {
 
-            if (type.toUpperCase() === "REQUIRED") {
+            $(document).on('focusout', value, () => {
 
-                requiredResult = requiredRegex(value);
-            }
-            if (requiredResult === false) {
+                //REQUIRED VALIDATION
+                if ($(value).val() === '' && type.toUpperCase() === "REQUIRED") {
+                    textValidationCommonFunction(type, value, errorPosition, message, regex);
+                }
+                //NON-REQUIRED VALIDATION
+                else {
 
-                textValidation(value, errorPosition, message);
+                    if ($(value).val() !== '') {
+                        textValidationCommonFunction(type, value, errorPosition, message, regex);
+                    } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                        textValidationCommonFunction(type, value, errorPosition, message, regex);
+                    }
+                }
+
+            });
+
+        }
+        //********  VALIDATE ON CLICK **************
+        else {
+
+            //REQUIRED VALIDATION
+            if ($(value).val() === '' && type.toUpperCase() === "REQUIRED") {
+                textValidationCommonFunction(type, value, errorPosition, message, regex);
             }
             //NON-REQUIRED VALIDATION
             else {
@@ -130,14 +152,19 @@ function showTextValidation(elementID, position, errorMessage, validationType, r
                 } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
                     textValidationCommonFunction(type, value, errorPosition, message, regex);
                 }
+
+                $(elementID[0]).focus();
             }
 
-        });
+
+        }
+
 
         //REMOVE ERROR MESSAGE
         $(document).on('keyup', value, () => {
 
             if ($(value).val() !== '') {
+
                 $(value + 'TextErrorMessage').remove();
 
                 $(value).css({
@@ -149,10 +176,19 @@ function showTextValidation(elementID, position, errorMessage, validationType, r
         });
 
     });
+
+
+
+
+
+
+
+
 }
 
 //TEXT VALIDATION
 function textValidation(value, errorPosition, message) {
+
     $(value + 'TextErrorMessage').remove();
     if (errorPosition == 'TOP') {
         $(value).before('<span id="' + value.slice(1, value.length) + 'TextErrorMessage" class="validationErrorMessage">' + message + '</span>');
@@ -170,6 +206,18 @@ function textValidation(value, errorPosition, message) {
 
 function textValidationCommonFunction(type, value, errorPosition, message, regex) {
 
+    //REQUIRED REGEX
+    if (type.toUpperCase() === "REQUIRED") {
+
+        requiredResult = requiredRegex(value);
+
+        if (requiredResult === false) {
+
+            $(value).focus();
+            textValidation(value, errorPosition, message);
+        }
+    }
+
 
     //CUSTOM REGEX
     if (type.toUpperCase() === 'CUSTOM' && regex !== false) {
@@ -177,6 +225,7 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
         if (customResult === false) {
 
+            $(value).focus();
             textValidation(value, errorPosition, message);
         }
     }
@@ -188,6 +237,7 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
         if (integerResult === false) {
 
+            $(value).focus();
             textValidation(value, errorPosition, message);
         }
 
@@ -199,6 +249,7 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
         if (decimalResult === false) {
 
+            $(value).focus();
             textValidation(value, errorPosition, message);
         }
 
@@ -211,6 +262,7 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
         if (phoneResult === false) {
 
+            $(value).focus();
             textValidation(value, errorPosition, message);
         }
 
@@ -223,6 +275,7 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
         if (dateResult === false) {
 
+            $(value).focus();
             textValidation(value, errorPosition, message);
         }
 
@@ -235,6 +288,7 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
         if (emailResult === false) {
 
+            $(value).focus();
             textValidation(value, errorPosition, message);
         }
 
@@ -248,6 +302,7 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
         if (zipResult === false) {
 
+            $(value).focus();
             textValidation(value, errorPosition, message);
         }
 
@@ -260,6 +315,7 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
         if (urlResult === false) {
 
+            $(value).focus();
             textValidation(value, errorPosition, message);
         }
 
@@ -272,6 +328,7 @@ function textValidationCommonFunction(type, value, errorPosition, message, regex
 
         if (maxLengthResult === false) {
 
+            $(value).focus();
             textValidation(value, errorPosition, message);
         }
 
@@ -426,6 +483,11 @@ function modalValidation(modalId, message) {
 function modalValidationCommonFunctions(type, value, error, regex) {
 
     var message = '';
+
+
+
+
+
 
     //CHECK FOR CUSTOM
     if (type.toUpperCase() === 'CUSTOM') {
@@ -618,6 +680,69 @@ function showPopoverValidation(elementID, errorMessage, type, position, validati
 
         var requiredResult = '';
         var type = validationType[key];
+
+
+
+
+
+        if (validateOn === false) {
+
+            $(document).on('focusout', value, () => {
+
+                //REQUIRED VALIDATION
+                if ($(value).val() === '' && type.toUpperCase() === "REQUIRED") {
+                    validationTypePopover(value, message, placement);
+                }
+                //NON-REQUIRED VALIDATION
+                else {
+
+                    if ($(value).val() !== '') {
+                        popoverValidationCommonFunction(type, value, message, placement, regex);
+                    } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                        popoverValidationCommonFunction(type, value, message, placement, regex);
+                    }
+                }
+
+            });
+
+        }
+        //********  VALIDATE ON CLICK **************
+        else {
+
+            // if (type.toUpperCase() === "REQUIRED") {
+
+            //     requiredResult = requiredRegex(value);
+            // }
+            // if (requiredResult === false) {
+
+            //     textValidation(value, errorPosition, message);
+            // }
+
+            if ($(value).val() === '' && type.toUpperCase() === "REQUIRED") {
+                validationTypePopover(value, message, placement);
+            }
+            //NON-REQUIRED VALIDATION
+            else {
+
+                if ($(value).val() !== '') {
+                    popoverValidationCommonFunction(type, value, message, placement, regex);
+                } else if (elementID.length > 1 && key !== 0 && elementID[key - 1] !== elementID[key]) {
+                    popoverValidationCommonFunction(type, value, message, placement, regex);
+                }
+            }
+
+            $(elementID[0]).focus();
+        }
+
+
+
+
+
+
+
+
+
+
 
 
         $(document).on('focusout', value, () => {

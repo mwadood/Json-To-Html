@@ -71,17 +71,15 @@ $(function() {
         // ValidationType: ['required', 'custom'],
         // ErrorMessage: ['User name is required', 'Date is not valid'],
         // Regex: '\d{1,2}\/\d{1,2}\/\d{4}',
-        Position: ['Top', 'Bottom', 'Bottom'],
+        //Position: ['Top', 'Bottom', 'Bottom'],
 
 
         //DisplayType: 'Modal'
-        DisplayType: 'Popover'
+        //DisplayType: 'Popover'
 
     });
 
-    // if ($('.validationErrorMessage').length === 0) {
-    //     alert('No error');
-    // }
+
 
 });
 
@@ -94,12 +92,15 @@ function requiredValidation() {
         alert('No error');
     }
 
+
+    //VALIDATE ON CLICK
+
     // j2HTML.Validate({
 
     //     ElementID: ['#txtUserName', '#txtPassword', '#txtPassword'],
-    //     ValidationType: ['required', 'required', 'maxlength'],
-    //     ErrorMessage: ['User name is required', 'number is required', 'max 7 allowed'],
-    //     Length: '7',
+    //     ValidationType: ['required', 'required', 'integer'],
+    //     ErrorMessage: ['User name is required', 'number is required', 'only integer allowed'],
+    //     ValidateOn: 'Click',
 
 
     //     // ElementID: ['#txtUserName', '#txtPassword'],
@@ -107,7 +108,7 @@ function requiredValidation() {
     //     // ErrorMessage: ['User name is required', 'Date is not valid'],
     //     // Regex: '\d{1,2}\/\d{1,2}\/\d{4}',
     //     //Position: ['Top', 'Bottom', 'Bottom'],
-
+    //     //Length: '7',
 
     //     //DisplayType: 'Modal'
     //     //DisplayType: 'Popover'
