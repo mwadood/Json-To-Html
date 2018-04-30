@@ -51,24 +51,37 @@ function popupMessage() {
     if (error === '') {
 
         var header = '';
+        var headerColor = '';
+
+        $(popupId).remove();
+
         if (popupHeader === true) {
-            header = '<div class="modal-header">\
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>\
-                            <h4 class="modal-title">' + heading + '</h4>\
-                        </div>';
+
+            if (type.toLowerCase() === 'error') {
+                headerColor = 'style="background-color: red; color:white"';
+            } else if (type.toLowerCase() === 'information') {
+                headerColor = 'style="background-color: blue; color:white"';
+            } else if (type.toLowerCase() === 'confirmation') {
+                headerColor = 'style="background-color: green; color:white"';
+            }
+
+            header = `<div class="modal-header" ${headerColor}>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">${heading}</h4>
+                        </div>`;
         }
 
         var footer = '';
-        if (popupFooter === true && type.toLowerCase() === 'error') {
-            footer = '<div class="modal-footer">\
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
-                      </div>';
+        if (popupFooter === true && (type.toLowerCase() === 'error' || type.toLowerCase() === 'information')) {
+            footer = `<div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>`;
         }
-        if (popupFooter === true && type.toLowerCase() === 'confirm') {
-            footer = '<div class="modal-footer">\
-                        <button type="button" class="btn btn-default" onclick="callConfirmFunction();">Yes</button>\
-                        <button type = "button" class="btn btn-default" data-dismiss="modal"> No</button >\
-                      </div>';
+        if (popupFooter === true && type.toLowerCase() === 'confirmation') {
+            footer = `<div class="modal-footer">
+                        <button type="button" class="btn btn-default" onclick="callConfirmFunction();">Yes</button>
+                        <button type = "button" class="btn btn-default" data-dismiss="modal"> No</button >
+                      </div>`;
         }
 
         var body = '';
@@ -84,6 +97,7 @@ function popupMessage() {
             '</div >\
         </div>\
         </div>';
+
 
         $('body').append(strModal);
 

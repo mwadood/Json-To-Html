@@ -90,8 +90,6 @@ function validate() {
 function showTextValidation(elementID, position, errorMessage, validationType, regex) {
 
     //VALUE == ELEMENT ID
-
-
     $.each(elementID, (key, value) => {
 
         var type = validationType[key];
