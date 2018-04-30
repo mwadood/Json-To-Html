@@ -8,7 +8,7 @@ var scripts = [
     '/Json2HTML/js/createTable.js',
     '/Json2HTML/js/createPagination.js',
     '/Json2HTML/js/createModal.js',
-    // '/Json2HTML/js/createPopupModal.js',
+    '/Json2HTML/js/createPopupModal.js',
     '/Json2HTML/js/createTextBox.js',
     '/Json2HTML/js/createForInsert.js',
     //'/Json2HTML/js/createValidation.js'

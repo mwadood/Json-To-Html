@@ -1,11 +1,11 @@
 function textBox() {
     var args = arguments[0][0];
 
-
     var data = false;
     var appendTo = false;
     var propertyName = false;
     var direction = 'vertical';
+    var columns = false;
 
     var error = '';
 
@@ -20,7 +20,6 @@ function textBox() {
         error += 'Property name required\n';
     }
 
-
     if (error === '') {
         var txt = '';
         $.each(data, function(i, v) {
@@ -33,12 +32,15 @@ function textBox() {
                     var val = vv;
 
                     if (direction.toLowerCase() === 'horizontal') {
+
+
+
                     } else {
-                        txt += '<div class="row">' +
-                            '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">' +
-                            '<input class="form-control" id="' + id + '" value="' + val + '"/>' +
-                            '</div' > +
-                            '</div>';
+                        txt += `<div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input class="form-control" id=" ${id}" value="${val}"/>
+                                  </div>
+                                </div>`;
                     }
                 }
             });

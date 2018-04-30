@@ -11,7 +11,6 @@ function popupMessage() {
     var popupFooter = true;
     var popupHeader = true;
 
-
     var error = '';
 
     if (args.Message !== undefined) {
