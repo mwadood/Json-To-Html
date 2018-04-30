@@ -12,6 +12,7 @@ var scripts = [
     '/Json2HTML/js/createTextBox.js',
     '/Json2HTML/js/createForInsert.js',
     //'/Json2HTML/js/createValidation.js'
+    //'/Json2HTML/js/createPlaceholderAnimation.js'
 
 ];
 
@@ -162,6 +163,12 @@ var jsonToHtml = function() {
         return this;
     };
 
+    var PlaceholderAnimation = function() {
+        args = arguments;
+        placeholderAnimation(args);
+        return this;
+    };
+
     return {
         Table: Table,
         HeadingStyle: HeadingStyle,
@@ -183,7 +190,8 @@ var jsonToHtml = function() {
         HidePopup: HidePopup,
         TextBox: TextBox,
         Create: Create,
-        Validate: Validate
+        Validate: Validate,
+        PlaceholderAnimation: PlaceholderAnimation
 
     };
 };
